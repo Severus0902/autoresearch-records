@@ -1,0 +1,3031 @@
+[
+  {
+    "key": "MWSV2HSP",
+    "citationKey": "xiangWhenUseGraphs2026",
+    "itemType": "conferencePaper",
+    "title": "When to use graphs in RAG: A comprehensive analysis for graph retrieval-augmented generation",
+    "date": "2026",
+    "year": "2026",
+    "authors": [
+      "Zhishang Xiang",
+      "Chuanjie Wu",
+      "Qinggang Zhang",
+      "Shengyuan Chen",
+      "Zijin Hong",
+      "Xiao Huang",
+      "Jinsong Su"
+    ],
+    "DOI": "",
+    "url": "https://proceedings.iclr.cc/paper_files/paper/2026/hash/6c9e01d6cefbbf4cdd265032550e767f-Abstract-Conference.html",
+    "collections": [
+      "PTBVBRXD"
+    ],
+    "tags": [
+      "/unread",
+      "GraphRAG",
+      "agentic-kgr",
+      "benchmark",
+      "ICLR 2026"
+    ],
+    "dateModified": "2026-08-31T06:46:04Z"
+  },
+  {
+    "key": "6PDGN5VC",
+    "citationKey": "chenPathRAGPruningGraphbased2026",
+    "itemType": "conferencePaper",
+    "title": "PathRAG: Pruning graph-based retrieval augmented generation with relational paths",
+    "date": "2026",
+    "year": "2026",
+    "authors": [
+      "Boyu Chen",
+      "Zirui Guo",
+      "Zidan Yang",
+      "Yuluo Chen",
+      "Junze Chen",
+      "Zhenghao Liu",
+      "Chuan Shi",
+      "Cheng Yang"
+    ],
+    "DOI": "10.1609/AAAI.V40I36.40268",
+    "url": "https://ojs.aaai.org/index.php/AAAI/article/view/40268",
+    "collections": [
+      "PTBVBRXD"
+    ],
+    "tags": [
+      "/unread",
+      "agentic-kgr-rl",
+      "AutoResearch",
+      "GraphRAG"
+    ],
+    "dateModified": "2026-08-31T03:37:15Z"
+  },
+  {
+    "key": "SKE3JY7T",
+    "citationKey": "luoGraphR1TowardsAgentic2025",
+    "itemType": "preprint",
+    "title": "Graph-R1: Towards agentic GraphRAG framework via end-to-end reinforcement learning",
+    "date": "2025-07-29",
+    "year": "2025-07-29",
+    "authors": [
+      "Haoran Luo",
+      "Haihong E",
+      "Guanting Chen",
+      "Qika Lin",
+      "Yikai Guo",
+      "Fangzhi Xu",
+      "Zemin Kuang",
+      "Meina Song",
+      "Xiaobao Wu",
+      "Yifan Zhu",
+      "Luu Anh Tuan"
+    ],
+    "DOI": "10.48550/arXiv.2507.21892",
+    "url": "https://arxiv.org/abs/2507.21892",
+    "collections": [
+      "PTBVBRXD"
+    ],
+    "tags": [
+      "/unread",
+      "agentic-kgr-rl",
+      "AutoResearch",
+      "GraphRAG",
+      "RL"
+    ],
+    "dateModified": "2026-08-31T03:37:15Z"
+  },
+  {
+    "key": "4X2ZSJ4K",
+    "citationKey": "linMultiHopKnowledgeGraph2018",
+    "itemType": "conferencePaper",
+    "title": "Multi-hop knowledge graph reasoning with reward shaping",
+    "date": "2018",
+    "year": "2018",
+    "authors": [
+      "Xi Victoria Lin",
+      "Richard Socher",
+      "Caiming Xiong"
+    ],
+    "DOI": "10.18653/v1/D18-1362",
+    "url": "https://aclanthology.org/D18-1362/",
+    "collections": [
+      "PTBVBRXD"
+    ],
+    "tags": [
+      "/unread",
+      "agentic-kgr-rl",
+      "AutoResearch",
+      "RL-KGR"
+    ],
+    "dateModified": "2026-08-31T03:37:14Z"
+  },
+  {
+    "key": "BSCKYGRZ",
+    "citationKey": "shenMWalkLearningWalk2018",
+    "itemType": "conferencePaper",
+    "title": "M-walk: Learning to walk over graphs using monte carlo tree search",
+    "date": "2018",
+    "year": "2018",
+    "authors": [
+      "Yelong Shen",
+      "Jianshu Chen",
+      "Po-Sen Huang",
+      "Yuqing Guo",
+      "Jianfeng Gao"
+    ],
+    "DOI": "",
+    "url": "https://proceedings.neurips.cc/paper_files/paper/2018/hash/c6f798b844366ccd65d99bc7f31e0e02-Abstract.html",
+    "collections": [
+      "PTBVBRXD"
+    ],
+    "tags": [
+      "/unread",
+      "agentic-kgr-rl",
+      "AutoResearch",
+      "RL-KGR"
+    ],
+    "dateModified": "2026-08-31T03:37:14Z"
+  },
+  {
+    "key": "KQJJHN74",
+    "citationKey": "jinGraphChainofthoughtAugmenting2024",
+    "itemType": "conferencePaper",
+    "title": "Graph chain-of-thought: Augmenting large language models by reasoning on graphs",
+    "date": "2024",
+    "year": "2024",
+    "authors": [
+      "Bowen Jin",
+      "Chulin Xie",
+      "Jiawei Zhang",
+      "Kashob Kumar Roy",
+      "Yu Zhang",
+      "Zheng Li",
+      "Ruirui Li",
+      "Xianfeng Tang",
+      "Suhang Wang",
+      "Yu Meng",
+      "Jiawei Han"
+    ],
+    "DOI": "10.18653/v1/2024.findings-acl.11",
+    "url": "https://aclanthology.org/2024.findings-acl.11/",
+    "collections": [
+      "PTBVBRXD"
+    ],
+    "tags": [
+      "/unread",
+      "agentic-kgr-rl",
+      "AutoResearch",
+      "Graph-CoT"
+    ],
+    "dateModified": "2026-08-31T03:37:14Z"
+  },
+  {
+    "key": "J846RS53",
+    "citationKey": "dasGoWalkArrive2017",
+    "itemType": "preprint",
+    "title": "Go for a walk and arrive at the answer: Reasoning over paths in knowledge bases using reinforcement learning",
+    "date": "2017-11-15",
+    "year": "2017-11-15",
+    "authors": [
+      "Rajarshi Das",
+      "Shehzaad Dhuliawala",
+      "Manzil Zaheer",
+      "Luke Vilnis",
+      "Ishan Durugkar",
+      "Akshay Krishnamurthy",
+      "Alex Smola",
+      "Andrew McCallum"
+    ],
+    "DOI": "10.48550/arXiv.1711.05851",
+    "url": "https://arxiv.org/abs/1711.05851",
+    "collections": [
+      "PTBVBRXD"
+    ],
+    "tags": [
+      "/unread",
+      "agentic-kgr-rl",
+      "AutoResearch",
+      "RL-KGR"
+    ],
+    "dateModified": "2026-08-31T03:37:13Z"
+  },
+  {
+    "key": "88RNNJMJ",
+    "citationKey": "xiongDeepPathReinforcementLearning2017",
+    "itemType": "preprint",
+    "title": "DeepPath: A reinforcement learning method for knowledge graph reasoning",
+    "date": "2017-07-20",
+    "year": "2017-07-20",
+    "authors": [
+      "Wenhan Xiong",
+      "Thien Hoang",
+      "William Yang Wang"
+    ],
+    "DOI": "10.48550/arXiv.1707.06690",
+    "url": "https://arxiv.org/abs/1707.06690",
+    "collections": [
+      "PTBVBRXD"
+    ],
+    "tags": [
+      "/unread",
+      "agentic-kgr-rl",
+      "AutoResearch",
+      "RL-KGR"
+    ],
+    "dateModified": "2026-08-31T03:34:09Z"
+  },
+  {
+    "key": "MMERLKJX",
+    "citationKey": "luoLargeLanguageModel2025",
+    "itemType": "preprint",
+    "title": "Large language model agent: A survey on methodology, applications and challenges",
+    "date": "2025-03-27",
+    "year": "2025-03-27",
+    "authors": [
+      "Junyu Luo",
+      "Weizhi Zhang",
+      "Ye Yuan",
+      "Yusheng Zhao",
+      "Junwei Yang",
+      "Yiyang Gu",
+      "Bohan Wu",
+      "Binqi Chen",
+      "Ziyue Qiao",
+      "Qingqing Long",
+      "Rongcheng Tu",
+      "Xiao Luo",
+      "Wei Ju",
+      "Zhiping Xiao",
+      "Yifan Wang",
+      "Meng Xiao",
+      "Chenwu Liu",
+      "Jingyang Yuan",
+      "Shichang Zhang",
+      "Yiqiao Jin",
+      "Fan Zhang",
+      "Xian Wu",
+      "Hanqing Zhao",
+      "Dacheng Tao",
+      "Philip S. Yu",
+      "Ming Zhang"
+    ],
+    "DOI": "10.48550/arXiv.2503.21460",
+    "url": "http://arxiv.org/abs/2503.21460",
+    "collections": [
+      "PTBVBRXD"
+    ],
+    "tags": [
+      "Computer Science - Computation and Language"
+    ],
+    "dateModified": "2026-08-31T02:49:01Z"
+  },
+  {
+    "key": "4AUJHCTQ",
+    "citationKey": "mishraFaultsOurBus2024",
+    "itemType": "conferencePaper",
+    "title": "Faults in our bus: Novel bus fault attack to break ARM TrustZone",
+    "date": "2024",
+    "year": "2024",
+    "authors": [
+      "Nimish Mishra",
+      "Anirban Chakraborty",
+      "Debdeep Mukhopadhyay"
+    ],
+    "DOI": "10.14722/ndss.2024.24499",
+    "url": "https://www.ndss-symposium.org/wp-content/uploads/2024-499-paper.pdf",
+    "collections": [
+      "JHCY44DM"
+    ],
+    "tags": [],
+    "dateModified": "2026-08-31T02:38:42Z"
+  },
+  {
+    "key": "G6UBNLX3",
+    "citationKey": "jiangKGagentEfficientAutonomous2025",
+    "itemType": "conferencePaper",
+    "title": "KG-agent: An efficient autonomous agent framework for complex reasoning over knowledge graph",
+    "date": "2025-07",
+    "year": "2025-07",
+    "authors": [
+      "Jinhao Jiang",
+      "Kun Zhou",
+      "Wayne Xin Zhao",
+      "Yang Song",
+      "Chen Zhu",
+      "Hengshu Zhu",
+      "Ji-Rong Wen"
+    ],
+    "DOI": "10.18653/v1/2025.acl-long.468",
+    "url": "https://aclanthology.org/2025.acl-long.468/",
+    "collections": [
+      "PTBVBRXD"
+    ],
+    "tags": [],
+    "dateModified": "2026-08-31T02:27:05Z"
+  },
+  {
+    "key": "C53XTW7F",
+    "citationKey": "wuAgenticReasoningStreamlined2025",
+    "itemType": "conferencePaper",
+    "title": "Agentic reasoning: A streamlined framework for enhancing LLM reasoning with agentic tools",
+    "date": "2025-07",
+    "year": "2025-07",
+    "authors": [
+      "Junde Wu",
+      "Jiayuan Zhu",
+      "Yuyuan Liu",
+      "Min Xu",
+      "Yueming Jin"
+    ],
+    "DOI": "10.18653/v1/2025.acl-long.1383",
+    "url": "https://aclanthology.org/2025.acl-long.1383/",
+    "collections": [
+      "PTBVBRXD"
+    ],
+    "tags": [],
+    "dateModified": "2026-08-31T02:18:59Z"
+  },
+  {
+    "key": "3UUUUSE9",
+    "citationKey": "xiRisePotentialLarge2023",
+    "itemType": "preprint",
+    "title": "The rise and potential of large language model based agents: A survey",
+    "date": "2023-09-19",
+    "year": "2023-09-19",
+    "authors": [
+      "Zhiheng Xi",
+      "Wenxiang Chen",
+      "Xin Guo",
+      "Wei He",
+      "Yiwen Ding",
+      "Boyang Hong",
+      "Ming Zhang",
+      "Junzhe Wang",
+      "Senjie Jin",
+      "Enyu Zhou",
+      "Rui Zheng",
+      "Xiaoran Fan",
+      "Xiao Wang",
+      "Limao Xiong",
+      "Yuhao Zhou",
+      "Weiran Wang",
+      "Changhao Jiang",
+      "Yicheng Zou",
+      "Xiangyang Liu",
+      "Zhangyue Yin",
+      "Shihan Dou",
+      "Rongxiang Weng",
+      "Wensen Cheng",
+      "Qi Zhang",
+      "Wenjuan Qin",
+      "Yongyan Zheng",
+      "Xipeng Qiu",
+      "Xuanjing Huang",
+      "Tao Gui"
+    ],
+    "DOI": "10.48550/arXiv.2309.07864",
+    "url": "http://arxiv.org/abs/2309.07864",
+    "collections": [
+      "PTBVBRXD"
+    ],
+    "tags": [
+      "Computer Science - Artificial Intelligence",
+      "Computer Science - Computation and Language"
+    ],
+    "dateModified": "2026-08-31T02:18:48Z"
+  },
+  {
+    "key": "S4K8KXI3",
+    "citationKey": "liuPathMindRetrieveprioritizereasonFramework2025",
+    "itemType": "preprint",
+    "title": "PathMind: A retrieve-prioritize-reason framework for knowledge graph reasoning with large language models",
+    "date": "2025-12-10",
+    "year": "2025-12-10",
+    "authors": [
+      "Yu Liu",
+      "Xixun Lin",
+      "Yanmin Shang",
+      "Yangxi Li",
+      "Shi Wang",
+      "Yanan Cao"
+    ],
+    "DOI": "10.48550/arXiv.2511.14256",
+    "url": "http://arxiv.org/abs/2511.14256",
+    "collections": [
+      "2G9U9SZN"
+    ],
+    "tags": [
+      "Computer Science - Artificial Intelligence",
+      "Computer Science - Information Retrieval"
+    ],
+    "dateModified": "2026-08-31T02:18:47Z"
+  },
+  {
+    "key": "K2VDTE6F",
+    "citationKey": "plaatAgenticLargeLanguage2025",
+    "itemType": "preprint",
+    "title": "Agentic large language models, a survey",
+    "date": "2025-11-22",
+    "year": "2025-11-22",
+    "authors": [
+      "Aske Plaat",
+      "Max van Duijn",
+      "Niki van Stein",
+      "Mike Preuss",
+      "Peter van der Putten",
+      "Kees Joost Batenburg"
+    ],
+    "DOI": "10.1613/jair.1.18675",
+    "url": "http://arxiv.org/abs/2503.23037",
+    "collections": [
+      "PTBVBRXD"
+    ],
+    "tags": [
+      "/unread",
+      "Computer Science - Artificial Intelligence",
+      "Computer Science - Computation and Language",
+      "Computer Science - Machine Learning"
+    ],
+    "dateModified": "2026-06-29T11:06:48Z"
+  },
+  {
+    "key": "CR3VKHE9",
+    "citationKey": "yanExploreongraphIncentivizingAutonomous2026a",
+    "itemType": "preprint",
+    "title": "Explore-on-graph: Incentivizing autonomous exploration of large language models on knowledge graphs with path-refined reward modeling",
+    "date": "2026-02-25",
+    "year": "2026-02-25",
+    "authors": [
+      "Shiqi Yan",
+      "Yubo Chen",
+      "Ruiqi Zhou",
+      "Zhengxi Yao",
+      "Shuai Chen",
+      "Tianyi Zhang",
+      "Shijie Zhang",
+      "Wei Qiang Zhang",
+      "Yongfeng Huang",
+      "Haixin Duan",
+      "Yunqi Zhang"
+    ],
+    "DOI": "10.48550/arXiv.2602.21728",
+    "url": "http://arxiv.org/abs/2602.21728",
+    "collections": [
+      "PTBVBRXD"
+    ],
+    "tags": [
+      "Computer Science - Computation and Language"
+    ],
+    "dateModified": "2026-05-24T08:37:16Z"
+  },
+  {
+    "key": "W8PVTCJ5",
+    "citationKey": "shiPlananswerrefineongraphStructuredPlanning2025",
+    "itemType": "conferencePaper",
+    "title": "Plan-answer-refine-on-graph: Structured planning and self-refinement for large language model reasoning on knowledge graphs",
+    "date": "2025/10/08",
+    "year": "2025-10-08",
+    "authors": [
+      "Yuxin Shi",
+      "Han Fu",
+      "Zhuo Li",
+      "Chenghao Liu",
+      "Xiaoxue Ren",
+      "Jianling Sun"
+    ],
+    "DOI": "",
+    "url": "https://openreview.net/forum?id=g6XnP7Sgui",
+    "collections": [
+      "PTBVBRXD"
+    ],
+    "tags": [
+      "/unread"
+    ],
+    "dateModified": "2026-05-14T11:48:49Z"
+  },
+  {
+    "key": "S4UDZ5BM",
+    "citationKey": "guanDeepRAGThinkingRetrieve2025",
+    "itemType": "preprint",
+    "title": "DeepRAG: Thinking to retrieve step by step for large language models",
+    "date": "2025-06-08",
+    "year": "2025-06-08",
+    "authors": [
+      "Xinyan Guan",
+      "Jiali Zeng",
+      "Fandong Meng",
+      "Chunlei Xin",
+      "Yaojie Lu",
+      "Hongyu Lin",
+      "Xianpei Han",
+      "Le Sun",
+      "Jie Zhou"
+    ],
+    "DOI": "10.48550/arXiv.2502.01142",
+    "url": "http://arxiv.org/abs/2502.01142",
+    "collections": [
+      "PTBVBRXD"
+    ],
+    "tags": [
+      "Computer Science - Artificial Intelligence",
+      "/unread",
+      "Computer Science - Computation and Language",
+      "Computer Science - Information Retrieval"
+    ],
+    "dateModified": "2026-05-13T10:42:35Z"
+  },
+  {
+    "key": "BA6BHIUB",
+    "citationKey": "songPlanThenRetrieve2026",
+    "itemType": "conferencePaper",
+    "title": "Plan then retrieve: Reinforcement learning-guided complex reasoning over knowledge graphs",
+    "date": "四月 12, 2026",
+    "year": "2026-04-12",
+    "authors": [
+      "Yanlin Song",
+      "Ben Liu",
+      "Víctor Gutiérrez-Basulto",
+      "Zhiwei Hu",
+      "Qianqian Xie",
+      "Min Peng",
+      "Sophia Ananiadou",
+      "Jeff Z. Pan"
+    ],
+    "DOI": "10.1145/3774904.3792191",
+    "url": "https://dl.acm.org/doi/10.1145/3774904.3792191",
+    "collections": [
+      "PTBVBRXD"
+    ],
+    "tags": [
+      "/unread"
+    ],
+    "dateModified": "2026-05-05T12:28:09Z"
+  },
+  {
+    "key": "3SD8LDVE",
+    "citationKey": "UniversalXGunTradeAnyToken",
+    "itemType": "webpage",
+    "title": "UniversalX丨Trade any token, on any chain",
+    "date": "",
+    "year": "",
+    "authors": [],
+    "DOI": "",
+    "url": "https://universalx.app/",
+    "collections": [
+      "VJCTL2R5"
+    ],
+    "tags": [
+      "/unread"
+    ],
+    "dateModified": "2026-04-02T04:05:41Z"
+  },
+  {
+    "key": "A9L2UHD7",
+    "citationKey": "egamiCausalEffectVideo2024",
+    "itemType": "journalArticle",
+    "title": "Causal effect of video gaming on mental well-being in japan 2020–2022",
+    "date": "2024-10",
+    "year": "2024-10",
+    "authors": [
+      "Hiroyuki Egami",
+      "Md Shafiur Rahman",
+      "Tsuyoshi Yamamoto",
+      "Chihiro Egami",
+      "Takahisa Wakabayashi"
+    ],
+    "DOI": "10.1038/s41562-024-01948-y",
+    "url": "https://www.nature.com/articles/s41562-024-01948-y",
+    "collections": [
+      "VJCTL2R5"
+    ],
+    "tags": [
+      "Epidemiology",
+      "Human behaviour",
+      "Interdisciplinary studies",
+      "Science",
+      "technology and society"
+    ],
+    "dateModified": "2026-03-31T07:40:09Z"
+  },
+  {
+    "key": "NABAWZXT",
+    "citationKey": "egamiCausalEffectVideo2024a",
+    "itemType": "journalArticle",
+    "title": "Causal effect of video gaming on mental well-being in japan 2020–2022",
+    "date": "2024-08-19",
+    "year": "2024-08-19",
+    "authors": [
+      "Hiroyuki Egami",
+      "Md. Shafiur Rahman",
+      "Tsuyoshi Yamamoto",
+      "Chihiro Egami",
+      "Takahisa Wakabayashi"
+    ],
+    "DOI": "10.1038/s41562-024-01948-y",
+    "url": "https://www.nature.com/articles/s41562-024-01948-y",
+    "collections": [
+      "VJCTL2R5"
+    ],
+    "tags": [],
+    "dateModified": "2026-03-31T06:22:37Z"
+  },
+  {
+    "key": "3JPXW5SW",
+    "citationKey": "",
+    "itemType": "attachment",
+    "title": "s41562-025-02324-0",
+    "date": "",
+    "year": "",
+    "authors": [],
+    "DOI": "",
+    "url": "",
+    "collections": [
+      "VJCTL2R5"
+    ],
+    "tags": [],
+    "dateModified": "2026-03-31T06:21:38Z"
+  },
+  {
+    "key": "D8BYX6VZ",
+    "citationKey": "luoReasoningGraphsFaithful2024",
+    "itemType": "preprint",
+    "title": "Reasoning on graphs: Faithful and interpretable large language model reasoning",
+    "date": "2024-02-24",
+    "year": "2024-02-24",
+    "authors": [
+      "Linhao Luo",
+      "Yuan-Fang Li",
+      "Gholamreza Haffari",
+      "Shirui Pan"
+    ],
+    "DOI": "10.48550/arXiv.2310.01061",
+    "url": "http://arxiv.org/abs/2310.01061",
+    "collections": [
+      "SZD5P4DT"
+    ],
+    "tags": [
+      "Computer Science - Artificial Intelligence",
+      "Computer Science - Computation and Language",
+      "ccfInfo: CCF-None ICLR",
+      "citationNumber: 237"
+    ],
+    "dateModified": "2026-03-20T19:52:31Z"
+  },
+  {
+    "key": "7ZNRAWHW",
+    "citationKey": "akataPlayingRepeatedGames2025",
+    "itemType": "journalArticle",
+    "title": "Playing repeated games with large language models",
+    "date": "2025-05-08",
+    "year": "2025-05-08",
+    "authors": [
+      "Elif Akata",
+      "Lion Schulz",
+      "Julian Coda-Forno",
+      "Seong Joon Oh",
+      "Matthias Bethge",
+      "Eric Schulz"
+    ],
+    "DOI": "10.1038/s41562-025-02172-y",
+    "url": "https://www.nature.com/articles/s41562-025-02172-y",
+    "collections": [
+      "VJCTL2R5"
+    ],
+    "tags": [],
+    "dateModified": "2026-03-20T19:51:31Z"
+  },
+  {
+    "key": "AL3BH94S",
+    "citationKey": "liReviewProminentParadigms2025",
+    "itemType": "conferencePaper",
+    "title": "A review of prominent paradigms for LLM-based agents: Tool use, planning (including RAG), and feedback learning",
+    "date": "2025-01",
+    "year": "2025-01",
+    "authors": [
+      "Xinzhe Li"
+    ],
+    "DOI": "",
+    "url": "https://aclanthology.org/2025.coling-main.652/",
+    "collections": [
+      "PTBVBRXD"
+    ],
+    "tags": [
+      "/unread"
+    ],
+    "dateModified": "2026-03-17T05:51:52Z"
+  },
+  {
+    "key": "E3G4J7KU",
+    "citationKey": "zhouReflectionKnowledgeGraph2025a",
+    "itemType": "conferencePaper",
+    "title": "Reflection on knowledge graph for large language models reasoning",
+    "date": "2025-07",
+    "year": "2025-07",
+    "authors": [
+      "Yigeng Zhou",
+      "Wu Li",
+      "Yifan Lu",
+      "Jing Li",
+      "Fangming Liu",
+      "Meishan Zhang",
+      "Yequan Wang",
+      "Daojing He",
+      "Honghai Liu",
+      "Min Zhang"
+    ],
+    "DOI": "10.18653/v1/2025.findings-acl.1221",
+    "url": "https://aclanthology.org/2025.findings-acl.1221/",
+    "collections": [
+      "PTBVBRXD"
+    ],
+    "tags": [
+      "/unread"
+    ],
+    "dateModified": "2026-03-13T05:35:43Z"
+  },
+  {
+    "key": "9B29ZYIS",
+    "citationKey": "chenCombinedEvidenceArtificial2025",
+    "itemType": "journalArticle",
+    "title": "Combined evidence from artificial neural networks and human brain-lesion models reveals that language modulates vision in human perception",
+    "date": "2025-12-15",
+    "year": "2025-12-15",
+    "authors": [
+      "Haoyang Chen",
+      "Bo Liu",
+      "Shuyue Wang",
+      "Xiaosha Wang",
+      "Wenjuan Han",
+      "Xiaochun Wang",
+      "Yixin Zhu",
+      "Yanchao Bi"
+    ],
+    "DOI": "10.1038/s41562-025-02357-5",
+    "url": "https://www.nature.com/articles/s41562-025-02357-5",
+    "collections": [
+      "VJCTL2R5"
+    ],
+    "tags": [],
+    "dateModified": "2026-03-12T06:15:01Z"
+  },
+  {
+    "key": "32KQ7RXC",
+    "citationKey": "wuCityLevelForeignDirect2025a",
+    "itemType": "preprint",
+    "title": "City-Level Foreign Direct Investment Prediction with Tabular Learning on Judicial Data",
+    "date": "2025-07-08",
+    "year": "2025-07-08",
+    "authors": [
+      "Tianxing Wu",
+      "Lizhe Cao",
+      "Shuang Wang",
+      "Jiming Wang",
+      "Shutong Zhu",
+      "Yerong Wu",
+      "Yuqing Feng"
+    ],
+    "DOI": "10.48550/arXiv.2507.05651",
+    "url": "http://arxiv.org/abs/2507.05651",
+    "collections": [
+      "JHCY44DM"
+    ],
+    "tags": [
+      "Computer Science - Artificial Intelligence",
+      "citationNumber: 0",
+      "ccfInfo: CCF-A IJCAI"
+    ],
+    "dateModified": "2026-03-09T08:01:53Z"
+  },
+  {
+    "key": "5G3SVFXX",
+    "citationKey": "ecksteinHybridNeuralcognitiveModels2024",
+    "itemType": "preprint",
+    "title": "Hybrid neural-cognitive models reveal how memory shapes human reward learning",
+    "date": "2024-07-23",
+    "year": "2024-07-23",
+    "authors": [
+      "Maria Eckstein",
+      "Christopher Summerfield",
+      "Nathaniel Daw",
+      "Kevin J Miller"
+    ],
+    "DOI": "10.31234/osf.io/u9ks4",
+    "url": "https://osf.io/u9ks4_v1",
+    "collections": [
+      "VJCTL2R5"
+    ],
+    "tags": [],
+    "dateModified": "2026-03-08T13:25:26Z"
+  },
+  {
+    "key": "DUDPN6M5",
+    "citationKey": "wuCitylevelForeignDirect2025",
+    "itemType": "preprint",
+    "title": "City-level foreign direct investment prediction with tabular learning on judicial data",
+    "date": "2025-07-08",
+    "year": "2025-07-08",
+    "authors": [
+      "Tianxing Wu",
+      "Lizhe Cao",
+      "Shuang Wang",
+      "Jiming Wang",
+      "Shutong Zhu",
+      "Yerong Wu",
+      "Yuqing Feng"
+    ],
+    "DOI": "10.48550/arXiv.2507.05651",
+    "url": "http://arxiv.org/abs/2507.05651",
+    "collections": [
+      "JHCY44DM"
+    ],
+    "tags": [
+      "Computer Science - Artificial Intelligence",
+      "ccfInfo: Net Error: 0",
+      "citationNumber: 0"
+    ],
+    "dateModified": "2026-03-08T13:22:33Z"
+  },
+  {
+    "key": "GKANBMUR",
+    "citationKey": "chenKDECOREFacilitatingKnowledge",
+    "itemType": "journalArticle",
+    "title": "K-DECORE: Facilitating knowledge transfer in continual structured knowledge reasoning via knowledge decoupling",
+    "date": "",
+    "year": "",
+    "authors": [
+      "Yongrui Chen",
+      "Yi Huang",
+      "Yunchang Liu",
+      "Shenyu Zhang",
+      "Junhao He",
+      "Tongtong Wu",
+      "Guilin Qi",
+      "Tianxing Wu"
+    ],
+    "DOI": "",
+    "url": "",
+    "collections": [
+      "S73USGEW"
+    ],
+    "tags": [
+      "/unread"
+    ],
+    "dateModified": "2026-02-28T06:47:08Z"
+  },
+  {
+    "key": "FQCGMUZ9",
+    "citationKey": "sunThinkongraphDeepResponsible2024",
+    "itemType": "preprint",
+    "title": "Think-on-graph: Deep and responsible reasoning of large language model on knowledge graph",
+    "date": "2024-03-24",
+    "year": "2024-03-24",
+    "authors": [
+      "Jiashuo Sun",
+      "Chengjin Xu",
+      "Lumingyuan Tang",
+      "Saizhuo Wang",
+      "Chen Lin",
+      "Yeyun Gong",
+      "Lionel M. Ni",
+      "Heung-Yeung Shum",
+      "Jian Guo"
+    ],
+    "DOI": "10.48550/arXiv.2307.07697",
+    "url": "http://arxiv.org/abs/2307.07697",
+    "collections": [
+      "SZD5P4DT"
+    ],
+    "tags": [
+      "ccfInfo: CCF-None ICLR",
+      "citationNumber: 345",
+      "Computer Science - Computation and Language"
+    ],
+    "dateModified": "2026-02-27T06:58:17Z"
+  },
+  {
+    "key": "TWTFRLIW",
+    "citationKey": "liTGRAGDynamicGraphRAG2025",
+    "itemType": "preprint",
+    "title": "T-GRAG: A dynamic GraphRAG framework for resolving temporal conflicts and redundancy in knowledge retrieval",
+    "date": "2025-08-03",
+    "year": "2025-08-03",
+    "authors": [
+      "Dong Li",
+      "Yichen Niu",
+      "Ying Ai",
+      "Xiang Zou",
+      "Biqing Qi",
+      "Jianxing Liu"
+    ],
+    "DOI": "10.48550/arXiv.2508.01680",
+    "url": "http://arxiv.org/abs/2508.01680",
+    "collections": [
+      "2G9U9SZN"
+    ],
+    "tags": [
+      "Computer Science - Artificial Intelligence"
+    ],
+    "dateModified": "2026-02-04T09:41:01Z"
+  },
+  {
+    "key": "ZXTFP6UC",
+    "citationKey": "liuTruthfulRAGResolvingFactuallevel2025",
+    "itemType": "preprint",
+    "title": "TruthfulRAG: Resolving Factual-level Conflicts in Retrieval-Augmented Generation with Knowledge Graphs",
+    "date": "2025-11-13",
+    "year": "2025-11-13",
+    "authors": [
+      "Shuyi Liu",
+      "Yuming Shang",
+      "Xi Zhang"
+    ],
+    "DOI": "10.48550/arXiv.2511.10375",
+    "url": "http://arxiv.org/abs/2511.10375",
+    "collections": [
+      "2G9U9SZN"
+    ],
+    "tags": [
+      "ccfInfo: Not Found",
+      "citationNumber: 0",
+      "Computer Science - Computation and Language"
+    ],
+    "dateModified": "2026-02-02T15:25:23Z"
+  },
+  {
+    "key": "8TD5R8JA",
+    "citationKey": "hanRAGMeetsTemporal2025",
+    "itemType": "preprint",
+    "title": "RAG meets temporal graphs: Time-sensitive modeling and retrieval for evolving knowledge",
+    "date": "2025-10-15",
+    "year": "2025-10-15",
+    "authors": [
+      "Jiale Han",
+      "Austin Cheung",
+      "Yubai Wei",
+      "Zheng Yu",
+      "Xusheng Wang",
+      "Bing Zhu",
+      "Yi Yang"
+    ],
+    "DOI": "10.48550/arXiv.2510.13590",
+    "url": "http://arxiv.org/abs/2510.13590",
+    "collections": [
+      "2G9U9SZN"
+    ],
+    "tags": [
+      "/unread",
+      "Computer Science - Information Retrieval"
+    ],
+    "dateModified": "2026-01-29T13:54:10Z"
+  },
+  {
+    "key": "24K8ACIF",
+    "citationKey": "sunDyGRAGDynamicGraph2025",
+    "itemType": "preprint",
+    "title": "DyG-RAG: Dynamic graph retrieval-augmented generation with event-centric reasoning",
+    "date": "2025-07-16",
+    "year": "2025-07-16",
+    "authors": [
+      "Qingyun Sun",
+      "Jiaqi Yuan",
+      "Shan He",
+      "Xiao Guan",
+      "Haonan Yuan",
+      "Xingcheng Fu",
+      "Jianxin Li",
+      "Philip S. Yu"
+    ],
+    "DOI": "10.48550/arXiv.2507.13396",
+    "url": "http://arxiv.org/abs/2507.13396",
+    "collections": [
+      "2G9U9SZN"
+    ],
+    "tags": [
+      "/unread",
+      "Computer Science - Computation and Language",
+      "Computer Science - Information Retrieval"
+    ],
+    "dateModified": "2026-01-29T13:50:54Z"
+  },
+  {
+    "key": "IDIH6QFE",
+    "citationKey": "jiangStructGPTGeneralFramework2023",
+    "itemType": "preprint",
+    "title": "StructGPT: A General Framework for Large Language Model to Reason over Structured Data",
+    "date": "2023-10-23",
+    "year": "2023-10-23",
+    "authors": [
+      "Jinhao Jiang",
+      "Kun Zhou",
+      "Zican Dong",
+      "Keming Ye",
+      "Wayne Xin Zhao",
+      "Ji-Rong Wen"
+    ],
+    "DOI": "10.48550/arXiv.2305.09645",
+    "url": "http://arxiv.org/abs/2305.09645",
+    "collections": [
+      "2G9U9SZN"
+    ],
+    "tags": [
+      "/unread",
+      "Computer Science - Computation and Language"
+    ],
+    "dateModified": "2026-01-29T07:15:54Z"
+  },
+  {
+    "key": "EKLR56VP",
+    "citationKey": "guoEmpoweringGraphRAGKnowledge2025",
+    "itemType": "conferencePaper",
+    "title": "Empowering GraphRAG with knowledge filtering and integration",
+    "date": "2025-11",
+    "year": "2025-11",
+    "authors": [
+      "Kai Guo",
+      "Harry Shomer",
+      "Shenglai Zeng",
+      "Haoyu Han",
+      "Yu Wang",
+      "Jiliang Tang"
+    ],
+    "DOI": "10.18653/v1/2025.emnlp-main.1293",
+    "url": "https://aclanthology.org/2025.emnlp-main.1293/",
+    "collections": [
+      "2G9U9SZN"
+    ],
+    "tags": [
+      "/unread"
+    ],
+    "dateModified": "2026-01-27T09:35:32Z"
+  },
+  {
+    "key": "4BRC5KBH",
+    "citationKey": "liDeepGraphRAGBalanced2026",
+    "itemType": "preprint",
+    "title": "Deep GraphRAG: A balanced approach to hierarchical retrieval and adaptive integration",
+    "date": "2026-01-19",
+    "year": "2026-01-19",
+    "authors": [
+      "Yuejie Li",
+      "Ke Yang",
+      "Tao Wang",
+      "Bolin Chen",
+      "Bowen Li",
+      "Chengjun Mao"
+    ],
+    "DOI": "10.48550/arXiv.2601.11144",
+    "url": "http://arxiv.org/abs/2601.11144",
+    "collections": [
+      "2G9U9SZN"
+    ],
+    "tags": [
+      "Computer Science - Artificial Intelligence",
+      "/unread",
+      "Computer Science - Information Retrieval"
+    ],
+    "dateModified": "2026-01-27T07:52:09Z"
+  },
+  {
+    "key": "LQBCA7C8",
+    "citationKey": "tangProgressiveLayeredExtraction2020",
+    "itemType": "conferencePaper",
+    "title": "Progressive layered extraction (PLE): A novel multi-task learning (MTL) model for personalized recommendations",
+    "date": "2020-09-22",
+    "year": "2020-09-22",
+    "authors": [
+      "Hongyan Tang",
+      "Junning Liu",
+      "Ming Zhao",
+      "Xudong Gong"
+    ],
+    "DOI": "10.1145/3383313.3412236",
+    "url": "https://dl.acm.org/doi/10.1145/3383313.3412236",
+    "collections": [
+      "2G9U9SZN"
+    ],
+    "tags": [
+      "/unread"
+    ],
+    "dateModified": "2026-01-27T07:51:13Z"
+  },
+  {
+    "key": "9ND7J4V3",
+    "citationKey": "kwiatkowskiNaturalQuestionsBenchmark2019",
+    "itemType": "journalArticle",
+    "title": "Natural questions: A benchmark for question answering research",
+    "date": "11/2019",
+    "year": "2019-11",
+    "authors": [
+      "Tom Kwiatkowski",
+      "Jennimaria Palomaki",
+      "Olivia Redfield",
+      "Michael Collins",
+      "Ankur Parikh",
+      "Chris Alberti",
+      "Danielle Epstein",
+      "Illia Polosukhin",
+      "Jacob Devlin",
+      "Kenton Lee",
+      "Kristina Toutanova",
+      "Llion Jones",
+      "Matthew Kelcey",
+      "Ming-Wei Chang",
+      "Andrew M. Dai",
+      "Jakob Uszkoreit",
+      "Quoc Le",
+      "Slav Petrov"
+    ],
+    "DOI": "10.1162/tacl_a_00276",
+    "url": "https://direct.mit.edu/tacl/article/43518",
+    "collections": [
+      "2G9U9SZN"
+    ],
+    "tags": [
+      "/unread"
+    ],
+    "dateModified": "2026-01-27T07:51:12Z"
+  },
+  {
+    "key": "A2R8E7QG",
+    "citationKey": "liSimpleEffectiveRoles2025",
+    "itemType": "preprint",
+    "title": "Simple is effective: The roles of graphs and large language models in knowledge-graph-based retrieval-augmented generation",
+    "date": "2025-02-05",
+    "year": "2025-02-05",
+    "authors": [
+      "Mufei Li",
+      "Siqi Miao",
+      "Pan Li"
+    ],
+    "DOI": "10.48550/arXiv.2410.20724",
+    "url": "http://arxiv.org/abs/2410.20724",
+    "collections": [
+      "S73USGEW"
+    ],
+    "tags": [
+      "/unread",
+      "Computer Science - Computation and Language",
+      "Computer Science - Information Retrieval",
+      "ccfInfo: CCF-None ICLR",
+      "Computer Science - Machine Learning",
+      "citationNumber: 75"
+    ],
+    "dateModified": "2026-01-27T06:47:12Z"
+  },
+  {
+    "key": "Y8YJVW9C",
+    "citationKey": "wangHierarchicalReasoningModel2025",
+    "itemType": "preprint",
+    "title": "Hierarchical reasoning model",
+    "date": "2025-08-04",
+    "year": "2025-08-04",
+    "authors": [
+      "Guan Wang",
+      "Jin Li",
+      "Yuhao Sun",
+      "Xing Chen",
+      "Changling Liu",
+      "Yue Wu",
+      "Meng Lu",
+      "Sen Song",
+      "Yasin Abbasi Yadkori"
+    ],
+    "DOI": "10.48550/arXiv.2506.21734",
+    "url": "http://arxiv.org/abs/2506.21734",
+    "collections": [
+      "S73USGEW"
+    ],
+    "tags": [
+      "Computer Science - Artificial Intelligence",
+      "/unread",
+      "ccfInfo: CCF-None CORR",
+      "Computer Science - Machine Learning",
+      "citationNumber: 13"
+    ],
+    "dateModified": "2026-01-22T10:26:31Z"
+  },
+  {
+    "key": "7RJI4VQW",
+    "citationKey": "kumarTrainingLanguageModels2024",
+    "itemType": "preprint",
+    "title": "Training language models to self-correct via reinforcement learning",
+    "date": "2024-10-04",
+    "year": "2024-10-04",
+    "authors": [
+      "Aviral Kumar",
+      "Vincent Zhuang",
+      "Rishabh Agarwal",
+      "Yi Su",
+      "John D. Co-Reyes",
+      "Avi Singh",
+      "Kate Baumli",
+      "Shariq Iqbal",
+      "Colton Bishop",
+      "Rebecca Roelofs",
+      "Lei M. Zhang",
+      "Kay McKinney",
+      "Disha Shrivastava",
+      "Cosmin Paduraru",
+      "George Tucker",
+      "Doina Precup",
+      "Feryal Behbahani",
+      "Aleksandra Faust"
+    ],
+    "DOI": "10.48550/arXiv.2409.12917",
+    "url": "http://arxiv.org/abs/2409.12917",
+    "collections": [
+      "S73USGEW"
+    ],
+    "tags": [
+      "/unread",
+      "ccfInfo: Net Error: 0",
+      "Computer Science - Machine Learning",
+      "citationNumber: 291"
+    ],
+    "dateModified": "2026-01-22T07:54:36Z"
+  },
+  {
+    "key": "UMJWY8YI",
+    "citationKey": "liEnrichongraphQuerygraphAlignment2025",
+    "itemType": "conferencePaper",
+    "title": "Enrich-on-graph: Query-graph alignment for complex reasoning with LLM enriching",
+    "date": "2025",
+    "year": "2025",
+    "authors": [
+      "Songze Li",
+      "Zhiqiang Liu",
+      "Zhengke Gui",
+      "Huajun Chen",
+      "Wen Zhang"
+    ],
+    "DOI": "10.18653/v1/2025.emnlp-main.390",
+    "url": "http://arxiv.org/abs/2509.20810",
+    "collections": [
+      "2G9U9SZN"
+    ],
+    "tags": [
+      "Computer Science - Computation and Language",
+      "ccfInfo: CCF-None CORR",
+      "citationNumber: 1"
+    ],
+    "dateModified": "2026-01-04T08:29:56Z"
+  },
+  {
+    "key": "D22YH8BR",
+    "citationKey": "pengM3GQAMultientityMultihop2025",
+    "itemType": "conferencePaper",
+    "title": "M³GQA: A multi-entity multi-hop multi-setting graph question answering benchmark",
+    "date": "2025-07",
+    "year": "2025-07",
+    "authors": [
+      "Boci Peng",
+      "Yongchao Liu",
+      "Xiaohe Bo",
+      "Jiaxin Guo",
+      "Yun Zhu",
+      "Xuanbo Fan",
+      "Chuntao Hong",
+      "Yan Zhang"
+    ],
+    "DOI": "10.18653/v1/2025.acl-long.1478",
+    "url": "https://aclanthology.org/2025.acl-long.1478/",
+    "collections": [
+      "2G9U9SZN"
+    ],
+    "tags": [
+      "citationNumber: 0",
+      "ccfInfo: CCF-A ACL"
+    ],
+    "dateModified": "2025-12-27T12:15:36Z"
+  },
+  {
+    "key": "VZ2N3U42",
+    "citationKey": "renNeuralGraphReasoning",
+    "itemType": "journalArticle",
+    "title": "Neural graph reasoning: A survey on complex logical query answering",
+    "date": "",
+    "year": "",
+    "authors": [
+      "Hongyu Ren",
+      "Mikhail Galkin",
+      "Zhaocheng Zhu",
+      "Jure Leskovec",
+      "Michael Cochez"
+    ],
+    "DOI": "",
+    "url": "",
+    "collections": [
+      "SZD5P4DT"
+    ],
+    "tags": [
+      "/unread",
+      "citationNumber: Not Found",
+      "ccfInfo: CCF-None TMLR"
+    ],
+    "dateModified": "2025-12-25T14:39:49Z"
+  },
+  {
+    "key": "THTBKVYC",
+    "citationKey": "zhangLearningRetrieveReason2025",
+    "itemType": "preprint",
+    "title": "Learning to retrieve and reason on knowledge graph through active self-reflection",
+    "date": "2025-02-20",
+    "year": "2025-02-20",
+    "authors": [
+      "Han Zhang",
+      "Langshi Zhou",
+      "Hanfang Yang"
+    ],
+    "DOI": "10.48550/arXiv.2502.14932",
+    "url": "http://arxiv.org/abs/2502.14932",
+    "collections": [
+      "2G9U9SZN"
+    ],
+    "tags": [
+      "Computer Science - Computation and Language",
+      "ccfInfo: CCF-None CORR",
+      "citationNumber: 2"
+    ],
+    "dateModified": "2025-12-16T08:29:15Z"
+  },
+  {
+    "key": "NYRWNL5E",
+    "citationKey": "turpinLanguageModelsDont2023",
+    "itemType": "preprint",
+    "title": "Language Models Don't Always Say What They Think: Unfaithful Explanations in Chain-of-Thought Prompting",
+    "date": "2023-12-09",
+    "year": "2023-12-09",
+    "authors": [
+      "Miles Turpin",
+      "Julian Michael",
+      "Ethan Perez",
+      "Samuel R. Bowman"
+    ],
+    "DOI": "10.48550/arXiv.2305.04388",
+    "url": "http://arxiv.org/abs/2305.04388",
+    "collections": [
+      "2G9U9SZN"
+    ],
+    "tags": [
+      "Computer Science - Artificial Intelligence",
+      "Computer Science - Computation and Language",
+      "ccfInfo: CCF-A NeurIPS",
+      "citationNumber: Error: 504"
+    ],
+    "dateModified": "2025-12-16T04:43:23Z"
+  },
+  {
+    "key": "87IRRHMD",
+    "citationKey": "suiCanKnowledgeGraphs2025",
+    "itemType": "conferencePaper",
+    "title": "Can knowledge graphs make large language models more trustworthy? An empirical study over open-ended question answering",
+    "date": "2025-07",
+    "year": "2025-07",
+    "authors": [
+      "Yuan Sui",
+      "Yufei He",
+      "Zifeng Ding",
+      "Bryan Hooi"
+    ],
+    "DOI": "10.18653/v1/2025.acl-long.622",
+    "url": "https://aclanthology.org/2025.acl-long.622/",
+    "collections": [
+      "2G9U9SZN"
+    ],
+    "tags": [
+      "ccfInfo: CCF-A ACL",
+      "citationNumber: 5"
+    ],
+    "dateModified": "2025-12-15T13:38:06Z"
+  },
+  {
+    "key": "VV4W8ELR",
+    "citationKey": "mavromatisGNNRAGGraphNeural2024",
+    "itemType": "preprint",
+    "title": "GNN-RAG: Graph neural retrieval for large language model reasoning",
+    "date": "2024-05-30",
+    "year": "2024-05-30",
+    "authors": [
+      "Costas Mavromatis",
+      "George Karypis"
+    ],
+    "DOI": "10.48550/arXiv.2405.20139",
+    "url": "http://arxiv.org/abs/2405.20139",
+    "collections": [
+      "2G9U9SZN"
+    ],
+    "tags": [
+      "Computer Science - Artificial Intelligence",
+      "Computer Science - Computation and Language",
+      "ccfInfo: CCF-None CORR",
+      "Computer Science - Machine Learning",
+      "citationNumber: 58"
+    ],
+    "dateModified": "2025-12-15T11:18:42Z"
+  },
+  {
+    "key": "3G3E3SAK",
+    "citationKey": "yeBoostingConversationalQuestion2024",
+    "itemType": "preprint",
+    "title": "Boosting conversational question answering with fine-grained retrieval-augmentation and self-check",
+    "date": "2024-03-27",
+    "year": "2024-03-27",
+    "authors": [
+      "Linhao Ye",
+      "Zhikai Lei",
+      "Jianghao Yin",
+      "Qin Chen",
+      "Jie Zhou",
+      "Liang He"
+    ],
+    "DOI": "10.48550/arXiv.2403.18243",
+    "url": "http://arxiv.org/abs/2403.18243",
+    "collections": [
+      "2G9U9SZN"
+    ],
+    "tags": [
+      "Computer Science - Artificial Intelligence",
+      "ccfInfo: CCF-A SIGIR",
+      "citationNumber: 15"
+    ],
+    "dateModified": "2025-12-15T11:08:17Z"
+  },
+  {
+    "key": "499LTC34",
+    "citationKey": "suiFiDeLiSFaithfulReasoning2025",
+    "itemType": "preprint",
+    "title": "FiDeLiS: Faithful Reasoning in Large Language Model for Knowledge Graph Question Answering",
+    "date": "2025-05-22",
+    "year": "2025-05-22",
+    "authors": [
+      "Yuan Sui",
+      "Yufei He",
+      "Nian Liu",
+      "Xiaoxin He",
+      "Kun Wang",
+      "Bryan Hooi"
+    ],
+    "DOI": "10.48550/arXiv.2405.13873",
+    "url": "http://arxiv.org/abs/2405.13873",
+    "collections": [
+      "2G9U9SZN"
+    ],
+    "tags": [
+      "Computer Science - Artificial Intelligence",
+      "Computer Science - Computation and Language",
+      "ccfInfo: CCF-None CORR",
+      "citationNumber: 8"
+    ],
+    "dateModified": "2025-12-15T07:27:31Z"
+  },
+  {
+    "key": "5ECI7ZLV",
+    "citationKey": "parkStopRAGValuebasedRetrieval",
+    "itemType": "journalArticle",
+    "title": "Stop-RAG: Value-based retrieval control for iterative RAG",
+    "date": "",
+    "year": "",
+    "authors": [
+      "Jaewan Park",
+      "Solbee Cho",
+      "Jay-Yoon Lee"
+    ],
+    "DOI": "",
+    "url": "",
+    "collections": [
+      "2G9U9SZN"
+    ],
+    "tags": [
+      "citationNumber: 0",
+      "ccfInfo: CCF-None CORR"
+    ],
+    "dateModified": "2025-12-15T05:33:37Z"
+  },
+  {
+    "key": "4BXA5ZJG",
+    "citationKey": "zhuSelfreflectivePlanningKnowledge2025",
+    "itemType": "preprint",
+    "title": "Self-reflective planning with knowledge graphs: Enhancing LLM reasoning reliability for question answering",
+    "date": "2025-05-26",
+    "year": "2025-05-26",
+    "authors": [
+      "Jiajun Zhu",
+      "Ye Liu",
+      "Meikai Bao",
+      "Kai Zhang",
+      "Yanghai Zhang",
+      "Qi Liu"
+    ],
+    "DOI": "10.48550/arXiv.2505.19410",
+    "url": "http://arxiv.org/abs/2505.19410",
+    "collections": [
+      "2G9U9SZN"
+    ],
+    "tags": [
+      "/unread",
+      "Computer Science - Computation and Language",
+      "ccfInfo: CCF-None CORR",
+      "citationNumber: 1"
+    ],
+    "dateModified": "2025-12-14T09:31:42Z"
+  },
+  {
+    "key": "GNIK6GTM",
+    "citationKey": "dongRAGcriticLeveragingAutomated2025",
+    "itemType": "conferencePaper",
+    "title": "RAG-critic: Leveraging automated critic-guided agentic workflow for retrieval augmented generation",
+    "date": "2025-07",
+    "year": "2025-07",
+    "authors": [
+      "Guanting Dong",
+      "Jiajie Jin",
+      "Xiaoxi Li",
+      "Yutao Zhu",
+      "Zhicheng Dou",
+      "Ji-Rong Wen"
+    ],
+    "DOI": "10.18653/v1/2025.acl-long.179",
+    "url": "https://aclanthology.org/2025.acl-long.179/",
+    "collections": [
+      "2G9U9SZN"
+    ],
+    "tags": [
+      "ccfInfo: CCF-A ACL",
+      "citationNumber: 3"
+    ],
+    "dateModified": "2025-12-14T07:58:08Z"
+  },
+  {
+    "key": "L2QUCD2C",
+    "citationKey": "agrawalSCMRAGSelfcorrectiveMultihop2025",
+    "itemType": "journalArticle",
+    "title": "SCMRAG: Self-corrective multihop retrieval augmented generation system for LLM agents",
+    "date": "2025",
+    "year": "2025",
+    "authors": [
+      "Rishabh Agrawal"
+    ],
+    "DOI": "",
+    "url": "",
+    "collections": [
+      "2G9U9SZN"
+    ],
+    "tags": [
+      "ccfInfo: CCF-None IFAAMAS",
+      "citationNumber: 1"
+    ],
+    "dateModified": "2025-12-13T08:01:53Z"
+  },
+  {
+    "key": "6A9BAUTG",
+    "citationKey": "luoReasoningGraphsFaithful2024a",
+    "itemType": "preprint",
+    "title": "Reasoning on Graphs: Faithful and Interpretable Large Language Model Reasoning",
+    "date": "2024-02-24",
+    "year": "2024-02-24",
+    "authors": [
+      "Linhao Luo",
+      "Yuan-Fang Li",
+      "Gholamreza Haffari",
+      "Shirui Pan"
+    ],
+    "DOI": "10.48550/arXiv.2310.01061",
+    "url": "http://arxiv.org/abs/2310.01061",
+    "collections": [
+      "2G9U9SZN"
+    ],
+    "tags": [
+      "Computer Science - Artificial Intelligence",
+      "Computer Science - Computation and Language",
+      "ccfInfo: CCF-None ICLR",
+      "citationNumber: 444"
+    ],
+    "dateModified": "2025-12-12T06:52:02Z"
+  },
+  {
+    "key": "B7GIUMPZ",
+    "citationKey": "thakurLoopsRetrievalAugmented2024",
+    "itemType": "preprint",
+    "title": "Loops on retrieval augmented generation (LoRAG)",
+    "date": "2024-03-18",
+    "year": "2024-03-18",
+    "authors": [
+      "Ayush Thakur",
+      "Rashmi Vashisth"
+    ],
+    "DOI": "10.48550/arXiv.2403.15450",
+    "url": "http://arxiv.org/abs/2403.15450",
+    "collections": [
+      "2G9U9SZN"
+    ],
+    "tags": [
+      "citationNumber: 0",
+      "Computer Science - Computation and Language",
+      "Computer Science - Information Retrieval",
+      "ccfInfo: CCF-None CORR"
+    ],
+    "dateModified": "2025-12-12T05:25:25Z"
+  },
+  {
+    "key": "Y9R2BPRP",
+    "citationKey": "leeReaRAGKnowledgeguidedReasoning2025",
+    "itemType": "preprint",
+    "title": "ReaRAG: Knowledge-guided reasoning enhances factuality of large reasoning models with iterative retrieval augmented generation",
+    "date": "2025-05-19",
+    "year": "2025-05-19",
+    "authors": [
+      "Zhicheng Lee",
+      "Shulin Cao",
+      "Jinxin Liu",
+      "Jiajie Zhang",
+      "Weichuan Liu",
+      "Xiaoyin Che",
+      "Lei Hou",
+      "Juanzi Li"
+    ],
+    "DOI": "10.48550/arXiv.2503.21729",
+    "url": "http://arxiv.org/abs/2503.21729",
+    "collections": [
+      "2G9U9SZN"
+    ],
+    "tags": [
+      "Computer Science - Artificial Intelligence",
+      "Computer Science - Computation and Language",
+      "ccfInfo: CCF-None CORR",
+      "citationNumber: 9"
+    ],
+    "dateModified": "2025-12-11T05:51:13Z"
+  },
+  {
+    "key": "67MRUS4G",
+    "citationKey": "zhangFaithfulRAGFactLevelConflict2025",
+    "itemType": "preprint",
+    "title": "FaithfulRAG: Fact-Level Conflict Modeling for Context-Faithful Retrieval-Augmented Generation",
+    "date": "2025-07-08",
+    "year": "2025-07-08",
+    "authors": [
+      "Qinggang Zhang",
+      "Zhishang Xiang",
+      "Yilin Xiao",
+      "Le Wang",
+      "Junhui Li",
+      "Xinrun Wang",
+      "Jinsong Su"
+    ],
+    "DOI": "10.48550/arXiv.2506.08938",
+    "url": "http://arxiv.org/abs/2506.08938",
+    "collections": [
+      "2G9U9SZN"
+    ],
+    "tags": [
+      "Computer Science - Computation and Language",
+      "ccfInfo: CCF-A ACL",
+      "citationNumber: 5"
+    ],
+    "dateModified": "2025-12-10T14:59:22Z"
+  },
+  {
+    "key": "V97UQ2IQ",
+    "citationKey": "tanPathsovergraphKnowledgeGraph2025",
+    "itemType": "preprint",
+    "title": "Paths-over-graph: Knowledge graph empowered large language model reasoning",
+    "date": "2025-03-12",
+    "year": "2025-03-12",
+    "authors": [
+      "Xingyu Tan",
+      "Xiaoyang Wang",
+      "Qing Liu",
+      "Xiwei Xu",
+      "Xin Yuan",
+      "Wenjie Zhang"
+    ],
+    "DOI": "10.48550/arXiv.2410.14211",
+    "url": "http://arxiv.org/abs/2410.14211",
+    "collections": [
+      "2G9U9SZN"
+    ],
+    "tags": [
+      "Computer Science - Computation and Language",
+      "ccfInfo: CCF-A WWW",
+      "citationNumber: 16"
+    ],
+    "dateModified": "2025-12-10T14:50:05Z"
+  },
+  {
+    "key": "WY5LGNVX",
+    "citationKey": "dongYoutuGraphRAGVerticallyUnified2025",
+    "itemType": "preprint",
+    "title": "Youtu-GraphRAG: Vertically unified agents for graph retrieval-augmented complex reasoning",
+    "date": "2025-09-03",
+    "year": "2025-09-03",
+    "authors": [
+      "Junnan Dong",
+      "Siyu An",
+      "Yifei Yu",
+      "Qian-Wen Zhang",
+      "Linhao Luo",
+      "Xiao Huang",
+      "Yunsheng Wu",
+      "Di Yin",
+      "Xing Sun"
+    ],
+    "DOI": "10.48550/arXiv.2508.19855",
+    "url": "http://arxiv.org/abs/2508.19855",
+    "collections": [
+      "SZD5P4DT"
+    ],
+    "tags": [
+      "citationNumber: 0",
+      "Computer Science - Information Retrieval",
+      "ccfInfo: CCF-None CORR"
+    ],
+    "dateModified": "2025-12-10T14:35:48Z"
+  },
+  {
+    "key": "URAQEFPY",
+    "citationKey": "yangKGIRAGKnowledgeGraphBased2025",
+    "itemType": "preprint",
+    "title": "KG-IRAG: A Knowledge Graph-Based Iterative Retrieval-Augmented Generation Framework for Temporal Reasoning",
+    "date": "2025-03-18",
+    "year": "2025-03-18",
+    "authors": [
+      "Ruiyi Yang",
+      "Hao Xue",
+      "Imran Razzak",
+      "Hakim Hacid",
+      "Flora D. Salim"
+    ],
+    "DOI": "10.48550/arXiv.2503.14234",
+    "url": "http://arxiv.org/abs/2503.14234",
+    "collections": [
+      "2G9U9SZN"
+    ],
+    "tags": [
+      "Computer Science - Artificial Intelligence",
+      "citationNumber: Not Found",
+      "ccfInfo: CCF-None CORR",
+      "Computer Science - Multiagent Systems"
+    ],
+    "dateModified": "2025-12-10T14:02:32Z"
+  },
+  {
+    "key": "SIF9QPAU",
+    "citationKey": "huReMindRAGLowCostLLMGuided2025",
+    "itemType": "preprint",
+    "title": "ReMindRAG: Low-Cost LLM-Guided Knowledge Graph Traversal for Efficient RAG",
+    "date": "2025-10-16",
+    "year": "2025-10-16",
+    "authors": [
+      "Yikuan Hu",
+      "Jifeng Zhu",
+      "Lanrui Tang",
+      "Chen Huang"
+    ],
+    "DOI": "10.48550/arXiv.2510.13193",
+    "url": "http://arxiv.org/abs/2510.13193",
+    "collections": [
+      "2G9U9SZN"
+    ],
+    "tags": [
+      "citationNumber: 0",
+      "Computer Science - Information Retrieval",
+      "ccfInfo: CCF-None CORR"
+    ],
+    "dateModified": "2025-12-10T13:24:11Z"
+  },
+  {
+    "key": "LLNN9VZZ",
+    "citationKey": "songPlanThenRetrieve2025",
+    "itemType": "preprint",
+    "title": "Plan then retrieve: Reinforcement learning-guided complex reasoning over knowledge graphs",
+    "date": "2025-10-23",
+    "year": "2025-10-23",
+    "authors": [
+      "Yanlin Song",
+      "Ben Liu",
+      "Víctor Gutiérrez-Basulto",
+      "Zhiwei Hu",
+      "Qianqian Xie",
+      "Min Peng",
+      "Sophia Ananiadou",
+      "Jeff Z. Pan"
+    ],
+    "DOI": "10.48550/arXiv.2510.20691",
+    "url": "http://arxiv.org/abs/2510.20691",
+    "collections": [
+      "SZD5P4DT"
+    ],
+    "tags": [
+      "Computer Science - Artificial Intelligence",
+      "ccfInfo: Not Found",
+      "citationNumber: 0"
+    ],
+    "dateModified": "2025-12-10T12:52:52Z"
+  },
+  {
+    "key": "SUGPXLQK",
+    "citationKey": "oladokunPathConstrainedRetrievalStructural2025",
+    "itemType": "preprint",
+    "title": "Path-Constrained Retrieval: A Structural Approach to Reliable LLM Agent Reasoning Through Graph-Scoped Semantic Search",
+    "date": "2025-11-23",
+    "year": "2025-11-23",
+    "authors": [
+      "Joseph Oladokun"
+    ],
+    "DOI": "10.48550/arXiv.2511.18313",
+    "url": "http://arxiv.org/abs/2511.18313",
+    "collections": [
+      "2G9U9SZN"
+    ],
+    "tags": [
+      "ccfInfo: Not Found",
+      "citationNumber: 0",
+      "Computer Science - Computation and Language",
+      "Computer Science - Information Retrieval",
+      "Computer Science - Machine Learning",
+      "Computer Science - Databases"
+    ],
+    "dateModified": "2025-12-10T07:23:07Z"
+  },
+  {
+    "key": "F7B3F5MB",
+    "citationKey": "zhouReflectionKnowledgeGraph2025",
+    "itemType": "conferencePaper",
+    "title": "Reflection on knowledge graph for large language models reasoning",
+    "date": "2025-07",
+    "year": "2025-07",
+    "authors": [
+      "Yigeng Zhou",
+      "Wu Li",
+      "Yifan Lu",
+      "Jing Li",
+      "Fangming Liu",
+      "Meishan Zhang",
+      "Yequan Wang",
+      "Daojing He",
+      "Honghai Liu",
+      "Min Zhang"
+    ],
+    "DOI": "10.18653/v1/2025.findings-acl.1221",
+    "url": "https://aclanthology.org/2025.findings-acl.1221/",
+    "collections": [
+      "2G9U9SZN"
+    ],
+    "tags": [
+      "ccfInfo: CCF-A ACL",
+      "citationNumber: 1"
+    ],
+    "dateModified": "2025-12-06T15:43:52Z"
+  },
+  {
+    "key": "HJX54LB7",
+    "citationKey": "yanCorrectiveRetrievalAugmented2024a",
+    "itemType": "preprint",
+    "title": "Corrective Retrieval Augmented Generation",
+    "date": "2024-10-07",
+    "year": "2024-10-07",
+    "authors": [
+      "Shi-Qi Yan",
+      "Jia-Chen Gu",
+      "Yun Zhu",
+      "Zhen-Hua Ling"
+    ],
+    "DOI": "10.48550/arXiv.2401.15884",
+    "url": "http://arxiv.org/abs/2401.15884",
+    "collections": [
+      "2G9U9SZN"
+    ],
+    "tags": [
+      "Computer Science - Computation and Language",
+      "ccfInfo: CCF-None CORR",
+      "citationNumber: 35"
+    ],
+    "dateModified": "2025-12-05T08:53:49Z"
+  },
+  {
+    "key": "7D2SYSH9",
+    "citationKey": "luoGraphconstrainedReasoningFaithful2025",
+    "itemType": "preprint",
+    "title": "Graph-constrained Reasoning: Faithful Reasoning on Knowledge Graphs with Large Language Models",
+    "date": "2025-05-28",
+    "year": "2025-05-28",
+    "authors": [
+      "Linhao Luo",
+      "Zicheng Zhao",
+      "Gholamreza Haffari",
+      "Yuan-Fang Li",
+      "Chen Gong",
+      "Shirui Pan"
+    ],
+    "DOI": "10.48550/arXiv.2410.13080",
+    "url": "http://arxiv.org/abs/2410.13080",
+    "collections": [
+      "2G9U9SZN"
+    ],
+    "tags": [
+      "Computer Science - Computation and Language",
+      "ccfInfo: CCF-None CORR",
+      "citationNumber: 14"
+    ],
+    "dateModified": "2025-12-05T08:11:07Z"
+  },
+  {
+    "key": "TTTKUDFR",
+    "citationKey": "huRemovalHallucinationHallucination2025a",
+    "itemType": "conferencePaper",
+    "title": "Removal of hallucination on hallucination: Debate-augmented RAG",
+    "date": "2025-07",
+    "year": "2025-07",
+    "authors": [
+      "Wentao Hu",
+      "Wengyu Zhang",
+      "Yiyang Jiang",
+      "Chen Jason Zhang",
+      "Xiaoyong Wei",
+      "Li Qing"
+    ],
+    "DOI": "10.18653/v1/2025.acl-long.770",
+    "url": "https://aclanthology.org/2025.acl-long.770/",
+    "collections": [
+      "2G9U9SZN"
+    ],
+    "tags": [
+      "ccfInfo: CCF-A ACL",
+      "citationNumber: 8"
+    ],
+    "dateModified": "2025-12-04T14:27:08Z"
+  },
+  {
+    "key": "H6K8BPA3",
+    "citationKey": "asaiSelfragLearningRetrieve2024",
+    "itemType": "journalArticle",
+    "title": "Self-rag: Learning to retrieve, generate, and critique through self-reflection",
+    "date": "2024",
+    "year": "2024",
+    "authors": [
+      "Akari Asai",
+      "Zeqiu Wu",
+      "Yizhong Wang",
+      "Avirup Sil",
+      "Hannaneh Hajishirzi"
+    ],
+    "DOI": "",
+    "url": "",
+    "collections": [
+      "2G9U9SZN"
+    ],
+    "tags": [
+      "ccfInfo: CCF-None ICLR",
+      "citationNumber: 1373"
+    ],
+    "dateModified": "2025-12-01T09:08:44Z"
+  },
+  {
+    "key": "6LUKD58Y",
+    "citationKey": "huRemovalHallucinationHallucination2025",
+    "itemType": "preprint",
+    "title": "Removal of Hallucination on Hallucination: Debate-Augmented RAG",
+    "date": "2025-05-24",
+    "year": "2025-05-24",
+    "authors": [
+      "Wentao Hu",
+      "Wengyu Zhang",
+      "Yiyang Jiang",
+      "Chen Jason Zhang",
+      "Xiaoyong Wei",
+      "Qing Li"
+    ],
+    "DOI": "10.48550/arXiv.2505.18581",
+    "url": "http://arxiv.org/abs/2505.18581",
+    "collections": [
+      "SZD5P4DT"
+    ],
+    "tags": [
+      "Computer Science - Artificial Intelligence",
+      "Computer Science - Computation and Language",
+      "ccfInfo: CCF-A ACL",
+      "citationNumber: 5"
+    ],
+    "dateModified": "2025-11-25T13:01:47Z"
+  },
+  {
+    "key": "HW5QMT3W",
+    "citationKey": "wanDigestKnowledgeLarge2025",
+    "itemType": "conferencePaper",
+    "title": "Digest the Knowledge: Large Language Models empowered Message Passing for Knowledge Graph Question Answering",
+    "date": "2025",
+    "year": "2025",
+    "authors": [
+      "Junhong Wan",
+      "Tao Yu",
+      "Kunyu Jiang",
+      "Yao Fu",
+      "Weihao Jiang",
+      "Jiang Zhu"
+    ],
+    "DOI": "10.18653/v1/2025.acl-long.750",
+    "url": "https://aclanthology.org/2025.acl-long.750",
+    "collections": [
+      "SZD5P4DT"
+    ],
+    "tags": [
+      "citationNumber: 0",
+      "ccfInfo: CCF-A ACL"
+    ],
+    "dateModified": "2025-11-24T11:22:09Z"
+  },
+  {
+    "key": "5ZLZSVQP",
+    "citationKey": "xuGenerateonGraphTreatLLM2024",
+    "itemType": "conferencePaper",
+    "title": "Generate-on-Graph: Treat LLM as both Agent and KG for Incomplete Knowledge Graph Question Answering",
+    "date": "2024",
+    "year": "2024",
+    "authors": [
+      "Yao Xu",
+      "Shizhu He",
+      "Jiabei Chen",
+      "Zihao Wang",
+      "Yangqiu Song",
+      "Hanghang Tong",
+      "Guang Liu",
+      "Jun Zhao",
+      "Kang Liu"
+    ],
+    "DOI": "10.18653/v1/2024.emnlp-main.1023",
+    "url": "https://aclanthology.org/2024.emnlp-main.1023",
+    "collections": [
+      "SZD5P4DT"
+    ],
+    "tags": [
+      "/unread",
+      "ccfInfo: CCF-B EMNLP",
+      "citationNumber: 24"
+    ],
+    "dateModified": "2025-11-24T11:22:07Z"
+  },
+  {
+    "key": "WWT3FX8Y",
+    "citationKey": "huGRAGGraphRetrievalAugmented2025",
+    "itemType": "conferencePaper",
+    "title": "GRAG: Graph Retrieval-Augmented Generation",
+    "date": "2025",
+    "year": "2025",
+    "authors": [
+      "Yuntong Hu",
+      "Zhihan Lei",
+      "Zheng Zhang",
+      "Bo Pan",
+      "Chen Ling",
+      "Liang Zhao"
+    ],
+    "DOI": "10.18653/v1/2025.findings-naacl.232",
+    "url": "https://aclanthology.org/2025.findings-naacl.232",
+    "collections": [
+      "SZD5P4DT"
+    ],
+    "tags": [
+      "ccfInfo: Net Error: 0",
+      "citationNumber: 0"
+    ],
+    "dateModified": "2025-11-24T11:22:05Z"
+  },
+  {
+    "key": "6HPDJ33Y",
+    "citationKey": "maoGenerationAugmentedRetrievalOpenDomain2021",
+    "itemType": "conferencePaper",
+    "title": "Generation-Augmented Retrieval for Open-Domain Question Answering",
+    "date": "2021",
+    "year": "2021",
+    "authors": [
+      "Yuning Mao",
+      "Pengcheng He",
+      "Xiaodong Liu",
+      "Yelong Shen",
+      "Jianfeng Gao",
+      "Jiawei Han",
+      "Weizhu Chen"
+    ],
+    "DOI": "10.18653/v1/2021.acl-long.316",
+    "url": "https://aclanthology.org/2021.acl-long.316",
+    "collections": [
+      "SZD5P4DT"
+    ],
+    "tags": [
+      "ccfInfo: CCF-A ACL",
+      "citationNumber: 303"
+    ],
+    "dateModified": "2025-11-24T11:22:03Z"
+  },
+  {
+    "key": "4ZUNWAGY",
+    "citationKey": "yanCorrectiveRetrievalAugmented2024",
+    "itemType": "preprint",
+    "title": "Corrective retrieval augmented generation",
+    "date": "2024-10-07",
+    "year": "2024-10-07",
+    "authors": [
+      "Shi-Qi Yan",
+      "Jia-Chen Gu",
+      "Yun Zhu",
+      "Zhen-Hua Ling"
+    ],
+    "DOI": "10.48550/arXiv.2401.15884",
+    "url": "http://arxiv.org/abs/2401.15884",
+    "collections": [
+      "SZD5P4DT"
+    ],
+    "tags": [
+      "/unread",
+      "Computer Science - Computation and Language",
+      "ccfInfo: CCF-None CORR",
+      "citationNumber: 12"
+    ],
+    "dateModified": "2025-11-23T11:42:48Z"
+  },
+  {
+    "key": "BYKZV8NB",
+    "citationKey": "wanMMGraphRAGBridgingVision2025",
+    "itemType": "preprint",
+    "title": "MMGraphRAG: Bridging vision and language with interpretable multimodal knowledge graphs",
+    "date": "2025-07-28",
+    "year": "2025-07-28",
+    "authors": [
+      "Xueyao Wan",
+      "Hang Yu"
+    ],
+    "DOI": "10.48550/arXiv.2507.20804",
+    "url": "http://arxiv.org/abs/2507.20804",
+    "collections": [
+      "SZD5P4DT"
+    ],
+    "tags": [
+      "Computer Science - Artificial Intelligence",
+      "/unread",
+      "citationNumber: 0",
+      "ccfInfo: CCF-None CORR"
+    ],
+    "dateModified": "2025-11-03T02:30:07Z"
+  },
+  {
+    "key": "IMGXXBN6",
+    "citationKey": "pengGraphRetrievalaugmentedGeneration2024",
+    "itemType": "preprint",
+    "title": "Graph retrieval-augmented generation: A survey",
+    "date": "2024-09-10",
+    "year": "2024-09-10",
+    "authors": [
+      "Boci Peng",
+      "Yun Zhu",
+      "Yongchao Liu",
+      "Xiaohe Bo",
+      "Haizhou Shi",
+      "Chuntao Hong",
+      "Yan Zhang",
+      "Siliang Tang"
+    ],
+    "DOI": "10.48550/arXiv.2408.08921",
+    "url": "http://arxiv.org/abs/2408.08921",
+    "collections": [
+      "SZD5P4DT"
+    ],
+    "tags": [
+      "Computer Science - Artificial Intelligence",
+      "citationNumber: 0",
+      "Computer Science - Computation and Language",
+      "Computer Science - Information Retrieval",
+      "ccfInfo: CCF-None CORR"
+    ],
+    "dateModified": "2025-11-02T18:59:42Z"
+  },
+  {
+    "key": "PLKBFPXR",
+    "citationKey": "hanRetrievalaugmentedGenerationGraphs2025a",
+    "itemType": "preprint",
+    "title": "Retrieval-augmented generation with graphs (GraphRAG)",
+    "date": "2025-01-08",
+    "year": "2025-01-08",
+    "authors": [
+      "Haoyu Han",
+      "Yu Wang",
+      "Harry Shomer",
+      "Kai Guo",
+      "Jiayuan Ding",
+      "Yongjia Lei",
+      "Mahantesh Halappanavar",
+      "Ryan A. Rossi",
+      "Subhabrata Mukherjee",
+      "Xianfeng Tang",
+      "Qi He",
+      "Zhigang Hua",
+      "Bo Long",
+      "Tong Zhao",
+      "Neil Shah",
+      "Amin Javari",
+      "Yinglong Xia",
+      "Jiliang Tang"
+    ],
+    "DOI": "10.48550/arXiv.2501.00309",
+    "url": "http://arxiv.org/abs/2501.00309",
+    "collections": [
+      "SZD5P4DT"
+    ],
+    "tags": [
+      "citationNumber: 0",
+      "Computer Science - Computation and Language",
+      "Computer Science - Information Retrieval",
+      "ccfInfo: CCF-None CORR",
+      "Computer Science - Machine Learning"
+    ],
+    "dateModified": "2025-11-02T16:54:51Z"
+  },
+  {
+    "key": "QK9936IU",
+    "citationKey": "XiaoMaBuHuiGuoHeLunWenJieDu|QuanQiuShouPianGraphRAGSurvey2024",
+    "itemType": "blogPost",
+    "title": "论文解读｜全球首篇 GraphRAG survey 的官方解读来啦",
+    "date": "2024-09-26",
+    "year": "2024-09-26",
+    "authors": [
+      ""
+    ],
+    "DOI": "",
+    "url": "https://blog.csdn.net/m0_59163425/article/details/142577055",
+    "collections": [
+      "SZD5P4DT"
+    ],
+    "tags": [
+      "/unread",
+      "citationNumber: Not Found",
+      "ccfInfo: Not Found"
+    ],
+    "dateModified": "2025-11-02T16:39:28Z"
+  },
+  {
+    "key": "VRZ9UBUN",
+    "citationKey": "hanRetrievalaugmentedGenerationGraphs2025",
+    "itemType": "preprint",
+    "title": "Retrieval-augmented generation with graphs (GraphRAG)",
+    "date": "2025-01-08",
+    "year": "2025-01-08",
+    "authors": [
+      "Haoyu Han",
+      "Yu Wang",
+      "Harry Shomer",
+      "Kai Guo",
+      "Jiayuan Ding",
+      "Yongjia Lei",
+      "Mahantesh Halappanavar",
+      "Ryan A. Rossi",
+      "Subhabrata Mukherjee",
+      "Xianfeng Tang",
+      "Qi He",
+      "Zhigang Hua",
+      "Bo Long",
+      "Tong Zhao",
+      "Neil Shah",
+      "Amin Javari",
+      "Yinglong Xia",
+      "Jiliang Tang"
+    ],
+    "DOI": "10.48550/arXiv.2501.00309",
+    "url": "http://arxiv.org/abs/2501.00309",
+    "collections": [
+      "SZD5P4DT"
+    ],
+    "tags": [
+      "/unread",
+      "citationNumber: 0",
+      "Computer Science - Computation and Language",
+      "Computer Science - Information Retrieval",
+      "ccfInfo: CCF-None CORR",
+      "Computer Science - Machine Learning"
+    ],
+    "dateModified": "2025-11-02T16:03:31Z"
+  },
+  {
+    "key": "47WCPRWD",
+    "citationKey": "sanmartinKGRAGBridgingGap2024",
+    "itemType": "preprint",
+    "title": "KG-RAG: Bridging the gap between knowledge and creativity",
+    "date": "2024-05-20",
+    "year": "2024-05-20",
+    "authors": [
+      "Diego Sanmartin"
+    ],
+    "DOI": "10.48550/arXiv.2405.12035",
+    "url": "http://arxiv.org/abs/2405.12035",
+    "collections": [
+      "SZD5P4DT"
+    ],
+    "tags": [
+      "Computer Science - Artificial Intelligence",
+      "/unread",
+      "citationNumber: 0",
+      "Computer Science - Computation and Language",
+      "Computer Science - Information Retrieval",
+      "ccfInfo: CCF-None CORR"
+    ],
+    "dateModified": "2025-11-02T08:04:37Z"
+  },
+  {
+    "key": "93H743RE",
+    "citationKey": "chenKGretrieverEfficientKnowledge2025",
+    "itemType": "preprint",
+    "title": "KG-retriever: Efficient knowledge indexing for retrieval-augmented large language models",
+    "date": "2025-05-05",
+    "year": "2025-05-05",
+    "authors": [
+      "Weijie Chen",
+      "Ting Bai",
+      "Jinbo Su",
+      "Jian Luan",
+      "Wei Liu",
+      "Chuan Shi"
+    ],
+    "DOI": "10.48550/arXiv.2412.05547",
+    "url": "http://arxiv.org/abs/2412.05547",
+    "collections": [
+      "SZD5P4DT"
+    ],
+    "tags": [
+      "Computer Science - Artificial Intelligence",
+      "/unread",
+      "citationNumber: 0",
+      "Computer Science - Information Retrieval",
+      "ccfInfo: CCF-None CORR"
+    ],
+    "dateModified": "2025-11-02T07:49:37Z"
+  },
+  {
+    "key": "JWGTCDTY",
+    "citationKey": "maLargeLanguageModels2025a",
+    "itemType": "preprint",
+    "title": "Large language models meet knowledge graphs for question answering: Synthesis and opportunities",
+    "date": "2025-09-22",
+    "year": "2025-09-22",
+    "authors": [
+      "Chuangtao Ma",
+      "Yongrui Chen",
+      "Tianxing Wu",
+      "Arijit Khan",
+      "Haofen Wang"
+    ],
+    "DOI": "10.48550/arXiv.2505.20099",
+    "url": "http://arxiv.org/abs/2505.20099",
+    "collections": [
+      "SZD5P4DT"
+    ],
+    "tags": [
+      "Computer Science - Artificial Intelligence",
+      "/unread",
+      "citationNumber: 0",
+      "Computer Science - Computation and Language",
+      "Computer Science - Information Retrieval",
+      "ccfInfo: CCF-None CORR"
+    ],
+    "dateModified": "2025-11-02T06:39:33Z"
+  },
+  {
+    "key": "Z6VBCVF2",
+    "citationKey": "luDeepDiveAdvancingDeep2025",
+    "itemType": "preprint",
+    "title": "DeepDive: Advancing deep search agents with knowledge graphs and multi-turn RL",
+    "date": "2025-10-14",
+    "year": "2025-10-14",
+    "authors": [
+      "Rui Lu",
+      "Zhenyu Hou",
+      "Zihan Wang",
+      "Hanchen Zhang",
+      "Xiao Liu",
+      "Yujiang Li",
+      "Shi Feng",
+      "Jie Tang",
+      "Yuxiao Dong"
+    ],
+    "DOI": "10.48550/arXiv.2509.10446",
+    "url": "http://arxiv.org/abs/2509.10446",
+    "collections": [
+      "SZD5P4DT"
+    ],
+    "tags": [
+      "citationNumber: 0",
+      "Computer Science - Computation and Language",
+      "ccfInfo: CCF-None CORR"
+    ],
+    "dateModified": "2025-10-30T08:44:03Z"
+  },
+  {
+    "key": "BAM6AUWR",
+    "citationKey": "yangCuriousLLMElevatingMultidocument2025",
+    "itemType": "preprint",
+    "title": "CuriousLLM: Elevating multi-document question answering with LLM-enhanced knowledge graph reasoning",
+    "date": "2025-02-18",
+    "year": "2025-02-18",
+    "authors": [
+      "Zukang Yang",
+      "Zixuan Zhu",
+      "Xuan Zhu"
+    ],
+    "DOI": "10.48550/arXiv.2404.09077",
+    "url": "http://arxiv.org/abs/2404.09077",
+    "collections": [
+      "SZD5P4DT"
+    ],
+    "tags": [
+      "Computer Science - Artificial Intelligence",
+      "citationNumber: 0",
+      "Computer Science - Computation and Language",
+      "Computer Science - Information Retrieval",
+      "Computer Science - Machine Learning",
+      "ccfInfo: CCF-B NAACL"
+    ],
+    "dateModified": "2025-10-30T08:23:02Z"
+  },
+  {
+    "key": "EEFKAL3V",
+    "citationKey": "yangGraphSearchAgenticDeep2025",
+    "itemType": "preprint",
+    "title": "GraphSearch: An agentic deep searching workflow for graph retrieval-augmented generation",
+    "date": "2025-09-30",
+    "year": "2025-09-30",
+    "authors": [
+      "Cehao Yang",
+      "Xiaojun Wu",
+      "Xueyuan Lin",
+      "Chengjin Xu",
+      "Xuhui Jiang",
+      "Yuanliang Sun",
+      "Jia Li",
+      "Hui Xiong",
+      "Jian Guo"
+    ],
+    "DOI": "10.48550/arXiv.2509.22009",
+    "url": "http://arxiv.org/abs/2509.22009",
+    "collections": [
+      "SZD5P4DT"
+    ],
+    "tags": [
+      "citationNumber: 0",
+      "Computer Science - Computation and Language",
+      "ccfInfo: CCF-None CORR"
+    ],
+    "dateModified": "2025-10-30T07:40:02Z"
+  },
+  {
+    "key": "BXT4R2R9",
+    "citationKey": "zhangSurveyGraphRetrievalaugmented2025",
+    "itemType": "preprint",
+    "title": "A survey of graph retrieval-augmented generation for customized large language models",
+    "date": "2025-09-29",
+    "year": "2025-09-29",
+    "authors": [
+      "Qinggang Zhang",
+      "Shengyuan Chen",
+      "Yuanchen Bei",
+      "Zheng Yuan",
+      "Huachi Zhou",
+      "Zijin Hong",
+      "Hao Chen",
+      "Yilin Xiao",
+      "Chuang Zhou",
+      "Junnan Dong",
+      "Yi Chang",
+      "Xiao Huang"
+    ],
+    "DOI": "10.48550/arXiv.2501.13958",
+    "url": "http://arxiv.org/abs/2501.13958",
+    "collections": [
+      "SZD5P4DT"
+    ],
+    "tags": [
+      "Computer Science - Artificial Intelligence",
+      "citationNumber: 0",
+      "Computer Science - Computation and Language",
+      "Computer Science - Information Retrieval",
+      "ccfInfo: CCF-None CORR"
+    ],
+    "dateModified": "2025-10-27T12:23:13Z"
+  },
+  {
+    "key": "JWG57DRZ",
+    "citationKey": "maSynthesizeongraphKnowledgeableSynthetic2025",
+    "itemType": "preprint",
+    "title": "Synthesize-on-graph: Knowledgeable synthetic data generation for continue pre-training of large language models",
+    "date": "2025-09-14",
+    "year": "2025-09-14",
+    "authors": [
+      "Shengjie Ma",
+      "Xuhui Jiang",
+      "Chengjin Xu",
+      "Cehao Yang",
+      "Liyu Zhang",
+      "Jian Guo"
+    ],
+    "DOI": "10.48550/arXiv.2505.00979",
+    "url": "http://arxiv.org/abs/2505.00979",
+    "collections": [
+      "SZD5P4DT"
+    ],
+    "tags": [
+      "Computer Science - Artificial Intelligence",
+      "citationNumber: 0",
+      "Computer Science - Computation and Language",
+      "ccfInfo: CCF-None CORR"
+    ],
+    "dateModified": "2025-10-27T12:23:08Z"
+  },
+  {
+    "key": "VLX59J6F",
+    "citationKey": "chenPlanongraphSelfcorrectingAdaptive2024",
+    "itemType": "preprint",
+    "title": "Plan-on-graph: Self-correcting adaptive planning of large language model on knowledge graphs",
+    "date": "2024-10-31",
+    "year": "2024-10-31",
+    "authors": [
+      "Liyi Chen",
+      "Panrong Tong",
+      "Zhongming Jin",
+      "Ying Sun",
+      "Jieping Ye",
+      "Hui Xiong"
+    ],
+    "DOI": "10.48550/arXiv.2410.23875",
+    "url": "http://arxiv.org/abs/2410.23875",
+    "collections": [
+      "SZD5P4DT",
+      "2G9U9SZN"
+    ],
+    "tags": [
+      "Computer Science - Artificial Intelligence",
+      "ccfInfo: CCF-A NeurIPS",
+      "citationNumber: 8"
+    ],
+    "dateModified": "2025-10-27T11:16:38Z"
+  },
+  {
+    "key": "H589AGJ8",
+    "citationKey": "weiChainofthoughtPromptingElicits2023",
+    "itemType": "preprint",
+    "title": "Chain-of-thought prompting elicits reasoning in large language models",
+    "date": "2023-01-10",
+    "year": "2023-01-10",
+    "authors": [
+      "Jason Wei",
+      "Xuezhi Wang",
+      "Dale Schuurmans",
+      "Maarten Bosma",
+      "Brian Ichter",
+      "Fei Xia",
+      "Ed Chi",
+      "Quoc Le",
+      "Denny Zhou"
+    ],
+    "DOI": "10.48550/arXiv.2201.11903",
+    "url": "http://arxiv.org/abs/2201.11903",
+    "collections": [
+      "SZD5P4DT"
+    ],
+    "tags": [
+      "Computer Science - Artificial Intelligence",
+      "/unread",
+      "Computer Science - Computation and Language",
+      "ccfInfo: CCF-A NeurIPS",
+      "citationNumber: 15165"
+    ],
+    "dateModified": "2025-10-27T10:32:20Z"
+  },
+  {
+    "key": "EDTN46GZ",
+    "citationKey": "guoLightRAGSimpleFast2025",
+    "itemType": "preprint",
+    "title": "LightRAG: Simple and fast retrieval-augmented generation",
+    "date": "2025-04-28",
+    "year": "2025-04-28",
+    "authors": [
+      "Zirui Guo",
+      "Lianghao Xia",
+      "Yanhua Yu",
+      "Tu Ao",
+      "Chao Huang"
+    ],
+    "DOI": "10.48550/arXiv.2410.05779",
+    "url": "http://arxiv.org/abs/2410.05779",
+    "collections": [
+      "SZD5P4DT"
+    ],
+    "tags": [
+      "Computer Science - Artificial Intelligence",
+      "citationNumber: 0",
+      "Computer Science - Information Retrieval",
+      "ccfInfo: CCF-None CORR"
+    ],
+    "dateModified": "2025-10-27T06:19:37Z"
+  },
+  {
+    "key": "2U4TG2L9",
+    "citationKey": "gutierrezHippoRAGNeurobiologicallyInspired2025",
+    "itemType": "preprint",
+    "title": "HippoRAG: Neurobiologically inspired long-term memory for large language models",
+    "date": "2025-01-14",
+    "year": "2025-01-14",
+    "authors": [
+      "Bernal Jiménez Gutiérrez",
+      "Yiheng Shu",
+      "Yu Gu",
+      "Michihiro Yasunaga",
+      "Yu Su"
+    ],
+    "DOI": "10.48550/arXiv.2405.14831",
+    "url": "http://arxiv.org/abs/2405.14831",
+    "collections": [
+      "SZD5P4DT"
+    ],
+    "tags": [
+      "Computer Science - Artificial Intelligence",
+      "citationNumber: 0",
+      "Computer Science - Computation and Language",
+      "ccfInfo: CCF-A NeurIPS"
+    ],
+    "dateModified": "2025-10-27T05:12:08Z"
+  },
+  {
+    "key": "MVGEPGBS",
+    "citationKey": "luoGFMRAGGraphFoundation2025",
+    "itemType": "preprint",
+    "title": "GFM-RAG: Graph foundation model for retrieval augmented generation",
+    "date": "2025-10-20",
+    "year": "2025-10-20",
+    "authors": [
+      "Linhao Luo",
+      "Zicheng Zhao",
+      "Gholamreza Haffari",
+      "Dinh Phung",
+      "Chen Gong",
+      "Shirui Pan"
+    ],
+    "DOI": "10.48550/arXiv.2502.01113",
+    "url": "http://arxiv.org/abs/2502.01113",
+    "collections": [
+      "SZD5P4DT"
+    ],
+    "tags": [
+      "Computer Science - Artificial Intelligence",
+      "citationNumber: 0",
+      "Computer Science - Computation and Language",
+      "Computer Science - Information Retrieval",
+      "ccfInfo: CCF-None CORR"
+    ],
+    "dateModified": "2025-10-26T15:52:19Z"
+  },
+  {
+    "key": "AMDNMEVJ",
+    "citationKey": "xiaoGraphRAGbenchChallengingDomainspecific2025",
+    "itemType": "preprint",
+    "title": "GraphRAG-bench: Challenging domain-specific reasoning for evaluating graph retrieval-augmented generation",
+    "date": "2025-06-20",
+    "year": "2025-06-20",
+    "authors": [
+      "Yilin Xiao",
+      "Junnan Dong",
+      "Chuang Zhou",
+      "Su Dong",
+      "Qian-wen Zhang",
+      "Di Yin",
+      "Xing Sun",
+      "Xiao Huang"
+    ],
+    "DOI": "10.48550/arXiv.2506.02404",
+    "url": "http://arxiv.org/abs/2506.02404",
+    "collections": [
+      "SZD5P4DT"
+    ],
+    "tags": [
+      "Computer Science - Artificial Intelligence",
+      "citationNumber: 0",
+      "Computer Science - Computation and Language",
+      "ccfInfo: CCF-None CORR"
+    ],
+    "dateModified": "2025-10-24T07:50:47Z"
+  },
+  {
+    "key": "G65PWTLG",
+    "citationKey": "wuThinkongraph30Efficient2025",
+    "itemType": "preprint",
+    "title": "Think-on-graph 3.0: Efficient and adaptive LLM reasoning on heterogeneous graphs via multi-agent dual-evolving context retrieval",
+    "date": "2025-09-26",
+    "year": "2025-09-26",
+    "authors": [
+      "Xiaojun Wu",
+      "Cehao Yang",
+      "Xueyuan Lin",
+      "Chengjin Xu",
+      "Xuhui Jiang",
+      "Yuanliang Sun",
+      "Hui Xiong",
+      "Jia Li",
+      "Jian Guo"
+    ],
+    "DOI": "10.48550/arXiv.2509.21710",
+    "url": "http://arxiv.org/abs/2509.21710",
+    "collections": [
+      "SZD5P4DT",
+      "2G9U9SZN"
+    ],
+    "tags": [
+      "ccfInfo: Not Found",
+      "citationNumber: 0",
+      "Computer Science - Computation and Language"
+    ],
+    "dateModified": "2025-10-23T07:40:30Z"
+  },
+  {
+    "key": "QT48BGWY",
+    "citationKey": "edgeLocalGlobalGraph2025a",
+    "itemType": "preprint",
+    "title": "From local to global: A graph RAG approach to query-focused summarization",
+    "date": "2025-02-19",
+    "year": "2025-02-19",
+    "authors": [
+      "Darren Edge",
+      "Ha Trinh",
+      "Newman Cheng",
+      "Joshua Bradley",
+      "Alex Chao",
+      "Apurva Mody",
+      "Steven Truitt",
+      "Dasha Metropolitansky",
+      "Robert Osazuwa Ness",
+      "Jonathan Larson"
+    ],
+    "DOI": "10.48550/arXiv.2404.16130",
+    "url": "http://arxiv.org/abs/2404.16130",
+    "collections": [
+      "SZD5P4DT"
+    ],
+    "tags": [
+      "Computer Science - Artificial Intelligence",
+      "/unread",
+      "Computer Science - Computation and Language",
+      "Computer Science - Information Retrieval",
+      "ccfInfo: CCF-None CORR",
+      "citationNumber: 594"
+    ],
+    "dateModified": "2025-10-12T14:30:43Z"
+  },
+  {
+    "key": "AWUUQTP5",
+    "citationKey": "maThinkongraph20Deep2025",
+    "itemType": "preprint",
+    "title": "Think-on-graph 2.0: Deep and faithful large language model reasoning with knowledge-guided retrieval augmented generation",
+    "date": "2025-02-10",
+    "year": "2025-02-10",
+    "authors": [
+      "Shengjie Ma",
+      "Chengjin Xu",
+      "Xuhui Jiang",
+      "Muzhi Li",
+      "Huaren Qu",
+      "Cehao Yang",
+      "Jiaxin Mao",
+      "Jian Guo"
+    ],
+    "DOI": "10.48550/arXiv.2407.10805",
+    "url": "http://arxiv.org/abs/2407.10805",
+    "collections": [
+      "SZD5P4DT"
+    ],
+    "tags": [
+      "Computer Science - Artificial Intelligence",
+      "citationNumber: 0",
+      "Computer Science - Computation and Language",
+      "ccfInfo: CCF-None ICLR"
+    ],
+    "dateModified": "2025-10-12T14:26:50Z"
+  },
+  {
+    "key": "BXMTNNLY",
+    "citationKey": "aoLightPROFLightweightReasoning",
+    "itemType": "journalArticle",
+    "title": "LightPROF: A lightweight reasoning framework for large language model on knowledge graph",
+    "date": "",
+    "year": "",
+    "authors": [
+      "Tu Ao",
+      "Yanhua Yu",
+      "Yuling Wang",
+      "Yang Deng",
+      "Zirui Guo",
+      "Liang Pang",
+      "Pinghui Wang",
+      "Tat-Seng Chua",
+      "Xiao Zhang",
+      "Zhen Cai"
+    ],
+    "DOI": "",
+    "url": "",
+    "collections": [
+      "SZD5P4DT"
+    ],
+    "tags": [
+      "citationNumber: 0",
+      "ccfInfo: CCF-A AAAI"
+    ],
+    "dateModified": "2025-10-09T13:41:40Z"
+  },
+  {
+    "key": "RZV6AXHJ",
+    "citationKey": "xuHarnessingLargeLanguage2025",
+    "itemType": "preprint",
+    "title": "Harnessing large language models for knowledge graph question answering via adaptive multi-aspect retrieval-augmentation",
+    "date": "2025-01-06",
+    "year": "2025-01-06",
+    "authors": [
+      "Derong Xu",
+      "Xinhang Li",
+      "Ziheng Zhang",
+      "Zhenxi Lin",
+      "Zhihong Zhu",
+      "Zhi Zheng",
+      "Xian Wu",
+      "Xiangyu Zhao",
+      "Tong Xu",
+      "Enhong Chen"
+    ],
+    "DOI": "10.48550/arXiv.2412.18537",
+    "url": "http://arxiv.org/abs/2412.18537",
+    "collections": [
+      "SZD5P4DT"
+    ],
+    "tags": [
+      "citationNumber: 0",
+      "ccfInfo: CCF-A AAAI",
+      "Computer Science - Computation and Language"
+    ],
+    "dateModified": "2025-10-09T07:09:54Z"
+  },
+  {
+    "key": "8DAKX4NJ",
+    "citationKey": "maLargeLanguageModels2025",
+    "itemType": "preprint",
+    "title": "Large language models meet knowledge graphs for question answering: Synthesis and opportunities",
+    "date": "2025-09-22",
+    "year": "2025-09-22",
+    "authors": [
+      "Chuangtao Ma",
+      "Yongrui Chen",
+      "Tianxing Wu",
+      "Arijit Khan",
+      "Haofen Wang"
+    ],
+    "DOI": "10.48550/arXiv.2505.20099",
+    "url": "http://arxiv.org/abs/2505.20099",
+    "collections": [
+      "SZD5P4DT"
+    ],
+    "tags": [
+      "Computer Science - Artificial Intelligence",
+      "citationNumber: 0",
+      "Computer Science - Computation and Language",
+      "Computer Science - Information Retrieval",
+      "ccfInfo: CCF-None CORR"
+    ],
+    "dateModified": "2025-10-09T01:58:31Z"
+  },
+  {
+    "key": "92UFSR8Q",
+    "citationKey": "LunWenBiJiunifyingLargeLanguage2024",
+    "itemType": "webpage",
+    "title": "【论文笔记】unifying large language models and knowledge graphs-a roadmap",
+    "date": "2024-12-01T13:20:25Z",
+    "year": "2024-12-01",
+    "authors": [],
+    "DOI": "",
+    "url": "https://masutangu.com/2024/12/01/paper-note-unify-llm-and-kg/",
+    "collections": [
+      "SZD5P4DT"
+    ],
+    "tags": [
+      "/unread"
+    ],
+    "dateModified": "2025-10-05T13:31:34Z"
+  },
+  {
+    "key": "JV5Y2PLM",
+    "citationKey": "panUnifyingLargeLanguage2024",
+    "itemType": "journalArticle",
+    "title": "Unifying large language models and knowledge graphs: A roadmap",
+    "date": "2024",
+    "year": "2024",
+    "authors": [
+      "Shirui Pan",
+      "Linhao Luo",
+      "Yufei Wang",
+      "Chen Chen",
+      "Jiapu Wang",
+      "Xindong Wu"
+    ],
+    "DOI": "",
+    "url": "https://ieeexplore.ieee.org/abstract/document/10387715/",
+    "collections": [
+      "SZD5P4DT"
+    ],
+    "tags": [
+      "ccfInfo: CCF-A  TKDE",
+      "citationNumber: 1161"
+    ],
+    "dateModified": "2025-10-04T22:25:34Z"
+  },
+  {
+    "key": "4XE9I3Z3",
+    "citationKey": "shaLeveragingRetrievalAugmentedLarge2025",
+    "itemType": "journalArticle",
+    "title": "Leveraging Retrieval-Augmented Large Language Models for Dietary Recommendations With Traditional Chinese Medicine’s Medicine Food Homology: Algorithm Development and Validation",
+    "date": "2025-8-21",
+    "year": "2025-08-21",
+    "authors": [
+      "Hangyu Sha",
+      "Fan Gong",
+      "Bo Liu",
+      "Runfeng Liu",
+      "Haofen Wang",
+      "Tianxing Wu"
+    ],
+    "DOI": "10.2196/75279",
+    "url": "https://medinform.jmir.org/2025/1/e75279",
+    "collections": [
+      "JHCY44DM",
+      "SZD5P4DT"
+    ],
+    "tags": [
+      "ccfInfo: Not Found",
+      "citationNumber: 0"
+    ],
+    "dateModified": "2025-10-04T19:19:33Z"
+  },
+  {
+    "key": "L2PKTRAD",
+    "citationKey": "",
+    "itemType": "attachment",
+    "title": "20250724 LLM 发展轨迹初探及基础原理分享",
+    "date": "",
+    "year": "",
+    "authors": [],
+    "DOI": "",
+    "url": "",
+    "collections": [
+      "JHCY44DM",
+      "SZD5P4DT"
+    ],
+    "tags": [],
+    "dateModified": "2025-09-28T07:21:39Z"
+  },
+  {
+    "key": "3RW9GLQS",
+    "citationKey": "AddonItem",
+    "itemType": "computerProgram",
+    "title": "Addon Item",
+    "date": "",
+    "year": "",
+    "authors": [],
+    "DOI": "",
+    "url": "",
+    "collections": [],
+    "tags": [
+      "/unread",
+      "ccfInfo: Net Error: 0",
+      "citationNumber: Not Found"
+    ],
+    "dateModified": "2025-09-23T15:03:45Z"
+  },
+  {
+    "key": "U3SNU9ZU",
+    "citationKey": "",
+    "itemType": "note",
+    "title": "",
+    "date": "",
+    "year": "",
+    "authors": [],
+    "DOI": "",
+    "url": "",
+    "collections": [],
+    "tags": [],
+    "dateModified": "2025-09-23T09:36:51Z"
+  },
+  {
+    "key": "7FIZW8P5",
+    "citationKey": "Tara_Backup",
+    "itemType": "document",
+    "title": "Tara_Backup",
+    "date": "",
+    "year": "",
+    "authors": [],
+    "DOI": "",
+    "url": "",
+    "collections": [],
+    "tags": [
+      "/unread"
+    ],
+    "dateModified": "2025-09-23T09:01:01Z"
+  }
+]

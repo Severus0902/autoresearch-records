@@ -1,0 +1,28 @@
+{
+  "project": {
+    "name": "autoresearch",
+    "timezone": "Asia/Hong_Kong"
+  },
+  "zotero": {
+    "base_url": "http://127.0.0.1:23119/api",
+    "library": "users/0",
+    "page_size": 100
+  },
+  "markdown": {
+    "root": "docs",
+    "idea_dir": "docs/ideas",
+    "experiment_dir": "docs/experiments",
+    "result_dir": "docs/results"
+  },
+  "git": {
+    "remote": "origin",
+    "branch": "main",
+    "auto_push": true
+  },
+  "server": {
+    "ssh_target": "",
+    "remote_workdir": "",
+    "ssh_options": []
+  }
+}
+

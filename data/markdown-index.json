@@ -1,0 +1,90 @@
+[
+  {
+    "path": "E:\\research\\docs\\experiments\\README.md",
+    "title": "Experiments",
+    "type": "",
+    "status": "",
+    "zotero": [],
+    "citation_keys": [],
+    "tags": []
+  },
+  {
+    "path": "E:\\research\\docs\\ideas\\2026-08-31-memory-guided-subgraph-action-selector.md",
+    "title": "Memory-guided Subgraph Action Selector for 0.6B Agentic KGR",
+    "type": "idea",
+    "status": "open",
+    "zotero": "[",
+    "citation_keys": [
+      "gutierrezHippoRAGNeurobiologicallyInspired2025",
+      "jiangKGagentEfficientAutonomous2025",
+      "luoGraphR1TowardsAgentic2025",
+      "luoReasoningGraphsFaithful2024",
+      "songPlanThenRetrieve2026",
+      "sunThinkongraphDeepResponsible2024",
+      "yanExploreongraphIncentivizingAutonomous2026a"
+    ],
+    "tags": [
+      "agentic-kgr",
+      "memory",
+      "grm",
+      "small-model",
+      "0.6b",
+      "rl"
+    ]
+  },
+  {
+    "path": "E:\\research\\docs\\ideas\\README.md",
+    "title": "Ideas",
+    "type": "",
+    "status": "",
+    "zotero": [],
+    "citation_keys": [],
+    "tags": []
+  },
+  {
+    "path": "E:\\research\\docs\\reports\\2026-08-31-agentic-kgr-rl-survey.md",
+    "title": "Agentic KGR + Reinforcement Learning 调研报告",
+    "type": "",
+    "status": "",
+    "zotero": [],
+    "citation_keys": [
+      "chenKGretrieverEfficientKnowledge2025",
+      "chenPathRAGPruningGraphbased2026",
+      "chenPlanongraphSelfcorrectingAdaptive2024",
+      "dasGoWalkArrive2017",
+      "edgeLocalGlobalGraph2025a",
+      "guoLightRAGSimpleFast2025",
+      "gutierrezHippoRAGNeurobiologicallyInspired2025",
+      "jiangKGagentEfficientAutonomous2025",
+      "jinGraphChainofthoughtAugmenting2024",
+      "linMultiHopKnowledgeGraph2018",
+      "luDeepDiveAdvancingDeep2025",
+      "luoGraphR1TowardsAgentic2025",
+      "luoGraphconstrainedReasoningFaithful2025",
+      "luoReasoningGraphsFaithful2024",
+      "maThinkongraph20Deep2025",
+      "panUnifyingLargeLanguage2024",
+      "shenMWalkLearningWalk2018",
+      "songPlanThenRetrieve2026",
+      "sunThinkongraphDeepResponsible2024",
+      "wuThinkongraph30Efficient2025",
+      "xiangWhenUseGraphs2026",
+      "xiaoGraphRAGbenchChallengingDomainspecific2025",
+      "xiongDeepPathReinforcementLearning2017",
+      "xuGenerateonGraphTreatLLM2024",
+      "yanExploreongraphIncentivizingAutonomous2026a",
+      "yangGraphSearchAgenticDeep2025",
+      "zhouReflectionKnowledgeGraph2025"
+    ],
+    "tags": []
+  },
+  {
+    "path": "E:\\research\\docs\\results\\README.md",
+    "title": "Results",
+    "type": "",
+    "status": "",
+    "zotero": [],
+    "citation_keys": [],
+    "tags": []
+  }
+]
