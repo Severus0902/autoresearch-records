@@ -289,6 +289,28 @@ Baseline 要分三层：基础 KGQA baseline、agentic KGR baseline、RLVR/memor
 
 第一周最小 baseline 只需要四个：Rule relation ranker、RLVR without memory、RLVR + verified memory without GRM、Full method。若这四个都没有稳定差异，就暂时不要急着复现 EoG 全量训练。
 
+## 与 EoG 的指标目标
+
+EoG 是最重要的外部强 baseline，但实验目标不应被简化为“所有主指标必须超过 EoG”。更合理的目标分三层：
+
+| 层级 | 目标 | 是否必须 |
+|---|---|---|
+| 对齐目标 | 在 WebQSP 和 CWQ 上复现 EoG 的设定或构造公平对照，使用相同 backbone、输入 KG、评价脚本和 Hit@1/F1 指标。 | 必须 |
+| 内部证明目标 | Full method 必须稳定超过 `RLVR without memory`、`RLVR + verified memory without GRM`、`RLVR + GRM without memory` 等内部消融。 | 必须 |
+| 强外部目标 | 在相同或更低 step/tool/token budget 下，超过 EoG 的 Hit@1/F1，或在相近 Hit@1/F1 下显著降低搜索成本并提升 path faithfulness / stability。 | 强烈建议 |
+
+从 EoG 论文 Table 1 看，EoG 在标准 WebQSP/CWQ 上已经很强：Qwen2.5-7B-Instruct 在 WebQSP 上约为 Hit@1 90.7、F1 78.1，在 CWQ 上约为 Hit@1 82.7、F1 73.8；Llama-3.1-8B-Instruct 在 WebQSP 上约为 Hit@1 92.8、F1 81.3，在 CWQ 上约为 Hit@1 86.6、F1 77.9。因此，如果只在普通 i.i.d. split 上拼最终 F1，难度会很高，而且 memory 的必要性不一定明显。
+
+更稳的论文目标是：标准 WebQSP/CWQ 上尽量接近或超过 EoG，同时在更贴合本 idea 的设置中明显超过它，例如：
+
+1. **Budget-controlled setting**：固定更小的 step/tool/token budget，比较 answer hit within budget、steps-to-answer 和 invalid action rate。
+2. **Memory-stress setting**：构造 relation composition、question template 或 entity type 的 OOD split，测试跨 query verified memory 是否能复用搜索经验。
+3. **Noisy candidate setting**：增加 entity/relation linking 噪声，测试 memory 和 GRM 是否能减少错误分支。
+4. **Stability setting**：比较 outcome-only RLVR、EoG-style path reward 和 memory-aware GRM 是否出现 peak-then-collapse 或 reward hacking。
+5. **Faithfulness setting**：在答案正确之外，报告 supporting path validity、gold-path edge recall 和 spurious path rate。
+
+因此，正式实验中最理想的结果是：在 WebQSP/CWQ 标准指标上超过 EoG，同时在低预算、OOD、noisy candidate 和训练稳定性指标上也优于 EoG 或 EoG-style baseline。最低可接受结果是：标准 Hit@1/F1 与 EoG 接近，但明显减少搜索成本、提高 path faithfulness，并通过消融证明 verified memory 和 memory-aware GRM 是收益来源。
+
 ## Ablation 设计
 
 | Ablation | 目的 | 预期观察 |
