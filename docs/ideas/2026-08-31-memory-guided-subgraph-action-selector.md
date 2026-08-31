@@ -56,6 +56,75 @@ ToG、RoG 和 EoG 形成了一条很清楚的技术递进线：ToG 证明 LLM �
 | RLVR stability gap | K2V、Search-on-Graph-R1、Peak-Then-Collapse 等说明 knowledge-intensive/KG setting 可做 RLVR，但 naive RLVR 可能稀疏或失稳。 | 用 hard verifier 保底，用 GRM 提供 dense process signal，用 memory 复用历史探索经验，测试是否提升低预算搜索稳定性。 |
 | Non-gap | query -> top-k entity -> subgraph -> action selection 是标准可行 pipeline；0.6B 只是快速验证模型。 | 论文中不把基础 pipeline 或 0.6B 当主要 novelty，而把正式验证放到 Qwen2.5-7B 和 Llama3-8B。 |
 
+## 问题定义
+
+这个 idea 要解决的问题可以定义为 **Memory-aware KG-RLVR for budgeted agentic KGQA**：给定一个自然语言问题、一个外部知识图谱、一个由历史训练轨迹构成的可验证 memory store，以及固定的 step/tool/token 预算，训练一个 agent 在局部子图中选择可验证动作，最终输出答案和支持路径。
+
+形式化地，给定：
+
+```text
+q: natural-language question
+G = (V, E, R): external knowledge graph
+D: optional text/document evidence
+M: verified episodic memory built from training trajectories
+B = (T, C_tool, C_token): search and inference budget
+V_hard: deterministic verifier
+```
+
+目标是学习一个策略 `pi_theta(a_t | o_t)`。在第 `t` 步，agent 只能观察到局部状态：
+
+```text
+o_t = {
+  q,
+  seed_entity_candidates,
+  current_frontier_entities,
+  query_centered_subgraph,
+  candidate_relations,
+  retrieved_memory_hints,
+  trajectory_history,
+  verifier_feedback,
+  remaining_budget
+}
+```
+
+agent 从合法动作集合中选择：
+
+```text
+a_t in {
+  expand(entity_id, relation_id),
+  retrieve_text(entity_id or relation_id),
+  reflect(),
+  stop(answer_entity_id, supporting_path_ids)
+}
+```
+
+执行动作后，环境返回新的局部子图观察、verifier feedback 和预算消耗。episode 结束时，模型需要输出答案 `y`、支持路径 `P` 和完整轨迹 `tau`。其中 `P` 必须能被 KG 或外部证据验证，不能只依赖模型内部知识。
+
+优化目标可以写成：
+
+```text
+max_theta E_{tau ~ pi_theta} [
+  R_answer(y)
+  + R_hard_graph(tau, P, G)
+  + R_GRM(q, tau, M, S_q)
+  + R_memory_utility(M, tau)
+  - Cost(tau, B)
+]
+```
+
+其中 `R_hard_graph` 属于 RLVR 的 hard reward，由程序化 verifier 计算；`R_GRM` 和 `R_memory_utility` 属于 dense process reward，用来评价证据覆盖、步骤有效性、停止质量和 memory 是否真的帮助了当前图搜索。
+
+这个问题的核心研究问题是：
+
+| Research question | 具体含义 |
+|---|---|
+| RQ1: verified memory 是否有用？ | 在相同子图和预算下，历史成功/失败轨迹是否能减少无效扩展并提高 answer hit。 |
+| RQ2: memory-aware GRM 是否必要？ | 相比只用 hard RLVR reward，生成式过程奖励是否能更好地区分 useful memory 和 spurious memory。 |
+| RQ3: memory 是否会带来泄漏或 shortcut？ | unverified memory 是否提高表面准确率但降低 path faithfulness 或 OOD 泛化。 |
+| RQ4: 方法是否能扩展到正式模型？ | pilot 在 0.6B 上验证信号后，Qwen2.5-7B 和 Llama3-8B 是否保留同方向收益。 |
+
+这个问题不包括四件事：第一，不把 entity linking 本身作为主要贡献，只报告 `seed_entity_recall@k`；第二，不要求模型记忆整张 KG，KG 始终作为外部环境存在；第三，不把 WebQSP/CWQ 的 2-4 hop 说成“长程记忆”问题；第四，不把 query-centered subgraph construction 本身当 novelty，而把它作为可验证 action space 的基础设施。
+
 ## 核心想法
 
 第一阶段不要把模型训练成完全开放式的 KGQA agent。更稳的做法是把它训练成一个受约束的动作选择器：KG、文档证据和 episodic memory 都放在模型外部，模型每一步只根据局部状态，从一组合法动作中选择下一步。
@@ -81,7 +150,7 @@ ToG、RoG 和 EoG 形成了一条很清楚的技术递进线：ToG 证明 LLM �
 
 它还形成一条清晰的研究路线：先做 behavior cloning，再加入 memory hints，然后用 GRM reranking 改善候选动作，最后在 action selector 稳定后再进入 online RL。这样第一周就可以验证方向是否有信号，而不是一上来就陷入完整 RL agent 的训练成本。
 
-## 任务定义
+## 动作级任务定义
 
 输入：
 
