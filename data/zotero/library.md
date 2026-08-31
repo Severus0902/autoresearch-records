@@ -1,5 +1,35 @@
 # Zotero Library
 
+- `@liuRPORAGRewardGuidedPath2026` RPO-RAG: Reward-guided path optimization in LLM-enhanced graph-based retrieval-augmented generation (2026-01-27)
+  Authors: Chang Liu, Shanshan Feng, Yi Zhang
+  DOI: 10.48550/arXiv.2601.19225
+  URL: https://arxiv.org/abs/2601.19225
+- `@huangBackjumponGraphEffectiveEfficient2026` Backjump-on-graph: Towards effective and efficient agentic KG reasoning with reinforced retrospective exploration (2026)
+  Authors: Jin Huang, Linhao Luo, Zhaochen Luo
+  URL: https://icml.cc/virtual/2026/poster/61995
+- `@xiaoMEM1LearningSynergize2026` MEM1: Learning to synergize memory and reasoning for efficient long-horizon agents (2026)
+  Authors: Chaojun Xiao, Zheng Li, Guoshun Nan
+  DOI: 10.48550/arXiv.2506.15841
+  URL: https://arxiv.org/abs/2506.15841
+- `@linMemoryR1EnhancingLarge2026` Memory-R1: Enhancing large language model agents to manage and utilize memories via reinforcement learning (2026)
+  Authors: Brian Y. Lin
+  URL: https://aclanthology.org/2026.acl-long.583/
+- `@chenSearchonGraphR1TrainingLLMs2026` Search-on-graph-R1: Training LLMs to reason via search processes on graphs (2026-07-24)
+  Authors: Zhicheng Chen, Xinwei Long, Zijian Xie
+  DOI: 10.48550/arXiv.2607.18481
+  URL: https://arxiv.org/abs/2607.18481
+- `@liuMemoryT1ReinforcementLearning2026` Memory-T1: Reinforcement learning for temporal reasoning in multi-session agents (2026)
+  Authors: Daijie Liu, Hailong Li, Yi Shi
+  DOI: 10.48550/arXiv.2512.20092
+  URL: https://arxiv.org/abs/2512.20092
+- `@liuAccurateInterpretableKnowledge2026` Accurate and interpretable knowledge graph question answering via schema-aware cumulative process reward model (2026-05-05)
+  Authors: Jinghui Liu, Jing Qi, Lingling Zhang
+  DOI: 10.48550/arXiv.2605.02819
+  URL: https://arxiv.org/abs/2605.02819
+- `@luReasoningEpisodicMemory2026` Reasoning with episodic memory in LLM agents through reinforcement learning (2026)
+  Authors: Kevin Lu, Carmel Glasgow, Nicholas Hartland
+  DOI: 10.48550/arXiv.2602.13530
+  URL: https://arxiv.org/abs/2602.13530
 - `@xiangWhenUseGraphs2026` When to use graphs in RAG: A comprehensive analysis for graph retrieval-augmented generation (2026)
   Authors: Zhishang Xiang, Chuanjie Wu, Qinggang Zhang
   URL: https://proceedings.iclr.cc/paper_files/paper/2026/hash/6c9e01d6cefbbf4cdd265032550e767f-Abstract-Conference.html

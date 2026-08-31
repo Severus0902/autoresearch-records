@@ -21,7 +21,7 @@ Agentic KGR + RL 是一个值得推进的方向，但核心不应只是“给 To
 | GCR/GcR | 这里按 Graph-constrained Reasoning 理解，即用 KG-Trie 约束 LLM 解码，生成 KG-grounded 推理路径。若你指的是 Graph Chain-of-Thought，本报告也把 Graph-CoT 作为相邻基线列入。 |
 | Graph-RFT | Plan Then Retrieve 提出的两阶段 RL fine-tuning KGQA 框架，学习 plan-KG search-Web search 的调度。 |
 | EoG | Explore-on-Graph，利用 RL 和 path-refined reward 促进 LLM 在 KG 上自主探索。 |
-| GRM | 本报告建议定义为 Graph-grounded Reward Model，即面向 KG 轨迹、子图证据和答案质量的可学习奖励模型。GRM 不替代硬图验证器，而是提供更密集的过程奖励。 |
+| GRM | 本轮以后建议写成 Generative Reward Model for graph-grounded trajectories，即让奖励模型以生成式诊断方式评价 KG 轨迹、子图证据、答案支持和 memory 使用质量。GRM 不替代硬图验证器，而是提供更密集的过程奖励。 |
 
 ## 执行摘要
 
@@ -106,7 +106,7 @@ DeepDive 的任务更偏 deep search agent，但它用 KG 随机游走合成困�
 
 ## GRM 奖励建模方案
 
-可以训练一个 Graph-grounded Reward Model (GRM) 来改进 RL reward，但它不应被表述为“保证 reward 正确”。更稳妥的设计是：硬图验证器负责不可违反的事实约束，GRM 负责软的过程质量判断，最终答案奖励负责任务目标。也就是说，GRM 是 dense process reward，而不是唯一 reward source。
+可以训练一个 Generative Reward Model (GRM) 来改进 RL reward。这里的关键不是让 GRM “保证 reward 正确”，而是让它在 graph-grounded 输入上生成结构化诊断，再转成 dense process reward。更稳妥的设计是：硬图验证器负责不可违反的事实约束，GRM 负责软的过程质量判断，最终答案奖励负责任务目标。也就是说，GRM 是可学习的过程奖励来源，而不是唯一 reward source。
 
 推荐的总奖励形式为：
 
@@ -249,6 +249,37 @@ R = alpha * R_answer
 其中 `R_memory_utility` 不奖励“读了多少 memory”，而奖励 memory 是否带来了可验证收益：更高的 gold path recall、更少无效 hop、更少重复检索、更好的 stop decision。这样可以避免模型为了拿 memory reward 而反复检索无关历史轨迹。
 
 这个结合方向的关键风险是 memory leakage。训练集问题的 gold path 或答案如果直接进入 test-time memory，会虚高结果。因此实验必须区分三种设置：closed-book memory，即测试时只允许读训练阶段沉淀的通用策略经验；task-memory，即允许读同一任务族的历史失败/成功轨迹但不能包含测试答案；oracle-memory，即上界分析，允许读人工标注的相关经验但必须单独报告。
+
+## 近邻查重：KGR + RL + GRM + Memory
+
+截至 2026-08-31 的这轮检索，我没有看到一篇近两年顶会或预印本同时把 **KGR/KGQA agent + RL 训练 + 生成式/过程奖励模型 + 显式可复用 memory 模块** 都作为核心方法并完整消融的论文。已经非常接近的工作分成两条线：一条是 KG 上的 RL/reward/search，另一条是通用 agent memory 上的 RL 训练。你的 idea 的机会就在两条线的交叉处，但 novelty 必须落在“memory 如何被图验证、如何进入奖励、如何帮助小模型做低预算子图导航”上。
+
+### EoG 的定位
+
+EoG 主要是 agentic KG 推理方式和训练范式的创新。它当然借用了 LLM RL、GRPO、过程奖励/路径奖励这类来自更广泛 RL/LLM-agent 领域的方法，但不是简单搬运：它把创新点压到 KG 推理里的 path exploration 上，用 path-refined reward 去缓解固定规则或固定示范路径导致的泛化瓶颈。因此，复现 EoG 很值得，因为它会成为你最强的近邻 baseline；但如果只做“EoG + memory 名义模块”，新意会偏弱。
+
+更好的区别表述是：
+
+> EoG 关注如何奖励模型探索训练集中没有出现过、但仍有效的 KG reasoning paths；我们的方向关注小模型如何在 query-centered subgraph 中借助可验证的 episodic memory 复用历史探索经验，并用生成式奖励模型判断 memory 是否真的提高了动作有效性、证据覆盖和停止质量。
+
+| 近邻论文 | Zotero key | 出处/状态 | 已覆盖部分 | 相对本 idea 的缺口 |
+|---|---|---|---|---|
+| Explore-on-Graph / EoG | `@yanExploreongraphIncentivizingAutonomous2026a` | ICLR 2026 | KGR + GRPO/RL + path-refined reward | 没有把可复用 memory 作为核心模块；主要解决探索泛化，而不是小模型 memory-guided 子图动作选择。 |
+| Accurate and Interpretable KGQA via SCPRM | `@liuAccurateInterpretableKnowledge2026` | arXiv 2026 | KGQA + schema-aware cumulative process reward + MCTS-guided reasoning | 更像过程奖励和搜索框架；缺少显式长期 memory，也不是面向 0.6B 小模型的训练范式。 |
+| Search-on-Graph-R1 | `@chenSearchonGraphR1TrainingLLMs2026` | arXiv 2026 work in progress | graph search + SFT cold start + GRPO | 覆盖“图搜索过程可 RL 训练”，但不突出 KGQA memory 和生成式 reward 诊断。 |
+| RPO-RAG | `@liuRPORAGRewardGuidedPath2026` | arXiv 2026 | GraphRAG + reward-guided path optimization | reward 更偏轻量路径优化；没有显式 memory，也不是 KGQA 子图动作学习。 |
+| Backjump-on-Graph / BGoG | `@huangBackjumponGraphEffectiveEfficient2026` | ICML 2026 poster | agentic KG reasoning + reinforced retrospective exploration + backjump | 有“回看/回跳”的 memory-like 味道，但核心是 retrospective search 机制，不是长期 episodic memory + GRM。 |
+| REMem | `@luReasoningEpisodicMemory2026` | ICLR 2026 spotlight | RL 训练 episodic-memory retrieval policy | 很适合借鉴 memory-credit assignment，但不是 KG/KGR 任务。 |
+| Memory-T1 | `@liuMemoryT1ReinforcementLearning2026` | ICLR 2026 | RL + external memory + temporal reasoning | 强 memory/RL，但场景是 multi-session temporal agent，不是 KGQA。 |
+| MEM1 | `@xiaoMEM1LearningSynergize2026` | ICLR 2026 | RL 学习 memory 和 reasoning 协同 | 证明 memory+reasoning 可以端到端训练，但不含 KG hard verifier 或子图导航。 |
+| Memory-R1 | `@linMemoryR1EnhancingLarge2026` | ACL 2026 | RL 训练 agent 管理、更新和使用 memory | 可借鉴 memory operation 作为 action；缺少 KG 约束和路径级奖励。 |
+
+因此，这个方向可以成立，但论文主张要收窄。建议不要把 claim 写成“首次把 RL/GRM/memory 用于 KGR”，这个风险太高；更稳的 claim 是：
+
+1. 提出 **verified episodic memory**：memory 中的历史路径、失败扩展和 relation priors 必须在当前子图中重新验证，不能直接当上下文事实。
+2. 提出 **generative graph-grounded reward**：GRM 输出结构化诊断，如 `path_validity`、`evidence_coverage`、`memory_utility`、`stop_quality`，再由 hard verifier 封顶。
+3. 提出 **small-model subgraph action learning**：把 0.6B 模型限制在合法 action set 中，只学习 `expand/retrieve/reflect/stop`，而不是让它自由生成整条推理链。
+4. 提出 **渐进训练范式**：先用 ToG/RoG/EoG traces 做 BC/SFT，再用 GRM 做 pairwise trajectory reranking，最后才上 GRPO/PPO。
 
 ## 推荐切入点：Memory-guided Subgraph Action Selector
 
@@ -448,6 +479,14 @@ GraphRAG/文档图数据集可考虑 GRBench、GraphRAG-Bench、HotpotQA、2Wiki
 | `@luDeepDiveAdvancingDeep2025` | DeepDive | arXiv/CoRR 预印本 | [arXiv](https://arxiv.org/abs/2509.10446) | 未确认正式接收 |
 | `@songPlanThenRetrieve2026` | Plan Then Retrieve / Graph-RFT | WWW 2026 / Proceedings of the ACM Web Conference 2026 | [ACM DOI](https://doi.org/10.1145/3774904.3792191) | 正式会议论文 |
 | `@yanExploreongraphIncentivizingAutonomous2026a` | Explore-on-Graph / EoG | ICLR 2026 | [arXiv](https://arxiv.org/abs/2602.21728) | 正式会议论文 |
+| `@liuAccurateInterpretableKnowledge2026` | Schema-aware Cumulative Process Reward Model / SCPRM | arXiv/CoRR 预印本 | [arXiv](https://arxiv.org/abs/2605.02819) | 未确认正式接收 |
+| `@chenSearchonGraphR1TrainingLLMs2026` | Search-on-Graph-R1 | arXiv/CoRR 预印本 | [arXiv](https://arxiv.org/abs/2607.18481) | work in progress；未确认正式接收 |
+| `@liuRPORAGRewardGuidedPath2026` | RPO-RAG | arXiv/CoRR 预印本 | [arXiv](https://arxiv.org/abs/2601.19225) | 未确认正式接收 |
+| `@huangBackjumponGraphEffectiveEfficient2026` | Backjump-on-Graph / BGoG | ICML 2026 poster | [ICML virtual poster](https://icml.cc/virtual/2026/poster/61995) | 正式会议展示；需后续复核 proceedings 版本 |
+| `@luReasoningEpisodicMemory2026` | REMem / Reasoning with Episodic Memory | ICLR 2026 spotlight | [arXiv](https://arxiv.org/abs/2602.13530) | 正式会议论文 |
+| `@liuMemoryT1ReinforcementLearning2026` | Memory-T1 | ICLR 2026 | [arXiv](https://arxiv.org/abs/2512.20092) | 正式会议论文 |
+| `@xiaoMEM1LearningSynergize2026` | MEM1 | ICLR 2026 | [arXiv](https://arxiv.org/abs/2506.15841) | 正式会议论文 |
+| `@linMemoryR1EnhancingLarge2026` | Memory-R1 | ACL 2026 Long Papers | [ACL Anthology](https://aclanthology.org/2026.acl-long.583/) | 正式会议论文；Zotero 作者元数据需手动复核 |
 
 ## 核心参考文献
 
@@ -478,3 +517,11 @@ GraphRAG/文档图数据集可考虑 GRBench、GraphRAG-Bench、HotpotQA、2Wiki
 - Lu et al. 2025. DeepDive: Advancing Deep Search Agents with Knowledge Graphs and Multi-Turn RL. arXiv:2509.10446. Zotero: `@luDeepDiveAdvancingDeep2025`. https://arxiv.org/abs/2509.10446
 - Song et al. 2026. Plan Then Retrieve: Reinforcement Learning-Guided Complex Reasoning over Knowledge Graphs. WWW 2026. Zotero: `@songPlanThenRetrieve2026`. https://doi.org/10.1145/3774904.3792191
 - Yan et al. 2026. Explore-on-Graph: Incentivizing Autonomous Exploration of Large Language Models on Knowledge Graphs with Path-refined Reward Modeling. ICLR 2026. Zotero: `@yanExploreongraphIncentivizingAutonomous2026a`. https://arxiv.org/abs/2602.21728
+- Liu et al. 2026. Accurate and Interpretable Knowledge Graph Question Answering via Schema-aware Cumulative Process Reward Model. arXiv:2605.02819. Zotero: `@liuAccurateInterpretableKnowledge2026`. https://arxiv.org/abs/2605.02819
+- Chen et al. 2026. Search-on-Graph-R1: Training LLMs to Reason via Search Processes on Graphs. arXiv:2607.18481. Zotero: `@chenSearchonGraphR1TrainingLLMs2026`. https://arxiv.org/abs/2607.18481
+- Liu et al. 2026. RPO-RAG: Reward-Guided Path Optimization in LLM-Enhanced Graph-based Retrieval-Augmented Generation. arXiv:2601.19225. Zotero: `@liuRPORAGRewardGuidedPath2026`. https://arxiv.org/abs/2601.19225
+- Huang et al. 2026. Backjump-on-Graph: Towards Effective and Efficient Agentic KG Reasoning with Reinforced Retrospective Exploration. ICML 2026 poster. Zotero: `@huangBackjumponGraphEffectiveEfficient2026`. https://icml.cc/virtual/2026/poster/61995
+- Lu et al. 2026. Reasoning with Episodic Memory in LLM Agents through Reinforcement Learning. ICLR 2026 spotlight. Zotero: `@luReasoningEpisodicMemory2026`. https://arxiv.org/abs/2602.13530
+- Liu et al. 2026. Memory-T1: Reinforcement Learning for Temporal Reasoning in Multi-Session Agents. ICLR 2026. Zotero: `@liuMemoryT1ReinforcementLearning2026`. https://arxiv.org/abs/2512.20092
+- Xiao et al. 2026. MEM1: Learning to Synergize Memory and Reasoning for Efficient Long-Horizon Agents. ICLR 2026. Zotero: `@xiaoMEM1LearningSynergize2026`. https://arxiv.org/abs/2506.15841
+- Yan et al. 2026. Memory-R1: Enhancing Large Language Model Agents to Manage and Utilize Memories via Reinforcement Learning. ACL 2026. Zotero: `@linMemoryR1EnhancingLarge2026`. https://aclanthology.org/2026.acl-long.583/

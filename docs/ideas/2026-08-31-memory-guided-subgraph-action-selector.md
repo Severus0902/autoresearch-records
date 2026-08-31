@@ -10,7 +10,14 @@ zotero: [
   "@gutierrezHippoRAGNeurobiologicallyInspired2025",
   "@songPlanThenRetrieve2026",
   "@yanExploreongraphIncentivizingAutonomous2026a",
-  "@luoGraphR1TowardsAgentic2025"
+  "@luoGraphR1TowardsAgentic2025",
+  "@liuAccurateInterpretableKnowledge2026",
+  "@chenSearchonGraphR1TrainingLLMs2026",
+  "@huangBackjumponGraphEffectiveEfficient2026",
+  "@luReasoningEpisodicMemory2026",
+  "@linMemoryR1EnhancingLarge2026",
+  "@liuMemoryT1ReinforcementLearning2026",
+  "@xiaoMEM1LearningSynergize2026"
 ]
 tags: ["agentic-kgr", "memory", "grm", "small-model", "0.6b", "rl"]
 ---
@@ -146,6 +153,27 @@ Metrics:
 | `steps_to_answer` | Efficiency of the learned policy. |
 | `memory_utility_delta` | Improvement from retrieved memory hints versus no-memory setting. |
 
+## Position Against EoG And Near Neighbors
+
+EoG is the most important reproduction target because its motivation is closest: fixed rules and fixed demonstration paths limit out-of-distribution KG exploration, so the model needs reward-guided autonomous exploration. The proposed idea should not compete by saying only "we add RL to KGQA." That claim is already covered by Graph-RFT, Graph-R1, and EoG-like work.
+
+The narrower contribution is:
+
+1. Use verified episodic memory as a reusable exploration prior, not as untrusted extra context.
+2. Train a small action selector over a query-centered subgraph, instead of asking a 0.6B model to freely generate full reasoning chains.
+3. Use a generative reward model to produce structured trajectory diagnostics, including `memory_utility`, then gate the score with hard graph verification.
+4. Evaluate whether memory improves low-budget graph navigation: fewer invalid expansions, higher gold-path edge recall, better stop decisions, and higher answer hit within the same step budget.
+
+Closest-neighbor check as of 2026-08-31:
+
+| Neighbor | What It Covers | Gap For This Idea |
+|---|---|---|
+| EoG | KGR + RL + path-refined reward | No explicit reusable memory module. |
+| SCPRM | KGQA + cumulative process reward + MCTS | No long-term memory or small-model action-selector focus. |
+| Search-on-Graph-R1 | graph search + cold-start SFT + GRPO | Not centered on KGQA memory or generative reward diagnostics. |
+| Backjump-on-Graph | reinforced retrospective KG exploration | Retrospection is search control, not verified episodic memory. |
+| REMem, Memory-T1, MEM1, Memory-R1 | RL-trained agent memory | Not KG-grounded and no hard verifier over graph paths. |
+
 ## First Week Plan
 
 1. Build a tiny KGQA environment with `expand`, `verify_path`, `stop`, and action logging.
@@ -158,4 +186,3 @@ Metrics:
 ## Decision
 
 This is the recommended first idea because it is small, measurable, and expandable. It can produce an early result even before full RL: if memory + GRM reranking improves action validity, path recall, and answer hit within budget for a 0.6B model, the direction is worth scaling to GRPO/PPO and harder datasets.
-

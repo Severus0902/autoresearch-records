@@ -1,5 +1,259 @@
 [
   {
+    "key": "A66C2ELP",
+    "citationKey": "liuRPORAGRewardGuidedPath2026",
+    "itemType": "journalArticle",
+    "title": "RPO-RAG: Reward-guided path optimization in LLM-enhanced graph-based retrieval-augmented generation",
+    "date": "2026-01-27",
+    "year": "2026-01-27",
+    "authors": [
+      "Chang Liu",
+      "Shanshan Feng",
+      "Yi Zhang",
+      "Quan Z. Sheng",
+      "Yuhui Shi"
+    ],
+    "DOI": "10.48550/arXiv.2601.19225",
+    "url": "https://arxiv.org/abs/2601.19225",
+    "collections": [
+      "PTBVBRXD"
+    ],
+    "tags": [
+      "/unread",
+      "GraphRAG",
+      "arXiv",
+      "reinforcement learning",
+      "path optimization",
+      "reward-guided retrieval"
+    ],
+    "dateModified": "2026-08-31T07:44:24Z"
+  },
+  {
+    "key": "8FVPJ83S",
+    "citationKey": "huangBackjumponGraphEffectiveEfficient2026",
+    "itemType": "conferencePaper",
+    "title": "Backjump-on-graph: Towards effective and efficient agentic KG reasoning with reinforced retrospective exploration",
+    "date": "2026",
+    "year": "2026",
+    "authors": [
+      "Jin Huang",
+      "Linhao Luo",
+      "Zhaochen Luo",
+      "Chenwang Wu"
+    ],
+    "DOI": "",
+    "url": "https://icml.cc/virtual/2026/poster/61995",
+    "collections": [
+      "PTBVBRXD"
+    ],
+    "tags": [
+      "/unread",
+      "agentic-kgr",
+      "reinforcement learning",
+      "backjump",
+      "ICML 2026",
+      "retrospective exploration"
+    ],
+    "dateModified": "2026-08-31T07:44:24Z"
+  },
+  {
+    "key": "24DRWAEY",
+    "citationKey": "xiaoMEM1LearningSynergize2026",
+    "itemType": "conferencePaper",
+    "title": "MEM1: Learning to synergize memory and reasoning for efficient long-horizon agents",
+    "date": "2026",
+    "year": "2026",
+    "authors": [
+      "Chaojun Xiao",
+      "Zheng Li",
+      "Guoshun Nan",
+      "Pengfei Liu",
+      "Yilun Zhao",
+      "Kai Zhang",
+      "Lei Wang"
+    ],
+    "DOI": "10.48550/arXiv.2506.15841",
+    "url": "https://arxiv.org/abs/2506.15841",
+    "collections": [
+      "PTBVBRXD"
+    ],
+    "tags": [
+      "/unread",
+      "ICLR 2026",
+      "long-horizon agents",
+      "MEM1",
+      "memory",
+      "reinforcement learning"
+    ],
+    "dateModified": "2026-08-31T07:44:23Z"
+  },
+  {
+    "key": "AVT9DYAE",
+    "citationKey": "linMemoryR1EnhancingLarge2026",
+    "itemType": "conferencePaper",
+    "title": "Memory-R1: Enhancing large language model agents to manage and utilize memories via reinforcement learning",
+    "date": "2026",
+    "year": "2026",
+    "authors": [
+      "Brian Y. Lin"
+    ],
+    "DOI": "",
+    "url": "https://aclanthology.org/2026.acl-long.583/",
+    "collections": [
+      "PTBVBRXD"
+    ],
+    "tags": [
+      "/unread",
+      "ACL 2026",
+      "agent memory",
+      "memory",
+      "Memory-R1",
+      "reinforcement learning"
+    ],
+    "dateModified": "2026-08-31T07:44:23Z"
+  },
+  {
+    "key": "RHNMEGGA",
+    "citationKey": "chenSearchonGraphR1TrainingLLMs2026",
+    "itemType": "journalArticle",
+    "title": "Search-on-graph-R1: Training LLMs to reason via search processes on graphs",
+    "date": "2026-07-24",
+    "year": "2026-07-24",
+    "authors": [
+      "Zhicheng Chen",
+      "Xinwei Long",
+      "Zijian Xie",
+      "Ziqi Luo",
+      "Yuxin Zhao",
+      "Xuanyu Lei",
+      "Ziqi Yan",
+      "Chen Qian",
+      "Jiale Cheng",
+      "Jiawei Sheng",
+      "Yi Zhang",
+      "Runchu Tian",
+      "Shaoting Zhang",
+      "Zemin Liu",
+      "Chong Chen",
+      "Wenhai Wang",
+      "Hongtai Chen"
+    ],
+    "DOI": "10.48550/arXiv.2607.18481",
+    "url": "https://arxiv.org/abs/2607.18481",
+    "collections": [
+      "PTBVBRXD"
+    ],
+    "tags": [
+      "/unread",
+      "agentic-kgr",
+      "arXiv",
+      "graph search",
+      "GRPO",
+      "reinforcement learning"
+    ],
+    "dateModified": "2026-08-31T07:44:23Z"
+  },
+  {
+    "key": "HUZR78JS",
+    "citationKey": "liuMemoryT1ReinforcementLearning2026",
+    "itemType": "conferencePaper",
+    "title": "Memory-T1: Reinforcement learning for temporal reasoning in multi-session agents",
+    "date": "2026",
+    "year": "2026",
+    "authors": [
+      "Daijie Liu",
+      "Hailong Li",
+      "Yi Shi",
+      "Zhaoxuan Wu",
+      "Hengran Zhang",
+      "Huanran Zheng",
+      "Min Zhang",
+      "Xu Huang",
+      "Jinrun Wang",
+      "Zhuoren Jiang",
+      "Jianshu Chen",
+      "Yujiu Yang"
+    ],
+    "DOI": "10.48550/arXiv.2512.20092",
+    "url": "https://arxiv.org/abs/2512.20092",
+    "collections": [
+      "PTBVBRXD"
+    ],
+    "tags": [
+      "/unread",
+      "ICLR 2026",
+      "memory",
+      "multi-session agents",
+      "reinforcement learning",
+      "temporal reasoning"
+    ],
+    "dateModified": "2026-08-31T07:44:22Z"
+  },
+  {
+    "key": "U5M9NMUR",
+    "citationKey": "liuAccurateInterpretableKnowledge2026",
+    "itemType": "journalArticle",
+    "title": "Accurate and interpretable knowledge graph question answering via schema-aware cumulative process reward model",
+    "date": "2026-05-05",
+    "year": "2026-05-05",
+    "authors": [
+      "Jinghui Liu",
+      "Jing Qi",
+      "Lingling Zhang",
+      "Jianxin Li",
+      "Bo Tang",
+      "Xiangyu Zhao",
+      "Senzhang Wang"
+    ],
+    "DOI": "10.48550/arXiv.2605.02819",
+    "url": "https://arxiv.org/abs/2605.02819",
+    "collections": [
+      "PTBVBRXD"
+    ],
+    "tags": [
+      "/unread",
+      "agentic-kgr",
+      "arXiv",
+      "KGQA",
+      "MCTS",
+      "process reward model",
+      "reward model"
+    ],
+    "dateModified": "2026-08-31T07:44:21Z"
+  },
+  {
+    "key": "HJCQH8CL",
+    "citationKey": "luReasoningEpisodicMemory2026",
+    "itemType": "conferencePaper",
+    "title": "Reasoning with episodic memory in LLM agents through reinforcement learning",
+    "date": "2026",
+    "year": "2026",
+    "authors": [
+      "Kevin Lu",
+      "Carmel Glasgow",
+      "Nicholas Hartland",
+      "Lucas Tremblett",
+      "Hesham Mostafa",
+      "Lei J. Ba",
+      "Jakob Foerster",
+      "Xue Bin Peng"
+    ],
+    "DOI": "10.48550/arXiv.2602.13530",
+    "url": "https://arxiv.org/abs/2602.13530",
+    "collections": [
+      "PTBVBRXD"
+    ],
+    "tags": [
+      "/unread",
+      "agent memory",
+      "ICLR 2026",
+      "memory",
+      "reinforcement learning",
+      "REMem"
+    ],
+    "dateModified": "2026-08-31T07:44:21Z"
+  },
+  {
     "key": "MWSV2HSP",
     "citationKey": "xiangWhenUseGraphs2026",
     "itemType": "conferencePaper",
