@@ -1,5 +1,49 @@
 # Zotero Library
 
+- `@manCoevolvingGraphText2026` Co-evolving graph and text memory for training-free multi-hop question answering (2026-07-25)
+  Authors: Hieu Man, Thien Huu Nguyen
+  DOI: 10.48550/arXiv.2607.23278
+  URL: https://arxiv.org/abs/2607.23278
+- `@liCoEvoKGCoevolvingKnowledge2026` CoEvoKG: Co-evolving knowledge graphs with self-evolving search agents (2026-08-03)
+  Authors: Zhaoyang Li, Zenghuang Fu, Qiuyuan Ai
+  DOI: 10.48550/arXiv.2608.01904
+  URL: https://arxiv.org/abs/2608.01904
+- `@wuKnowledgegraphPathsIntermediate2026` Knowledge-graph paths as intermediate supervision for self-evolving search agents (2026-05-07)
+  Authors: Huyu Wu, Jun Liu, Xiaochi Wei
+  DOI: 10.48550/arXiv.2605.05702
+  URL: https://arxiv.org/abs/2605.05702
+- `@tsangAutoGraphR1EndtoEndReinforcement2026` AutoGraph-R1: End-to-end reinforcement learning for knowledge graph construction (2026-07)
+  Authors: Hong Ting Tsang, Jiaxin Bai, Haoyu Huang
+  DOI: 10.18653/v1/2026.acl-long.1070
+  URL: https://aclanthology.org/2026.acl-long.1070/
+- `@sunPeakThenCollapseFourInterface2026` Peak-then-collapse and the four interface channels of knowledge-graph tool use (2026-05-25)
+  Authors: Tianda Sun, Dimitar Kazakov
+  DOI: 10.48550/arXiv.2605.26037
+  URL: https://arxiv.org/abs/2605.26037
+- `@tangUniRelRelationCentricKnowledge2025` UniRel: Relation-centric knowledge graph question answering with RL-tuned LLM reasoning (2025-12-18)
+  Authors: Yinxu Tang, Chengsong Huang, Jiaxin Huang
+  DOI: 10.48550/arXiv.2512.17043
+  URL: https://arxiv.org/abs/2512.17043
+- `@guoG1TeachingLLMs2025` G1: Teaching LLMs to reason on graphs with reinforcement learning (2025-05-24)
+  Authors: Xiaojun Guo, Ang Li, Yifei Wang
+  DOI: 10.48550/arXiv.2505.18499
+  URL: https://arxiv.org/abs/2505.18499
+- `@parkSPARKSelfPlayAsymmetric2026` SPARK: Self-Play with Asymmetric Reward from Knowledge Graphs (2026-05-07)
+  Authors: Hyobin Park, Taeseop Kim, Dong-Geol Choi
+  DOI: 10.48550/arXiv.2605.05546
+  URL: https://arxiv.org/abs/2605.05546
+- `@yuanKnowledgetoverificationExploringRLVR2026` Knowledge-to-verification: Exploring RLVR for LLMs in knowledge-intensive domains (2026-07)
+  Authors: Zhonghang Yuan, Zhefan Wang, Fang Hu
+  DOI: 10.18653/v1/2026.acl-long.1891
+  URL: https://aclanthology.org/2026.acl-long.1891/
+- `@yuGraphRAGR1GraphRetrievalaugmented2026` GraphRAG-R1: Graph retrieval-augmented generation with process-constrained reinforcement learning (2026-04-12)
+  Authors: Chuanyue Yu, Kuo Zhao, Yuhan Li
+  DOI: 10.1145/3774904.3792589
+  URL: https://doi.org/10.1145/3774904.3792589
+- `@kansalKnowledgeGraphsAre2026` Knowledge graphs are implicit reward models: Path-derived signals enable compositional reasoning (2026-01-21)
+  Authors: Yuval Kansal, Niraj K. Jha
+  DOI: 10.48550/arXiv.2601.15160
+  URL: https://arxiv.org/abs/2601.15160
 - `@liuRPORAGRewardGuidedPath2026` RPO-RAG: Reward-guided path optimization in LLM-enhanced graph-based retrieval-augmented generation (2026-01-27)
   Authors: Chang Liu, Shanshan Feng, Yi Zhang
   DOI: 10.48550/arXiv.2601.19225

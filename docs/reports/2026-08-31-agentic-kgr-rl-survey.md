@@ -252,7 +252,31 @@ R = alpha * R_answer
 
 ## 近邻查重：KGR + RL + GRM + Memory
 
-截至 2026-08-31 的这轮检索，我没有看到一篇近两年顶会或预印本同时把 **KGR/KGQA agent + RL 训练 + 生成式/过程奖励模型 + 显式可复用 memory 模块** 都作为核心方法并完整消融的论文。已经非常接近的工作分成两条线：一条是 KG 上的 RL/reward/search，另一条是通用 agent memory 上的 RL 训练。你的 idea 的机会就在两条线的交叉处，但 novelty 必须落在“memory 如何被图验证、如何进入奖励、如何帮助小模型做低预算子图导航”上。
+截至 2026-08-31 的这轮检索，**RLVR + KGR/GraphRAG 已经有相关工作贴出**，因此不能再把“KG 上可验证奖励”本身作为主要新意。更准确的判断是：已有工作已经覆盖了 KG verifier、路径级 reward、process-constrained reward、KG-derived synthetic tasks 和 RL/GRPO 训练；但我还没有看到一篇工作同时把 **KGQA agent + RLVR + 显式跨 query episodic memory + memory-aware generative reward model** 作为核心方法并完整消融。你的 idea 的机会仍在，但 novelty 必须落在“memory 如何被图验证、如何进入奖励、如何帮助低预算子图导航”上。
+
+### RLVR + KGR/GraphRAG 已贴出的相关工作
+
+如果把 RLVR 定义为 reinforcement learning with verifiable rewards，即 reward 主要来自可程序化验证的答案、动作、路径、检索或执行结果，那么这个方向已经不空白。K2V 直接把 RLVR 扩展到 knowledge-intensive domains，用自动可验证数据合成和 reasoning-process verification 缓解知识密集任务缺少可验证 reward 的问题。Search-on-Graph-R1 把 KG 搜索训练成 RL 过程，利用 KG 的显式逻辑结构和可验证性来奖励 answer correctness 和 action effectiveness。GraphRAG-R1 用 process-constrained outcome-based RL 训练 GraphRAG，在 retrieval 过程和回答质量之间加入可计算 reward。Peak-Then-Collapse 则是很重要的负面近邻：它在 Complex WebQuestions 上测试标准 GRPO/RLVR + 最小 KG tool API，指出性能可能出现先升后塌陷，说明单纯 RLVR 不一定稳定。
+
+还有一组工作把 KG 本身作为 reward 或任务生成器。Knowledge Graphs are Implicit Reward Models 直接把 KG path-derived signals 作为隐式奖励来源；SPARK 用 KG paths 生成自博弈问题并计算 asymmetric/verifiable reward；Knowledge-Graph Paths as Intermediate Supervision 把 KG paths 用作 self-evolving search agents 的中间监督和 reward shaping；CoEvoKG 更进一步，把 KG 同时作为可验证训练任务来源和 persistent evidence memory。UniRel 也把 relation-centric KGQA 和 RL-tuned reasoning 结合起来，偏向奖励 compact/informative subgraph。G1 和 AutoGraph-R1 是边界近邻：前者是一般图推理上的 RLVR，不是知识图谱问答；后者是知识图谱构建的 end-to-end RL，不是 KGR/KGQA。
+
+| 工作 | Zotero key | RLVR/KGR 相关性 | 对本方向的压力 | 可保留的 gap |
+|---|---|---|---|---|
+| K2V | `@yuanKnowledgetoverificationExploringRLVR2026` | 明确 RLVR + knowledge-intensive reasoning | “知识密集任务可做 RLVR”已被覆盖 | 它不聚焦 KGQA 的跨 query search memory，也不是 memory-aware reward。 |
+| Search-on-Graph-R1 | `@chenSearchonGraphR1TrainingLLMs2026` | KG search + RL/GRPO + 可验证 KG reward | “KG 搜索可以 RLVR”已很接近 | 缺少显式 verified episodic memory 和 memory utility reward。 |
+| GraphRAG-R1 | `@yuGraphRAGR1GraphRetrievalaugmented2026` | GraphRAG + process-constrained RL | “Graph retrieval 可用过程约束 RL”已被覆盖 | 目标是 GraphRAG 检索，不是 KGQA 中历史图探索经验复用。 |
+| Peak-Then-Collapse | `@sunPeakThenCollapseFourInterface2026` | CWQ + KG tool API + GRPO/RLVR 失稳分析 | 说明 naive RLVR 很可能不稳 | 可以用它支撑为什么需要 memory-aware dense reward 和稳定性诊断。 |
+| Knowledge Graphs are Implicit Reward Models | `@kansalKnowledgeGraphsAre2026` | KG path-derived signals 作为 reward | “KG 可作为 reward model”已被明确提出 | 它不是 agentic KGQA memory，也没有生成式 memory utility 诊断。 |
+| SPARK | `@parkSPARKSelfPlayAsymmetric2026` | KG paths + self-play + verifiable reward | KG-derived tasks/rewards 已被探索 | 关注自博弈数据构造，不解决 KGQA agent 的 memory-guided navigation。 |
+| KG Paths as Intermediate Supervision | `@wuKnowledgegraphPathsIntermediate2026` | KG paths 用于中间监督和 reward shaping | path supervision/reward shaping 已很近 | 没有把 memory 作为跨 query 可验证策略先验。 |
+| CoEvoKG | `@liCoEvoKGCoevolvingKnowledge2026` | KG + verifiable tasks + persistent evidence memory | 对 memory gap 压力最大 | 它偏 self-evolving search agents，不是 CWQ/WebQSP KGQA 内的 memory-aware GRM。 |
+| UniRel | `@tangUniRelRelationCentricKnowledge2025` | relation-centric KGQA + RL-tuned reasoning | relation/subgraph reward 已被探索 | 仍缺跨 query memory 和生成式过程奖励。 |
+
+这意味着论文定位要从“提出 RLVR+KGR”改为：
+
+> 我们不是首次把 RLVR 用到 KG 或 GraphRAG，而是研究在 KGQA 场景中，跨 query 的可验证 episodic memory 如何与 RLVR 结合，以及 memory-aware generative reward 是否能缓解 sparse/verifiable reward 在图搜索中的不稳定和短视问题。
+
+在 CWQ 和 WebQSP 上，memory 的必要性也不能写成“路径很长”。这两个数据集通常只需要 2-4 hop，单纯以 hop 长度为动机会弱。更好的动机是：即使路径不长，图上的 branching factor、entity/relation linking 噪声、spurious path、过早 stop、以及有限 step/tool budget 仍会导致 agent 在相似问题上重复犯相似错误。因此 memory 的作用不是补长上下文，而是复用经过验证的搜索经验；reward 的作用不是替代 verifier，而是在 RLVR 的 hard reward 之外提供 memory utility、step utility 和 stop quality 等 dense process signal。
 
 ### EoG 的定位
 
@@ -487,6 +511,17 @@ GraphRAG/文档图数据集可考虑 GRBench、GraphRAG-Bench、HotpotQA、2Wiki
 | `@liuMemoryT1ReinforcementLearning2026` | Memory-T1 | ICLR 2026 | [arXiv](https://arxiv.org/abs/2512.20092) | 正式会议论文 |
 | `@xiaoMEM1LearningSynergize2026` | MEM1 | ICLR 2026 | [arXiv](https://arxiv.org/abs/2506.15841) | 正式会议论文 |
 | `@linMemoryR1EnhancingLarge2026` | Memory-R1 | ACL 2026 Long Papers | [ACL Anthology](https://aclanthology.org/2026.acl-long.583/) | 正式会议论文；Zotero 作者元数据需手动复核 |
+| `@yuanKnowledgetoverificationExploringRLVR2026` | K2V / Knowledge-to-Verification | ACL 2026 Long Papers | [ACL Anthology](https://aclanthology.org/2026.acl-long.1891/) | 正式会议论文 |
+| `@yuGraphRAGR1GraphRetrievalaugmented2026` | GraphRAG-R1 | WWW 2026 / Proceedings of the ACM Web Conference 2026 | [ACM DOI](https://doi.org/10.1145/3774904.3792589) | 正式会议论文 |
+| `@sunPeakThenCollapseFourInterface2026` | Peak-Then-Collapse | arXiv/CoRR 预印本 | [arXiv](https://arxiv.org/abs/2605.26037) | 未确认正式接收 |
+| `@kansalKnowledgeGraphsAre2026` | Knowledge Graphs are Implicit Reward Models | arXiv/CoRR 预印本 | [arXiv](https://arxiv.org/abs/2601.15160) | 未确认正式接收 |
+| `@parkSPARKSelfPlayAsymmetric2026` | SPARK | arXiv/CoRR 预印本 | [arXiv](https://arxiv.org/abs/2605.05546) | 未确认正式接收 |
+| `@wuKnowledgegraphPathsIntermediate2026` | KG Paths as Intermediate Supervision | arXiv/CoRR 预印本 | [arXiv](https://arxiv.org/abs/2605.05702) | 未确认正式接收 |
+| `@liCoEvoKGCoevolvingKnowledge2026` | CoEvoKG | arXiv/CoRR 预印本 | [arXiv](https://arxiv.org/abs/2608.01904) | 未确认正式接收 |
+| `@tangUniRelRelationCentricKnowledge2025` | UniRel | arXiv/CoRR 预印本 | [arXiv](https://arxiv.org/abs/2512.17043) | 未确认正式接收 |
+| `@guoG1TeachingLLMs2025` | G1 | arXiv/CoRR 预印本 | [arXiv](https://arxiv.org/abs/2505.18499) | 边界近邻：一般图推理，不是 KGQA |
+| `@tsangAutoGraphR1EndtoEndReinforcement2026` | AutoGraph-R1 | ACL 2026 Long Papers | [ACL Anthology](https://aclanthology.org/2026.acl-long.1070/) | 边界近邻：KG construction，不是 KGR |
+| `@manCoevolvingGraphText2026` | Co-Evolving Graph and Text Memory | arXiv/CoRR 预印本 | [arXiv](https://arxiv.org/abs/2607.23278) | 边界近邻：training-free multi-hop QA memory |
 
 ## 核心参考文献
 
@@ -525,3 +560,14 @@ GraphRAG/文档图数据集可考虑 GRBench、GraphRAG-Bench、HotpotQA、2Wiki
 - Liu et al. 2026. Memory-T1: Reinforcement Learning for Temporal Reasoning in Multi-Session Agents. ICLR 2026. Zotero: `@liuMemoryT1ReinforcementLearning2026`. https://arxiv.org/abs/2512.20092
 - Xiao et al. 2026. MEM1: Learning to Synergize Memory and Reasoning for Efficient Long-Horizon Agents. ICLR 2026. Zotero: `@xiaoMEM1LearningSynergize2026`. https://arxiv.org/abs/2506.15841
 - Yan et al. 2026. Memory-R1: Enhancing Large Language Model Agents to Manage and Utilize Memories via Reinforcement Learning. ACL 2026. Zotero: `@linMemoryR1EnhancingLarge2026`. https://aclanthology.org/2026.acl-long.583/
+- Yuan et al. 2026. Knowledge-to-Verification: Exploring RLVR for LLMs in Knowledge-Intensive Domains. ACL 2026. Zotero: `@yuanKnowledgetoverificationExploringRLVR2026`. https://aclanthology.org/2026.acl-long.1891/
+- Yu et al. 2026. GraphRAG-R1: Graph Retrieval-Augmented Generation with Process-Constrained Reinforcement Learning. WWW 2026. Zotero: `@yuGraphRAGR1GraphRetrievalaugmented2026`. https://doi.org/10.1145/3774904.3792589
+- Sun and Kazakov. 2026. Peak-Then-Collapse and the Four Interface Channels of Knowledge-Graph Tool Use. arXiv:2605.26037. Zotero: `@sunPeakThenCollapseFourInterface2026`. https://arxiv.org/abs/2605.26037
+- Kansal and Jha. 2026. Knowledge Graphs are Implicit Reward Models: Path-Derived Signals Enable Compositional Reasoning. arXiv:2601.15160. Zotero: `@kansalKnowledgeGraphsAre2026`. https://arxiv.org/abs/2601.15160
+- Park et al. 2026. SPARK: Self-Play with Asymmetric Reward from Knowledge Graphs. arXiv:2605.05546. Zotero: `@parkSPARKSelfPlayAsymmetric2026`. https://arxiv.org/abs/2605.05546
+- Wu et al. 2026. Knowledge-Graph Paths as Intermediate Supervision for Self-Evolving Search Agents. arXiv:2605.05702. Zotero: `@wuKnowledgegraphPathsIntermediate2026`. https://arxiv.org/abs/2605.05702
+- Li et al. 2026. CoEvoKG: Co-Evolving Knowledge Graphs with Self-Evolving Search Agents. arXiv:2608.01904. Zotero: `@liCoEvoKGCoevolvingKnowledge2026`. https://arxiv.org/abs/2608.01904
+- Tang et al. 2025. UniRel: Relation-Centric Knowledge Graph Question Answering with RL-Tuned LLM Reasoning. arXiv:2512.17043. Zotero: `@tangUniRelRelationCentricKnowledge2025`. https://arxiv.org/abs/2512.17043
+- Guo et al. 2025. G1: Teaching LLMs to Reason on Graphs with Reinforcement Learning. arXiv:2505.18499. Zotero: `@guoG1TeachingLLMs2025`. https://arxiv.org/abs/2505.18499
+- Tsang et al. 2026. AutoGraph-R1: End-to-End Reinforcement Learning for Knowledge Graph Construction. ACL 2026. Zotero: `@tsangAutoGraphR1EndtoEndReinforcement2026`. https://aclanthology.org/2026.acl-long.1070/
+- Man and Nguyen. 2026. Co-Evolving Graph and Text Memory for Training-Free Multi-Hop Question Answering. arXiv:2607.23278. Zotero: `@manCoevolvingGraphText2026`. https://arxiv.org/abs/2607.23278

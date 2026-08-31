@@ -17,7 +17,18 @@ zotero: [
   "@luReasoningEpisodicMemory2026",
   "@linMemoryR1EnhancingLarge2026",
   "@liuMemoryT1ReinforcementLearning2026",
-  "@xiaoMEM1LearningSynergize2026"
+  "@xiaoMEM1LearningSynergize2026",
+  "@yuanKnowledgetoverificationExploringRLVR2026",
+  "@yuGraphRAGR1GraphRetrievalaugmented2026",
+  "@sunPeakThenCollapseFourInterface2026",
+  "@kansalKnowledgeGraphsAre2026",
+  "@parkSPARKSelfPlayAsymmetric2026",
+  "@wuKnowledgegraphPathsIntermediate2026",
+  "@liCoEvoKGCoevolvingKnowledge2026",
+  "@tangUniRelRelationCentricKnowledge2025",
+  "@guoG1TeachingLLMs2025",
+  "@tsangAutoGraphR1EndtoEndReinforcement2026",
+  "@manCoevolvingGraphText2026"
 ]
 tags: ["agentic-kgr", "memory", "grm", "small-model", "0.6b", "rl"]
 ---
@@ -26,13 +37,13 @@ tags: ["agentic-kgr", "memory", "grm", "small-model", "0.6b", "rl"]
 
 ## 一句话论点
 
-在低预算 KGQA 场景中，我们验证 0.6B 小模型能否借助 query-centered subgraph、可验证的 episodic memory 和生成式过程奖励，学习比规则搜索更有效的图上动作选择策略。
+在 KGQA 场景中，我们验证 agent 能否借助 query-centered subgraph、可验证的 episodic memory 和 memory-aware generative reward，在 RLVR 框架下学习比独立 query 搜索更稳定、更低成本的图上动作选择策略。0.6B 模型只作为快速 pilot；正式实验应扩展到 Qwen2.5-7B 和 Llama3-8B。
 
 ## 核心想法
 
-第一阶段不要把 0.6B 模型训练成完全开放式的 KGQA agent。更稳的做法是把它训练成一个受约束的动作选择器：KG、文档证据和 episodic memory 都放在模型外部，模型每一步只根据局部状态，从一组合法动作中选择下一步。
+第一阶段不要把模型训练成完全开放式的 KGQA agent。更稳的做法是把它训练成一个受约束的动作选择器：KG、文档证据和 episodic memory 都放在模型外部，模型每一步只根据局部状态，从一组合法动作中选择下一步。
 
-这让模型不需要记住整张 KG，也不需要自由生成长推理链。它只需要学会一个更窄的问题：在当前问题、局部子图、候选关系和 memory hints 给定时，下一步应该扩展哪条边、检索哪类证据、反思当前路径，还是停止回答。
+这让模型不需要记住整张 KG，也不需要自由生成长推理链。它只需要学会一个更窄的问题：在当前问题、局部子图、候选关系和 memory hints 给定时，下一步应该扩展哪条边、检索哪类证据、反思当前路径，还是停止回答。0.6B 版本用于快速检验 action space、memory 召回和 reward 设计是否有信号；7B/8B 版本用于正式比较和消融。
 
 ## 为什么适合作为第一阶段
 
@@ -112,6 +123,8 @@ Memory record：
 
 GRM 建议定义为 Generative Reward Model for graph-grounded trajectories。它的职责是生成结构化过程诊断，并把这些诊断转成 soft process reward；它不能替代 hard graph verifier。
 
+因此，本方法更准确的训练定位是 KG-grounded RLVR + memory-aware GRM。RLVR 部分由确定性 verifier 提供可靠奖励，例如 action legality、path validity、answer correctness 和 output format validity；GRM 部分只负责 RLVR 难以覆盖的软过程信号，例如 memory 是否真的减少无效搜索、当前步骤是否带来新证据、是否应该继续扩展或停止。
+
 推荐总 reward：
 
 ```text
@@ -150,7 +163,8 @@ GRM 输出可以先做成结构化 JSON：
 
 模型：
 
-- 从 Qwen3-0.6B 或其他 0.5B-0.6B instruct/base 模型开始。
+- 从 Qwen3-0.6B 或其他 0.5B-0.6B instruct/base 模型开始做 pilot。
+- 正式模型使用 Qwen2.5-7B 和 Llama3-8B，并报告相同 prompt/action/parser/reward 设定下的可迁移性。
 - 第一阶段先训练 non-thinking action-output mode。
 - 等 parser 和 action verifier 稳定后，再测试 thinking mode。
 
@@ -192,7 +206,11 @@ EoG 是最应该优先复现的对象，因为它的 motivation 最近：固定�
 |---|---|---|
 | EoG | KGR + RL + path-refined reward | 没有显式可复用 memory 模块。 |
 | SCPRM | KGQA + cumulative process reward + MCTS | 没有长期 memory，也不聚焦小模型 action selector。 |
-| Search-on-Graph-R1 | graph search + cold-start SFT + GRPO | 不以 KGQA memory 或生成式 reward 诊断为中心。 |
+| Search-on-Graph-R1 | KG search + cold-start SFT + GRPO/RLVR | 不以跨 query verified memory 或生成式 reward 诊断为中心。 |
+| K2V | knowledge-intensive RLVR + process verification | 已经覆盖“知识密集任务可做 RLVR”，但不是 KGQA memory-guided search。 |
+| GraphRAG-R1 | GraphRAG + process-constrained RL | 更偏检索过程约束，不研究 episodic graph-search memory。 |
+| Peak-Then-Collapse | CWQ + KG tool API + GRPO/RLVR 失稳分析 | 说明 naive RLVR 不稳定，反而支撑 memory-aware dense reward 的必要性。 |
+| CoEvoKG | KG + verifiable tasks + persistent evidence memory | 对 memory gap 压力最大；但它不是 CWQ/WebQSP KGQA 内的 memory-aware GRM。 |
 | Backjump-on-Graph | reinforced retrospective KG exploration | retrospection 更像搜索控制，不是 verified episodic memory。 |
 | REMem, Memory-T1, MEM1, Memory-R1 | RL-trained agent memory | 不做 KG-grounded path verification，也没有图上 hard verifier。 |
 
@@ -207,4 +225,6 @@ EoG 是最应该优先复现的对象，因为它的 motivation 最近：固定�
 
 ## 当前判断
 
-这是目前最适合作为第一阶段的 idea：它足够小、可测、可逐步扩展。即使暂时不做完整 online RL，只要 memory + GRM reranking 能在 0.6B 模型上降低 invalid action rate、提高 path recall 和 answer hit within budget，这条线就值得继续推进到 GRPO/PPO 和更复杂数据集。
+这是目前仍然值得推进的 idea，但 motivation 需要避开“首次 RLVR+KGR”。更稳的说法是：已有工作说明 KG verifier、路径 reward 和 RLVR 可以用于 KG/GraphRAG；本 idea 进一步检验 verified episodic memory 和 memory-aware GRM 是否能缓解 naive RLVR 在 KGQA 搜索中的 sparse reward、重复错误和训练不稳定问题。
+
+0.6B 模型只用于低成本早期验证。若 memory + GRM reranking 能在 0.6B 上降低 invalid action rate、提高 path recall 和 answer hit within budget，再把同一框架扩展到 Qwen2.5-7B 和 Llama3-8B，才适合作为正式论文实验主线。

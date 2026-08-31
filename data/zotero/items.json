@@ -1,5 +1,336 @@
 [
   {
+    "key": "5QETWING",
+    "citationKey": "manCoevolvingGraphText2026",
+    "itemType": "journalArticle",
+    "title": "Co-evolving graph and text memory for training-free multi-hop question answering",
+    "date": "2026-07-25",
+    "year": "2026-07-25",
+    "authors": [
+      "Hieu Man",
+      "Thien Huu Nguyen"
+    ],
+    "DOI": "10.48550/arXiv.2607.23278",
+    "url": "https://arxiv.org/abs/2607.23278",
+    "collections": [
+      "PTBVBRXD"
+    ],
+    "tags": [
+      "/unread",
+      "arXiv",
+      "memory",
+      "graph memory",
+      "multi-hop QA",
+      "text memory",
+      "training-free"
+    ],
+    "dateModified": "2026-08-31T09:16:58Z"
+  },
+  {
+    "key": "NN7LYQW4",
+    "citationKey": "liCoEvoKGCoevolvingKnowledge2026",
+    "itemType": "journalArticle",
+    "title": "CoEvoKG: Co-evolving knowledge graphs with self-evolving search agents",
+    "date": "2026-08-03",
+    "year": "2026-08-03",
+    "authors": [
+      "Zhaoyang Li",
+      "Zenghuang Fu",
+      "Qiuyuan Ai",
+      "Ping Jiang",
+      "Haoyu Wu",
+      "Minghui Wu",
+      "Chenxu Zhao",
+      "Jie Song",
+      "Guannan He"
+    ],
+    "DOI": "10.48550/arXiv.2608.01904",
+    "url": "https://arxiv.org/abs/2608.01904",
+    "collections": [
+      "PTBVBRXD"
+    ],
+    "tags": [
+      "/unread",
+      "arXiv",
+      "RLVR",
+      "verifiable rewards",
+      "knowledge graph",
+      "persistent evidence memory",
+      "self-evolving search agents"
+    ],
+    "dateModified": "2026-08-31T09:16:57Z"
+  },
+  {
+    "key": "TLSTT5Y2",
+    "citationKey": "wuKnowledgegraphPathsIntermediate2026",
+    "itemType": "journalArticle",
+    "title": "Knowledge-graph paths as intermediate supervision for self-evolving search agents",
+    "date": "2026-05-07",
+    "year": "2026-05-07",
+    "authors": [
+      "Huyu Wu",
+      "Jun Liu",
+      "Xiaochi Wei",
+      "Yan Gao",
+      "Yi Wu",
+      "Yao Hu"
+    ],
+    "DOI": "10.48550/arXiv.2605.05702",
+    "url": "https://arxiv.org/abs/2605.05702",
+    "collections": [
+      "PTBVBRXD"
+    ],
+    "tags": [
+      "/unread",
+      "arXiv",
+      "self-evolving search agents",
+      "intermediate supervision",
+      "knowledge graph paths",
+      "reward shaping"
+    ],
+    "dateModified": "2026-08-31T09:16:57Z"
+  },
+  {
+    "key": "UXRLGNRN",
+    "citationKey": "tsangAutoGraphR1EndtoEndReinforcement2026",
+    "itemType": "conferencePaper",
+    "title": "AutoGraph-R1: End-to-end reinforcement learning for knowledge graph construction",
+    "date": "2026-07",
+    "year": "2026-07",
+    "authors": [
+      "Hong Ting Tsang",
+      "Jiaxin Bai",
+      "Haoyu Huang",
+      "Qiao Xiao",
+      "Tianshi Zheng",
+      "Baixuan Xu",
+      "Shujie Liu",
+      "Yangqiu Song"
+    ],
+    "DOI": "10.18653/v1/2026.acl-long.1070",
+    "url": "https://aclanthology.org/2026.acl-long.1070/",
+    "collections": [
+      "PTBVBRXD"
+    ],
+    "tags": [
+      "/unread",
+      "GraphRAG",
+      "reinforcement learning",
+      "ACL 2026",
+      "boundary work",
+      "knowledge graph construction",
+      "task-aware reward"
+    ],
+    "dateModified": "2026-08-31T09:14:32Z"
+  },
+  {
+    "key": "FC4C7A3E",
+    "citationKey": "sunPeakThenCollapseFourInterface2026",
+    "itemType": "journalArticle",
+    "title": "Peak-then-collapse and the four interface channels of knowledge-graph tool use",
+    "date": "2026-05-25",
+    "year": "2026-05-25",
+    "authors": [
+      "Tianda Sun",
+      "Dimitar Kazakov"
+    ],
+    "DOI": "10.48550/arXiv.2605.26037",
+    "url": "https://arxiv.org/abs/2605.26037",
+    "collections": [
+      "PTBVBRXD"
+    ],
+    "tags": [
+      "/unread",
+      "arXiv",
+      "GRPO",
+      "RLVR",
+      "Complex WebQuestions",
+      "failure analysis",
+      "knowledge graph tool use"
+    ],
+    "dateModified": "2026-08-31T09:14:31Z"
+  },
+  {
+    "key": "YQYED7W9",
+    "citationKey": "tangUniRelRelationCentricKnowledge2025",
+    "itemType": "journalArticle",
+    "title": "UniRel: Relation-centric knowledge graph question answering with RL-tuned LLM reasoning",
+    "date": "2025-12-18",
+    "year": "2025-12-18",
+    "authors": [
+      "Yinxu Tang",
+      "Chengsong Huang",
+      "Jiaxin Huang",
+      "William Yeoh"
+    ],
+    "DOI": "10.48550/arXiv.2512.17043",
+    "url": "https://arxiv.org/abs/2512.17043",
+    "collections": [
+      "PTBVBRXD"
+    ],
+    "tags": [
+      "/unread",
+      "arXiv",
+      "KGQA",
+      "reinforcement learning",
+      "relation-centric KGQA",
+      "subgraph reward"
+    ],
+    "dateModified": "2026-08-31T09:14:31Z"
+  },
+  {
+    "key": "QCLEUZK5",
+    "citationKey": "guoG1TeachingLLMs2025",
+    "itemType": "journalArticle",
+    "title": "G1: Teaching LLMs to reason on graphs with reinforcement learning",
+    "date": "2025-05-24",
+    "year": "2025-05-24",
+    "authors": [
+      "Xiaojun Guo",
+      "Ang Li",
+      "Yifei Wang",
+      "Stefanie Jegelka",
+      "Yisen Wang"
+    ],
+    "DOI": "10.48550/arXiv.2505.18499",
+    "url": "https://arxiv.org/abs/2505.18499",
+    "collections": [
+      "PTBVBRXD"
+    ],
+    "tags": [
+      "/unread",
+      "arXiv",
+      "reinforcement learning",
+      "boundary work",
+      "graph reasoning",
+      "verifiable graph tasks"
+    ],
+    "dateModified": "2026-08-31T09:14:31Z"
+  },
+  {
+    "key": "T7P8QTSC",
+    "citationKey": "parkSPARKSelfPlayAsymmetric2026",
+    "itemType": "journalArticle",
+    "title": "SPARK: Self-Play with Asymmetric Reward from Knowledge Graphs",
+    "date": "2026-05-07",
+    "year": "2026-05-07",
+    "authors": [
+      "Hyobin Park",
+      "Taeseop Kim",
+      "Dong-Geol Choi"
+    ],
+    "DOI": "10.48550/arXiv.2605.05546",
+    "url": "https://arxiv.org/abs/2605.05546",
+    "collections": [
+      "PTBVBRXD"
+    ],
+    "tags": [
+      "/unread",
+      "arXiv",
+      "verifiable rewards",
+      "knowledge graph",
+      "scientific literature",
+      "self-play"
+    ],
+    "dateModified": "2026-08-31T09:14:30Z"
+  },
+  {
+    "key": "KBJQN7HL",
+    "citationKey": "yuanKnowledgetoverificationExploringRLVR2026",
+    "itemType": "conferencePaper",
+    "title": "Knowledge-to-verification: Exploring RLVR for LLMs in knowledge-intensive domains",
+    "date": "2026-07",
+    "year": "2026-07",
+    "authors": [
+      "Zhonghang Yuan",
+      "Zhefan Wang",
+      "Fang Hu",
+      "Zihong Chen",
+      "Jinzhe Li",
+      "Gang Li",
+      "Jie Ying",
+      "Huanjun Kong",
+      "Songyang Zhang",
+      "Nanqing Dong"
+    ],
+    "DOI": "10.18653/v1/2026.acl-long.1891",
+    "url": "https://aclanthology.org/2026.acl-long.1891/",
+    "collections": [
+      "PTBVBRXD"
+    ],
+    "tags": [
+      "/unread",
+      "ACL 2026",
+      "knowledge-intensive reasoning",
+      "process verification",
+      "RLVR",
+      "verifiable rewards"
+    ],
+    "dateModified": "2026-08-31T09:14:29Z"
+  },
+  {
+    "key": "UZP3DZUZ",
+    "citationKey": "yuGraphRAGR1GraphRetrievalaugmented2026",
+    "itemType": "conferencePaper",
+    "title": "GraphRAG-R1: Graph retrieval-augmented generation with process-constrained reinforcement learning",
+    "date": "2026-04-12",
+    "year": "2026-04-12",
+    "authors": [
+      "Chuanyue Yu",
+      "Kuo Zhao",
+      "Yuhan Li",
+      "Heng Chang",
+      "Mingjian Feng",
+      "Xiangzhe Jiang",
+      "Yufei Sun",
+      "Jia Li",
+      "Yuzhi Zhang",
+      "Qingyun Sun",
+      "Jianxin Li",
+      "Ziwei Zhang"
+    ],
+    "DOI": "10.1145/3774904.3792589",
+    "url": "https://doi.org/10.1145/3774904.3792589",
+    "collections": [
+      "PTBVBRXD"
+    ],
+    "tags": [
+      "/unread",
+      "GraphRAG",
+      "reinforcement learning",
+      "GRPO",
+      "process-constrained reward",
+      "WWW 2026"
+    ],
+    "dateModified": "2026-08-31T09:14:29Z"
+  },
+  {
+    "key": "9WS5G5W3",
+    "citationKey": "kansalKnowledgeGraphsAre2026",
+    "itemType": "journalArticle",
+    "title": "Knowledge graphs are implicit reward models: Path-derived signals enable compositional reasoning",
+    "date": "2026-01-21",
+    "year": "2026-01-21",
+    "authors": [
+      "Yuval Kansal",
+      "Niraj K. Jha"
+    ],
+    "DOI": "10.48550/arXiv.2601.15160",
+    "url": "https://arxiv.org/abs/2601.15160",
+    "collections": [
+      "PTBVBRXD"
+    ],
+    "tags": [
+      "/unread",
+      "arXiv",
+      "verifiable rewards",
+      "implicit reward model",
+      "knowledge graph",
+      "path-derived reward"
+    ],
+    "dateModified": "2026-08-31T09:14:29Z"
+  },
+  {
     "key": "A66C2ELP",
     "citationKey": "liuRPORAGRewardGuidedPath2026",
     "itemType": "journalArticle",
