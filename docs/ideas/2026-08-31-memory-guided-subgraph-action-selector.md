@@ -1,5 +1,5 @@
 ---
-title: "Memory-guided Subgraph Action Selector for 0.6B Agentic KGR"
+title: "面向 0.6B Agentic KGR 的 Memory-guided Subgraph Action Selector"
 type: idea
 status: open
 created: "2026-08-31"
@@ -22,21 +22,27 @@ zotero: [
 tags: ["agentic-kgr", "memory", "grm", "small-model", "0.6b", "rl"]
 ---
 
-# Memory-guided Subgraph Action Selector for 0.6B Agentic KGR
+# 面向 0.6B Agentic KGR 的 Memory-guided Subgraph Action Selector
 
-## Core Idea
+## 一句话论点
 
-The first tractable idea is not to train a 0.6B model as a full open-ended KGQA agent. Instead, train it as a constrained action selector over query-centered subgraphs. The KG, document evidence, and episodic memory stay outside the model; the model only decides the next action from a small legal action set.
+在低预算 KGQA 场景中，我们验证 0.6B 小模型能否借助 query-centered subgraph、可验证的 episodic memory 和生成式过程奖励，学习比规则搜索更有效的图上动作选择策略。
 
-## Why This Is a Good First Cut
+## 核心想法
 
-This idea is small enough to validate quickly because the model does not need to memorize the KG or generate long explanations. It receives a compact local state and chooses one parseable action. Every action can be checked by a hard graph verifier, and most rewards can be computed automatically.
+第一阶段不要把 0.6B 模型训练成完全开放式的 KGQA agent。更稳的做法是把它训练成一个受约束的动作选择器：KG、文档证据和 episodic memory 都放在模型外部，模型每一步只根据局部状态，从一组合法动作中选择下一步。
 
-It also creates a clean research line: start with behavior cloning, add memory hints, add GRM reranking, then move to online RL only after the action selector is stable.
+这让模型不需要记住整张 KG，也不需要自由生成长推理链。它只需要学会一个更窄的问题：在当前问题、局部子图、候选关系和 memory hints 给定时，下一步应该扩展哪条边、检索哪类证据、反思当前路径，还是停止回答。
 
-## Task Formulation
+## 为什么适合作为第一阶段
 
-Input:
+这个 idea 小而可测。模型输入是紧凑的局部状态，输出是可解析的动作；每个动作都能被 hard graph verifier 检查，大部分 reward 也能自动计算。
+
+它还形成一条清晰的研究路线：先做 behavior cloning，再加入 memory hints，然后用 GRM reranking 改善候选动作，最后在 action selector 稳定后再进入 online RL。这样第一周就可以验证方向是否有信号，而不是一上来就陷入完整 RL agent 的训练成本。
+
+## 任务定义
+
+输入：
 
 ```text
 question
@@ -47,7 +53,7 @@ top-k memory hints
 current trajectory
 ```
 
-Output:
+输出：
 
 ```text
 expand(entity_id, relation_id)
@@ -56,37 +62,37 @@ reflect()
 stop(answer_entity_id, supporting_path_ids)
 ```
 
-The output should be constrained and machine-parseable. Invalid actions receive zero or negative reward.
+输出必须受约束并且机器可解析。非法 action 直接给零分或负 reward。
 
-## Data Preprocessing
+## 数据预处理
 
-Do not feed the full KG to the model. Use a two-layer data pipeline:
+不能把整张 KG 直接塞给模型。建议用两层数据管线：
 
-1. Offline index:
-   Build entity aliases, relation descriptions, adjacency lists, entity embeddings, relation embeddings, text evidence indexes, and entity-document mappings.
+1. 离线索引：
+   构建实体别名、关系描述、邻接表、实体 embedding、关系 embedding、文本证据索引，以及 entity-document 映射。
 
-2. Online subgraph construction:
-   For each question, run entity linking, retrieve relation candidates, expand a bounded k-hop neighborhood, rerank paths, and serialize only the top local evidence.
+2. 在线子图构造：
+   对每个问题先做 entity linking，召回候选关系，扩展有预算限制的 k-hop 邻域，重排候选路径，然后只序列化 top 局部证据。
 
-3. Rollout cache:
-   Save each state, action, observation, verifier result, reward component, and final answer. This cache becomes the training source for SFT, GRM, and RL.
+3. Rollout cache：
+   保存每一步 state、action、observation、verifier result、reward component 和 final answer。这个 cache 后续同时服务于 SFT、GRM 和 RL。
 
-Initial subgraph budget:
+初始子图预算：
 
-| Parameter | Initial Value |
+| 参数 | 初始值 |
 |---|---:|
-| `max_hop` | 2 or 3 |
+| `max_hop` | 2 或 3 |
 | `max_nodes` | 200 |
 | `max_edges` | 500 |
 | `max_paths` | 20 |
 | `max_relation_candidates` | 20 |
 | `max_memory_hints` | 5 |
 
-## Memory Design
+## Memory 设计
 
-Use memory as a verified episodic store, not as raw context stuffing.
+这里的 memory 不是把更多文本塞进上下文，而是一个可检索、可验证、可更新的 episodic store。它记录历史探索经验，但不能直接被当作事实使用。
 
-Memory record:
+Memory record：
 
 ```json
 {
@@ -100,13 +106,13 @@ Memory record:
 }
 ```
 
-At inference time, retrieve only top-k memory hints by question pattern, seed entity type, and relation overlap. Every memory hint must be rechecked against the current subgraph before it can affect reward.
+推理时只按 question pattern、seed entity type 和 relation overlap 检索 top-k memory hints。每条 memory hint 都必须在当前子图里重新验证，只有验证通过后才允许影响动作选择或 reward。
 
-## GRM Role
+## GRM 角色
 
-The Graph-grounded Reward Model (GRM) should provide soft process reward. It should not replace hard graph verification.
+GRM 建议定义为 Generative Reward Model for graph-grounded trajectories。它的职责是生成结构化过程诊断，并把这些诊断转成 soft process reward；它不能替代 hard graph verifier。
 
-Recommended reward:
+推荐总 reward：
 
 ```text
 R = alpha * R_answer
@@ -116,73 +122,89 @@ R = alpha * R_answer
   - delta * Cost
 ```
 
-GRM judges whether the current action or trajectory improves answer support, path faithfulness, evidence coverage, step utility, stop quality, and source switching. If the hard verifier says the path is illegal, GRM reward should be capped or set to zero.
+其中 `R_answer` 评估最终答案是否正确，`R_hard_graph` 检查路径、实体和关系方向是否合法，`R_GRM` 评价 answer support、path faithfulness、evidence coverage、step utility 和 stop quality，`R_memory_utility` 只奖励 memory 带来的可验证收益，例如减少无效 hop、提高 gold-path edge recall 或改善 stop decision。
 
-## Minimal Experiment
+GRM 输出可以先做成结构化 JSON：
 
-Dataset:
+```json
+{
+  "path_validity": 0.0,
+  "evidence_coverage": 0.0,
+  "step_utility": 0.0,
+  "memory_utility": 0.0,
+  "stop_quality": 0.0,
+  "diagnosis": "...",
+  "reward": 0.0
+}
+```
 
-- Start with MetaQA for controlled hop analysis, or WebQSP for Freebase-style KGQA.
-- Use 500-2,000 training questions first.
-- Keep a fixed held-out split and prevent answer/gold-path leakage into memory.
+如果 hard verifier 判定路径非法，`R_GRM` 应该被封顶或置零。这个 gating 很重要，因为否则模型可能学会用流畅但不忠实的解释欺骗 GRM。
 
-Model:
+## 最小实验
 
-- Start with Qwen3-0.6B or another 0.5B-0.6B instruct/base model.
-- First train in non-thinking action-output mode.
-- Only test thinking mode after the parser and action verifier are stable.
+数据集：
 
-Baselines:
+- 先用 MetaQA 做受控 hop 分析，或用 WebQSP 做 Freebase-style KGQA。
+- 第一批只使用 500-2,000 个训练问题。
+- 固定 held-out split，严禁把测试问题的答案或 gold path 泄漏进 memory。
 
-| Baseline | Purpose |
+模型：
+
+- 从 Qwen3-0.6B 或其他 0.5B-0.6B instruct/base 模型开始。
+- 第一阶段先训练 non-thinking action-output mode。
+- 等 parser 和 action verifier 稳定后，再测试 thinking mode。
+
+Baselines：
+
+| Baseline | 作用 |
 |---|---|
-| Rule relation ranker | Checks whether the learned selector beats simple relation matching. |
-| No-memory selector | Isolates memory value. |
-| Memory selector without GRM | Tests whether memory alone helps or hurts. |
-| Memory selector with GRM reranking | Tests the proposed minimal contribution. |
-| ToG-style beam search | Compares against a stronger rule/workflow baseline. |
+| Rule relation ranker | 检查 learned selector 是否超过简单关系匹配。 |
+| No-memory selector | 隔离 memory 的贡献。 |
+| Memory selector without GRM | 测试 memory 本身是帮助还是干扰。 |
+| Memory selector with GRM reranking | 测试最小方法贡献。 |
+| ToG-style beam search | 和更强的规则/workflow baseline 对比。 |
 
-Metrics:
+Metrics：
 
-| Metric | Meaning |
+| Metric | 含义 |
 |---|---|
-| `next_relation_accuracy` | Whether the next selected relation matches a gold or acceptable relation. |
-| `gold_path_edge_recall` | Whether the subgraph and trajectory cover required path edges. |
-| `answer_hit_within_budget` | Whether the answer is reached before the step/tool budget is exhausted. |
-| `invalid_action_rate` | Whether the model emits invalid entity/relation/action IDs. |
-| `steps_to_answer` | Efficiency of the learned policy. |
-| `memory_utility_delta` | Improvement from retrieved memory hints versus no-memory setting. |
+| `next_relation_accuracy` | 下一步关系选择是否匹配 gold 或可接受关系。 |
+| `gold_path_edge_recall` | 子图和轨迹是否覆盖必要路径边。 |
+| `answer_hit_within_budget` | 是否在 step/tool 预算内到达答案。 |
+| `invalid_action_rate` | 模型是否输出非法实体、关系或动作 ID。 |
+| `steps_to_answer` | learned policy 的搜索效率。 |
+| `memory_utility_delta` | 加入 memory hints 相比 no-memory 设置带来的收益。 |
 
-## Position Against EoG And Near Neighbors
+## 与 EoG 和近邻工作的差异
 
-EoG is the most important reproduction target because its motivation is closest: fixed rules and fixed demonstration paths limit out-of-distribution KG exploration, so the model needs reward-guided autonomous exploration. The proposed idea should not compete by saying only "we add RL to KGQA." That claim is already covered by Graph-RFT, Graph-R1, and EoG-like work.
+EoG 是最应该优先复现的对象，因为它的 motivation 最近：固定规则和固定示范路径会限制 OOD KG exploration，因此模型需要 reward-guided autonomous exploration。这个 idea 不能只说“我们把 RL 加到 KGQA 上”，因为 Graph-RFT、Graph-R1 和 EoG-like 工作已经覆盖了这个层面的 claim。
 
-The narrower contribution is:
+更窄也更稳的贡献是：
 
-1. Use verified episodic memory as a reusable exploration prior, not as untrusted extra context.
-2. Train a small action selector over a query-centered subgraph, instead of asking a 0.6B model to freely generate full reasoning chains.
-3. Use a generative reward model to produce structured trajectory diagnostics, including `memory_utility`, then gate the score with hard graph verification.
-4. Evaluate whether memory improves low-budget graph navigation: fewer invalid expansions, higher gold-path edge recall, better stop decisions, and higher answer hit within the same step budget.
+1. 使用 verified episodic memory 作为可复用探索先验，而不是不受约束的额外上下文。
+2. 在 query-centered subgraph 上训练小模型动作选择器，而不是要求 0.6B 模型自由生成完整推理链。
+3. 用生成式奖励模型输出结构化轨迹诊断，尤其显式评价 `memory_utility`，再用 hard graph verification 对 reward 封顶。
+4. 评估 memory 是否改善低预算图导航：无效扩展更少、gold-path edge recall 更高、stop decision 更好、同等 step budget 下 answer hit 更高。
 
-Closest-neighbor check as of 2026-08-31:
+截至 2026-08-31 的近邻查重：
 
-| Neighbor | What It Covers | Gap For This Idea |
+| 近邻工作 | 已覆盖部分 | 相对本 idea 的缺口 |
 |---|---|---|
-| EoG | KGR + RL + path-refined reward | No explicit reusable memory module. |
-| SCPRM | KGQA + cumulative process reward + MCTS | No long-term memory or small-model action-selector focus. |
-| Search-on-Graph-R1 | graph search + cold-start SFT + GRPO | Not centered on KGQA memory or generative reward diagnostics. |
-| Backjump-on-Graph | reinforced retrospective KG exploration | Retrospection is search control, not verified episodic memory. |
-| REMem, Memory-T1, MEM1, Memory-R1 | RL-trained agent memory | Not KG-grounded and no hard verifier over graph paths. |
+| EoG | KGR + RL + path-refined reward | 没有显式可复用 memory 模块。 |
+| SCPRM | KGQA + cumulative process reward + MCTS | 没有长期 memory，也不聚焦小模型 action selector。 |
+| Search-on-Graph-R1 | graph search + cold-start SFT + GRPO | 不以 KGQA memory 或生成式 reward 诊断为中心。 |
+| Backjump-on-Graph | reinforced retrospective KG exploration | retrospection 更像搜索控制，不是 verified episodic memory。 |
+| REMem, Memory-T1, MEM1, Memory-R1 | RL-trained agent memory | 不做 KG-grounded path verification，也没有图上 hard verifier。 |
 
-## First Week Plan
+## 第一周计划
 
-1. Build a tiny KGQA environment with `expand`, `verify_path`, `stop`, and action logging.
-2. Implement query-centered subgraph construction and cache the first dataset split.
-3. Generate silver actions from shortest paths or RoG-style relation paths.
-4. Fine-tune or prompt-test a 0.6B action selector on 500-2,000 examples.
-5. Add memory hints from training trajectories and compare no-memory versus memory settings.
-6. Train a lightweight GRM or use a simple pairwise scorer to rerank candidate actions.
+1. 搭建一个最小 KGQA 环境，支持 `expand`、`verify_path`、`stop` 和 action logging。
+2. 实现 query-centered subgraph construction，并缓存第一版 dataset split。
+3. 从 shortest paths 或 RoG-style relation paths 生成 silver actions。
+4. 在 500-2,000 个样本上 fine-tune 或 prompt-test 一个 0.6B action selector。
+5. 从训练轨迹中构建 memory hints，对比 no-memory 和 memory 设置。
+6. 训练轻量 GRM，或先用简单 pairwise scorer 对候选 action 做 reranking。
 
-## Decision
+## 当前判断
 
-This is the recommended first idea because it is small, measurable, and expandable. It can produce an early result even before full RL: if memory + GRM reranking improves action validity, path recall, and answer hit within budget for a 0.6B model, the direction is worth scaling to GRPO/PPO and harder datasets.
+这是目前最适合作为第一阶段的 idea：它足够小、可测、可逐步扩展。即使暂时不做完整 online RL，只要 memory + GRM reranking 能在 0.6B 模型上降低 invalid action rate、提高 path recall 和 answer hit within budget，这条线就值得继续推进到 GRPO/PPO 和更复杂数据集。
