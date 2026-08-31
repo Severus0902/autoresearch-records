@@ -10,7 +10,7 @@
   },
   {
     "path": "E:\\research\\docs\\ideas\\2026-08-31-memory-guided-subgraph-action-selector.md",
-    "title": "面向 0.6B Agentic KGR 的 Memory-guided Subgraph Action Selector",
+    "title": "Memory-aware KG-RLVR：面向 Agentic KGR 的可验证记忆与生成式过程奖励",
     "type": "idea",
     "status": "open",
     "zotero": "[",
@@ -45,6 +45,8 @@
       "agentic-kgr",
       "memory",
       "grm",
+      "rlvr",
+      "baseline",
       "small-model",
       "0.6b",
       "rl"

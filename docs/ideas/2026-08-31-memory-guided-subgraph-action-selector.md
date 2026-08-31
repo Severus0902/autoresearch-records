@@ -1,5 +1,5 @@
 ---
-title: "面向 0.6B Agentic KGR 的 Memory-guided Subgraph Action Selector"
+title: "Memory-aware KG-RLVR：面向 Agentic KGR 的可验证记忆与生成式过程奖励"
 type: idea
 status: open
 created: "2026-08-31"
@@ -30,20 +30,50 @@ zotero: [
   "@tsangAutoGraphR1EndtoEndReinforcement2026",
   "@manCoevolvingGraphText2026"
 ]
-tags: ["agentic-kgr", "memory", "grm", "small-model", "0.6b", "rl"]
+tags: ["agentic-kgr", "memory", "grm", "rlvr", "baseline", "small-model", "0.6b", "rl"]
 ---
 
-# 面向 0.6B Agentic KGR 的 Memory-guided Subgraph Action Selector
+# Memory-aware KG-RLVR：面向 Agentic KGR 的可验证记忆与生成式过程奖励
 
 ## 一句话论点
 
 在 KGQA 场景中，我们验证 agent 能否借助 query-centered subgraph、可验证的 episodic memory 和 memory-aware generative reward，在 RLVR 框架下学习比独立 query 搜索更稳定、更低成本的图上动作选择策略。0.6B 模型只作为快速 pilot；正式实验应扩展到 Qwen2.5-7B 和 Llama3-8B。
+
+## 明确 Motivation
+
+ToG、RoG 和 EoG 形成了一条很清楚的技术递进线：ToG 证明 LLM 可以作为 KG 交互式 agent 逐步选择实体和关系；RoG 证明 relation-path planning 可以把 KG 结构显式注入推理过程；EoG 进一步证明 RL 和 path-refined reward 可以激励模型探索固定示范路径之外的有效 KG reasoning paths。这些工作共同说明，agentic KGR 的关键已经不只是“能否访问 KG”，而是模型能否在图上做可学习、可验证、可泛化的搜索决策。
+
+但这些方法大多仍把每个 query 视为一次相对独立的探索 episode。即使训练集中已经出现过相似的 question pattern、relation composition、失败扩展或过早停止错误，模型也没有一个显式机制把这些历史探索经验整理成可复用、可验证、可更新的 memory。对于 WebQSP 和 CWQ 这类最多约 2-4 hop 的 KGQA 数据集，memory 的动机不应写成“路径太长”。真正的问题是：路径虽然不长，但候选实体和候选关系的 branching factor 很大，entity/relation linking 有噪声，spurious path 很多，并且 agent 在有限 step/tool budget 下容易重复犯相似的局部搜索错误。
+
+已有 RLVR + KGR/GraphRAG 工作说明，KG 中的 action legality、path validity、answer correctness 和 retrieval outcome 可以被程序化验证，因此适合构成 hard reward。然而，纯 RLVR reward 往往稀疏、延迟，并且不一定能解释一次搜索为什么失败，尤其难以判断 memory 是否真的帮助了当前推理，还是引入了不可验证的 shortcut。因此，本 idea 的核心 motivation 是：在 KG verifier 提供可靠硬奖励的基础上，引入 verified episodic memory 复用跨 query 搜索经验，并用 memory-aware GRM 提供更细粒度的过程诊断和 dense reward。
+
+## Research Gap
+
+| Gap | 已有方法覆盖到哪里 | 本 idea 要补什么 |
+|---|---|---|
+| Cross-query memory gap | ToG/RoG/EoG 主要关注单个 query 内的搜索、规划或探索奖励。 | 把历史成功路径、失败扩展、relation pattern 和 stop mistake 存成 verified episodic memory，并在新 query 中重新验证后使用。 |
+| Memory-aware reward gap | EoG、SCPRM、GraphRAG-R1 等已有路径级或过程级 reward，但主要评价当前 trajectory。 | 让 GRM 显式评价 `memory_utility`，区分 useful memory-guided exploration 和 spurious memory shortcut。 |
+| RLVR stability gap | K2V、Search-on-Graph-R1、Peak-Then-Collapse 等说明 knowledge-intensive/KG setting 可做 RLVR，但 naive RLVR 可能稀疏或失稳。 | 用 hard verifier 保底，用 GRM 提供 dense process signal，用 memory 复用历史探索经验，测试是否提升低预算搜索稳定性。 |
+| Non-gap | query -> top-k entity -> subgraph -> action selection 是标准可行 pipeline；0.6B 只是快速验证模型。 | 论文中不把基础 pipeline 或 0.6B 当主要 novelty，而把正式验证放到 Qwen2.5-7B 和 Llama3-8B。 |
 
 ## 核心想法
 
 第一阶段不要把模型训练成完全开放式的 KGQA agent。更稳的做法是把它训练成一个受约束的动作选择器：KG、文档证据和 episodic memory 都放在模型外部，模型每一步只根据局部状态，从一组合法动作中选择下一步。
 
 这让模型不需要记住整张 KG，也不需要自由生成长推理链。它只需要学会一个更窄的问题：在当前问题、局部子图、候选关系和 memory hints 给定时，下一步应该扩展哪条边、检索哪类证据、反思当前路径，还是停止回答。0.6B 版本用于快速检验 action space、memory 召回和 reward 设计是否有信号；7B/8B 版本用于正式比较和消融。
+
+## 方法概览
+
+整体 pipeline 按 query-conditioned navigation 组织：
+
+1. **Entity linking**：从 query 中识别 mention，并为每个 mention 保留 top-k seed entity candidates，而不是只保留 top-1。
+2. **Candidate construction**：基于 seed entities 召回候选关系、候选邻居和候选文本证据，形成受预算限制的 legal action space。
+3. **Query-centered subgraph**：构造 2-4 hop 局部子图，并记录 oracle recall，确认 gold answer 或 gold path 是否仍在可见子图内。
+4. **Verified memory retrieval**：根据 question pattern、seed entity type、relation overlap 和历史 verifier result 检索 top-k memory hints，并在当前子图里重新验证。
+5. **Action selection**：模型在 `expand`、`retrieve_text`、`reflect`、`stop` 中选择下一步动作。
+6. **RLVR reward**：hard verifier 计算 action legality、path validity、answer correctness、format validity 和 cost。
+7. **Memory-aware GRM**：GRM 生成结构化诊断，评价 evidence coverage、step utility、memory utility 和 stop quality；若 hard verifier 判定非法，GRM reward 被封顶或置零。
+8. **Memory update**：episode 结束后，只把经过 verifier 标注的成功路径、失败分支、无效 relation 和 stop mistake 写入 memory。
 
 ## 为什么适合作为第一阶段
 
@@ -168,15 +198,53 @@ GRM 输出可以先做成结构化 JSON：
 - 第一阶段先训练 non-thinking action-output mode。
 - 等 parser 和 action verifier 稳定后，再测试 thinking mode。
 
-Baselines：
+## Baselines
 
-| Baseline | 作用 |
+Baseline 要分三层：基础 KGQA baseline、agentic KGR baseline、RLVR/memory baseline。第一阶段不必全部跑完，但正式实验至少要覆盖每一层，否则很难证明 memory-aware GRM 的贡献。
+
+| Baseline | 类型 | 作用 | 优先级 |
+|---|---|---|---|
+| Direct / CoT | LLM-only | 检查不使用 KG 时的基础能力。 | 中 |
+| Retrieval-only RAG | 非图检索 | 检查文本检索能否覆盖答案，避免 KG 方法吃掉不必要复杂度。 | 中 |
+| Rule relation ranker | 弱 KG baseline | 检查 learned selector 是否超过简单关系匹配。 | 高 |
+| ToG-style beam search | agentic KGR | 对比手工搜索策略和固定 beam 的图探索能力。 | 高 |
+| RoG-style relation path planning | planning KGR | 对比显式 relation path planning 与 learned action selection。 | 高 |
+| GCR / constrained decoding | faithful KGR | 对比强约束路径生成，检验本方法是否在 faithfulness 上吃亏。 | 中 |
+| EoG | RL agentic KGR | 最关键近邻，验证本方法是否超过 path-refined reward exploration。 | 高 |
+| Search-on-Graph-R1 / GraphRAG-R1 | RLVR/GraphRAG 近邻 | 若代码可复现，用来对比已有 graph-search RLVR。 | 中 |
+| RLVR without memory | 内部消融 baseline | 只用 hard verifier reward，检验 memory 是否必要。 | 最高 |
+| RLVR + unverified memory | 内部风险 baseline | 检验不验证 memory 是否导致 spurious shortcut 或 leakage。 | 高 |
+| RLVR + verified memory without GRM | 内部消融 baseline | 隔离 verified memory 的贡献。 | 最高 |
+| RLVR + GRM without memory | 内部消融 baseline | 隔离 GRM 的贡献。 | 最高 |
+| Full: RLVR + verified memory + memory-aware GRM | 本方法 | 检验 memory 与 GRM 是否形成互补。 | 最高 |
+
+第一周最小 baseline 只需要四个：Rule relation ranker、RLVR without memory、RLVR + verified memory without GRM、Full method。若这四个都没有稳定差异，就暂时不要急着复现 EoG 全量训练。
+
+## Ablation 设计
+
+| Ablation | 目的 | 预期观察 |
+|---|---|---|
+| 去掉 memory | 测试跨 query 经验是否真的有用。 | 若性能不降，memory gap 在 WebQSP/CWQ 普通 split 上不强。 |
+| 使用 unverified memory | 测试 verifier 是否必要。 | 若短期准确率升高但 path faithfulness 下降，说明 memory 有 leakage/shortcut 风险。 |
+| 只保留 successful paths | 测试成功经验是否足够。 | 若失败分支消融后无效扩展增加，说明 failed memory 有价值。 |
+| 只保留 failed paths | 测试失败经验是否能帮助避坑。 | 若 steps-to-answer 降低，说明 memory 主要提供搜索剪枝。 |
+| 去掉 `memory_utility` reward | 测试 GRM 是否真的在评价 memory。 | 若 memory 检索次数增加但收益下降，说明需要显式 utility 约束。 |
+| DRM scorer 替代 GRM | 区分简单打分和生成式诊断。 | 若 DRM 性能接近 GRM，GRM 的论文价值要转向可解释性或错误分析。 |
+| GRM without hard gating | 测试 verifier gating 是否必要。 | 若 hallucinated rationale 获得高 reward，说明 hard verifier 是必需模块。 |
+| Outcome-only RLVR | 测试稀疏最终奖励是否足够。 | 若训练不稳或探索成本高，支撑 dense process reward 的必要性。 |
+| 不同模型规模 | 测试方法是否只对小模型有效。 | 0.6B 做 pilot，7B/8B 做正式结果和 scaling 分析。 |
+
+## 实验协议
+
+| 维度 | 设计 |
 |---|---|
-| Rule relation ranker | 检查 learned selector 是否超过简单关系匹配。 |
-| No-memory selector | 隔离 memory 的贡献。 |
-| Memory selector without GRM | 测试 memory 本身是帮助还是干扰。 |
-| Memory selector with GRM reranking | 测试最小方法贡献。 |
-| ToG-style beam search | 和更强的规则/workflow baseline 对比。 |
+| 数据集 | WebQSP 和 CWQ 为主；MetaQA 只作为早期受控 hop pilot。 |
+| 模型 | Qwen3-0.6B 用于快速验证；Qwen2.5-7B 和 Llama3-8B 用于正式实验。 |
+| 子图预算 | 报告 `max_hop`、`max_nodes`、`max_edges`、`max_paths`、`max_relation_candidates` 和 `max_memory_hints`。 |
+| Split | 除普通 i.i.d. split 外，增加 relation composition / question template / entity type 的 OOD split。 |
+| Memory 防泄漏 | 测试样本答案、gold path 和同源改写问题不得进入 test-time memory。 |
+| 训练阶段 | SFT/BC -> RLVR without memory -> RLVR + verified memory -> RLVR + verified memory + GRM。 |
+| 成本约束 | 固定 step budget、tool-call budget 和 token budget，避免靠更多搜索堆出结果。 |
 
 Metrics：
 
@@ -188,6 +256,19 @@ Metrics：
 | `invalid_action_rate` | 模型是否输出非法实体、关系或动作 ID。 |
 | `steps_to_answer` | learned policy 的搜索效率。 |
 | `memory_utility_delta` | 加入 memory hints 相比 no-memory 设置带来的收益。 |
+| `oracle_subgraph_recall` | 子图构造阶段是否保留 gold answer/path，上界必须单独报告。 |
+| `memory_hit_rate` | 检索到的 memory 是否在当前 query 中可验证且相关。 |
+| `reward_success_corr` | GRM reward 与 hard verifier / final answer success 的相关性。 |
+| `training_stability` | RL 过程中是否出现 peak-then-collapse 或 reward hacking。 |
+
+## 预期 Claim 与证伪标准
+
+| Claim | 需要的证据 | 证伪标准 |
+|---|---|---|
+| Verified memory 能改善低预算 KG 搜索。 | Full method 在相同 step/tool budget 下超过 RLVR without memory，并提高 path recall 或降低无效扩展。 | 只在 oracle memory 或疑似泄漏设置下提升；普通 verified memory 无收益。 |
+| Memory-aware GRM 优于简单 path reward。 | 去掉 `memory_utility` 或用 DRM 替代 GRM 后，stop quality、reward-success correlation 或错误分析明显变差。 | DRM 与 GRM 等价，且 GRM 没有额外稳定性或可解释性收益。 |
+| Hard verifier + GRM 比 naive RLVR 更稳定。 | 相比 outcome-only RLVR，训练曲线更少 collapse，invalid action rate 更低。 | Full method 同样出现明显 peak-then-collapse，或 GRM reward 与 verifiable success 脱钩。 |
+| 方法可扩展到正式模型。 | Qwen2.5-7B 和 Llama3-8B 上保持同方向收益。 | 收益只存在于 0.6B pilot，正式模型上消失。 |
 
 ## 与 EoG 和近邻工作的差异
 
