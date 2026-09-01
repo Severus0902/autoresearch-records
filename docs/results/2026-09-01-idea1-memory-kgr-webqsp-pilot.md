@@ -173,3 +173,77 @@ Idea1 值得继续推进，但下一步不应该直接上 RLVR。更稳的路线
 4. 用 0.6B 训练 action selector，只输出 action id，不直接生成答案。
 5. 再加入 GRM reranker，评估它是否能减少 memory 负迁移。
 6. 最后接 RLVR/GRPO，把 hard verifier reward、step utility 和 memory utility 合并进 rollout reward。
+
+## 下一步已启动：Pairwise Action Preference
+
+用户确认继续后，已启动下一步 `stage4`，目标是把 eval100 子图转成 pairwise action preference，为 0.6B action selector、pairwise ranker 和后续 RLVR warm start 准备数据。
+
+执行命令：
+
+```bash
+cd /data/wxr/AutoResearch/idea1-memory-kgr
+bash scripts/submit_nohup.sh stage4 configs/webqsp_eval100.json
+```
+
+日志与产物：
+
+```text
+log: outputs via logs/stage4_20260901_203124.log
+preferences: outputs/preferences/webqsp_eval100_pairwise_preferences.jsonl
+summary: outputs/preferences/webqsp_eval100_pairwise_preferences_summary.json
+```
+
+结果：
+
+```text
+num_preferences: 341
+num_source_subgraphs: 100
+skipped.gold_not_in_candidates: 14
+max_negatives_per_positive: 4
+```
+
+hard negative 来源：
+
+```text
+same_domain_hard_negative: 185
+rule_top_wrong: 74
+memory_top_wrong: 36
+ranked_negative: 46
+```
+
+高频 gold relation：
+
+```text
+people.person.place_of_birth: 24
+people.person.education: 20
+people.person.spouse_s: 20
+location.country.currency_used: 20
+location.location.time_zones: 16
+film.actor.film: 16
+```
+
+样例：
+
+```json
+{
+  "question": "what is los angeles california time zone?",
+  "gold_next_relation": "location.location.time_zones",
+  "positive_action": {
+    "action_type": "expand",
+    "entity_id": "m.030qb3t",
+    "relation_id": "location.location.time_zones"
+  },
+  "negative_action": {
+    "action_type": "expand",
+    "entity_id": "m.030qb3t",
+    "relation_id": "location.location.area"
+  },
+  "negative_source": "same_domain_hard_negative",
+  "verified_memory_relations": [
+    "location.citytown.postal_codes",
+    "location.location.time_zones"
+  ]
+}
+```
+
+这一步的意义是把“memory 提升 top-1 selection”的现象转成可训练监督信号。下一步应当把 preference 数据转换成 0.6B 可消费的 compact prompt/action-id 格式，训练一个只选择 action id 的小 selector，并做 `no-memory vs memory`、`random-memory vs verified-memory` 的模型级消融。
