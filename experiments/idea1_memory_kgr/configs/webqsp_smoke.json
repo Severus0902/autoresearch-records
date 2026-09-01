@@ -21,13 +21,13 @@
     "sparql_endpoint": "http://127.0.0.1:8890/sparql",
     "enabled": true,
     "timeout_sec": 30,
-    "edge_limit_per_entity": 50
+    "edge_limit_per_entity": 300
   },
   "subgraph": {
     "max_hops": 1,
     "max_nodes": 80,
-    "max_edges": 200,
-    "max_relation_candidates": 30
+    "max_edges": 500,
+    "max_relation_candidates": 100
   },
   "memory": {
     "top_k": 5,

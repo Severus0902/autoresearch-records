@@ -13,6 +13,7 @@ from idea1_kgr.subgraph_builder import SubgraphBuilder
 class FakeKG:
     def get_out_edges(self, mid: str, limit: int = 100):
         return [
+            Triple(source=mid, relation="common.topic.alias", target="Alias"),
             Triple(source=mid, relation="people.person.place_of_birth", target="m.city"),
             Triple(source=mid, relation="people.person.profession", target="m.job"),
         ]

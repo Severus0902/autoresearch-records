@@ -6,6 +6,14 @@ from typing import Dict, Iterable, List, Protocol, Tuple
 from .schemas import ActionCandidate, EntityRef, KGQASample, SubgraphRecord, Triple
 
 
+NOISY_RELATION_PREFIXES = (
+    "common.topic.",
+    "type.object.",
+    "kg.object_profile.",
+    "freebase.",
+)
+
+
 class KGAdapterProtocol(Protocol):
     def get_out_edges(self, mid: str, limit: int = 100) -> List[Triple]:
         ...
@@ -100,6 +108,8 @@ class SubgraphBuilder:
         actions: List[ActionCandidate] = []
         for edge in edges:
             if edge.direction == "error" or not edge.relation:
+                continue
+            if edge.relation.startswith(NOISY_RELATION_PREFIXES):
                 continue
             key = (edge.source, edge.relation)
             if key in seen:

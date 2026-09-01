@@ -48,6 +48,19 @@ class FreebaseAdapter:
         mid = _fb_mid(mid)
         sparql = f"""
 PREFIX ns: <http://rdf.freebase.com/ns/>
+SELECT ?r (SAMPLE(?o) AS ?o) WHERE {{
+  ns:{mid} ?r ?o .
+  FILTER(STRSTARTS(STR(?r), STR(ns:)))
+}} GROUP BY ?r LIMIT {int(limit)}
+"""
+        try:
+            return self._parse_edges(mid, self.query(sparql), direction="out")
+        except Exception:
+            return self._get_raw_out_edges(mid, limit=limit)
+
+    def _get_raw_out_edges(self, mid: str, limit: int = 100) -> List[Triple]:
+        sparql = f"""
+PREFIX ns: <http://rdf.freebase.com/ns/>
 SELECT ?r ?o WHERE {{
   ns:{mid} ?r ?o .
   FILTER(STRSTARTS(STR(?r), STR(ns:)))
@@ -59,6 +72,19 @@ SELECT ?r ?o WHERE {{
         if not self.enabled:
             return []
         mid = _fb_mid(mid)
+        sparql = f"""
+PREFIX ns: <http://rdf.freebase.com/ns/>
+SELECT (SAMPLE(?s) AS ?s) ?r WHERE {{
+  ?s ?r ns:{mid} .
+  FILTER(STRSTARTS(STR(?r), STR(ns:)))
+}} GROUP BY ?r LIMIT {int(limit)}
+"""
+        try:
+            return self._parse_edges(mid, self.query(sparql), direction="in")
+        except Exception:
+            return self._get_raw_in_edges(mid, limit=limit)
+
+    def _get_raw_in_edges(self, mid: str, limit: int = 100) -> List[Triple]:
         sparql = f"""
 PREFIX ns: <http://rdf.freebase.com/ns/>
 SELECT ?s ?r WHERE {{
