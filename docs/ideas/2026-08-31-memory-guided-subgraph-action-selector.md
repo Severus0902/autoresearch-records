@@ -501,6 +501,10 @@ EoG 是最应该优先复现的对象，因为它的 motivation 最近：固定�
 5. 从训练轨迹中构建 memory hints，对比 no-memory 和 memory 设置。
 6. 训练轻量 GRM，或先用简单 pairwise scorer 对候选 action 做 reranking。
 
+## 实验框架入口
+
+服务器 `/data/wxr` 上已有 Freebase/WebQSP/CWQ 相关资源后的第一版代码框架和 nohup 运行方案，见 [2026-09-01-idea1-memory-guided-kgr-framework.md](../experiments/2026-09-01-idea1-memory-guided-kgr-framework.md)。该文档只定义实验工程结构和运行协议，明确要求先经用户确认后再创建远端工程或执行任何实验。
+
 ## 当前判断
 
 这是目前仍然值得推进的 idea，但 motivation 需要避开“首次 RLVR+KGR”。更稳的说法是：已有工作说明 KG verifier、路径 reward 和 RLVR 可以用于 KG/GraphRAG；本 idea 进一步检验 verified episodic memory 和 memory-aware GRM 是否能缓解 naive RLVR 在 KGQA 搜索中的 sparse reward、重复错误和训练不稳定问题。
