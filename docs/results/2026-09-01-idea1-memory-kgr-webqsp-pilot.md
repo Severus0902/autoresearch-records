@@ -247,3 +247,109 @@ film.actor.film: 16
 ```
 
 这一步的意义是把“memory 提升 top-1 selection”的现象转成可训练监督信号。下一步应当把 preference 数据转换成 0.6B 可消费的 compact prompt/action-id 格式，训练一个只选择 action id 的小 selector，并做 `no-memory vs memory`、`random-memory vs verified-memory` 的模型级消融。
+
+## 下一步继续推进：Train500 Preference 与 Compact Action Data
+
+为了避免直接把 eval100 当训练集，本轮继续启动 `webqsp_train500`，用前 500 条 WebQSP pseudo-train 样本构造训练用子图、memory、pairwise preferences 和 0.6B 可消费的数据格式。
+
+执行命令：
+
+```bash
+cd /data/wxr/AutoResearch/idea1-memory-kgr
+bash scripts/submit_nohup.sh stage1 configs/webqsp_train500.json
+bash scripts/submit_nohup.sh stage2 configs/webqsp_train500.json
+bash scripts/submit_nohup.sh stage4 configs/webqsp_train500.json
+bash scripts/submit_nohup.sh stage5 configs/webqsp_train500.json
+```
+
+产物：
+
+```text
+cache/webqsp_train500_subgraphs.jsonl
+outputs/memory/webqsp_train500_memory.jsonl
+outputs/preferences/webqsp_train500_pairwise_preferences.jsonl
+outputs/preferences/webqsp_train500_pairwise_preferences_summary.json
+outputs/train_data/webqsp_train500_action_sft.jsonl
+outputs/train_data/webqsp_train500_action_dpo.jsonl
+outputs/train_data/webqsp_train500_action_data_summary.json
+```
+
+train500 子图召回：
+
+```text
+num_records: 500
+gold_next_relation_edge_recall: 0.99
+gold_next_relation_candidate_recall: 0.938
+gold_answer_visible_rate: 0.642
+avg_edges: 64.37
+avg_candidate_actions: 48.86
+gold_relation_rank_avg_when_visible: 24.64
+```
+
+train500 pairwise preference：
+
+```text
+num_preferences: 1857
+num_source_subgraphs: 500
+skipped.gold_not_in_candidates: 31
+skipped.no_negative: 1
+max_negatives_per_positive: 4
+```
+
+hard negative 来源：
+
+```text
+same_domain_hard_negative: 1048
+rule_top_wrong: 365
+ranked_negative: 320
+memory_top_wrong: 124
+```
+
+compact action data：
+
+```text
+num_preferences_in: 1857
+num_dpo_rows: 1857
+num_sft_rows: 468
+max_candidates_per_prompt: 80
+```
+
+SFT 样本格式：
+
+```json
+{
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are a knowledge-graph reasoning action selector. Choose exactly one relation_id from the candidate relations. Return compact JSON only."
+    },
+    {
+      "role": "user",
+      "content": "Question: ...\nSeed entities: ...\nVerified memory relations: ...\nCandidate relations:\n0. ...\n\nSelect the best next-hop relation for graph traversal. Return JSON with key relation_id."
+    },
+    {
+      "role": "assistant",
+      "content": "{\"relation_id\": \"influence.influence_node.influenced_by\"}"
+    }
+  ],
+  "target_relation_id": "influence.influence_node.influenced_by"
+}
+```
+
+DPO/pairwise 样本格式：
+
+```json
+{
+  "prompt": "Question: ...\nCandidate relations:\n0. ...",
+  "chosen": "{\"relation_id\": \"location.location.time_zones\"}",
+  "rejected": "{\"relation_id\": \"location.location.area\"}",
+  "negative_source": "same_domain_hard_negative"
+}
+```
+
+当前状态：数据格式准备已经完成，但还没有启动 0.6B 模型训练。下一步可以进入小模型实验：
+
+1. `no_memory_sft`：prompt 中去掉 verified memory relations。
+2. `memory_sft`：保留 verified memory relations。
+3. `random_memory_sft`：替换成随机 memory relations。
+4. 在 eval100 上比较 action selection accuracy、invalid relation rate、memory utility delta。
