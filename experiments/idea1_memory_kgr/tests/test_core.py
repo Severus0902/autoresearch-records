@@ -38,6 +38,31 @@ def test_webqsp_parser_extracts_question_entities_answers_and_chain():
     assert sample.gold_relation_chain == ["people.person.place_of_birth"]
 
 
+def test_webqsp_parser_supports_nested_parses_layout():
+    sample = parse_webqsp_record(
+        {
+            "QuestionId": "q2",
+            "RawQuestion": "where is taylor swift from?",
+            "topic_entity": {"m.0dl567": "Taylor Swift"},
+            "Parses": [
+                {
+                    "TopicEntityMid": "m.0dl567",
+                    "TopicEntityName": "Taylor Swift",
+                    "InferentialChain": ["people.person.place_of_birth"],
+                    "Answers": [{"AnswerArgument": "m.0zlgm", "EntityName": "Reading"}],
+                }
+            ],
+        },
+        idx=0,
+        split="test",
+    )
+
+    assert sample.topic_entities[0].mid == "m.0dl567"
+    assert sample.topic_entities[0].name == "Taylor Swift"
+    assert sample.gold_answers[0].text == "Reading"
+    assert sample.gold_relation_chain == ["people.person.place_of_birth"]
+
+
 def test_subgraph_builder_creates_expand_actions():
     sample = parse_webqsp_record(
         {

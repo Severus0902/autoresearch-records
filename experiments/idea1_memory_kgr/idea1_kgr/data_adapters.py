@@ -101,15 +101,38 @@ def _cwq_answers(value: Any) -> List[AnswerRef]:
     return answers
 
 
+def _dict_entities(value: Any) -> List[EntityRef]:
+    if not isinstance(value, dict):
+        return []
+    return [
+        EntityRef(mid=_stringify(mid), name=_stringify(name))
+        for mid, name in value.items()
+        if _stringify(mid) or _stringify(name)
+    ]
+
+
 def parse_webqsp_record(record: Dict[str, Any], idx: int, split: str) -> KGQASample:
+    parses = [item for item in _as_list(record.get("Parses")) if isinstance(item, dict)]
+    primary_parse = parses[0] if parses else {}
     qid = _stringify(record.get("QuestionId") or record.get("qid") or record.get("id") or f"webqsp_{idx}")
     question = _stringify(record.get("RawQuestion") or record.get("question") or record.get("Question"))
-    topic_entities = _entity_refs_from_mid_name(
-        record.get("TopicEntityMid") or record.get("topic_entity") or record.get("q_entity"),
-        record.get("TopicEntityName") or record.get("TopicEntity") or record.get("q_entity_name"),
-    )
-    relation_chain = [_stringify(x) for x in _as_list(record.get("InferentialChain")) if _stringify(x)]
-    sparql = _stringify(record.get("Sparql") or record.get("sparql"))
+    topic_entities = _dict_entities(record.get("topic_entity"))
+    if not topic_entities:
+        topic_entities = _entity_refs_from_mid_name(
+            record.get("TopicEntityMid")
+            or primary_parse.get("TopicEntityMid")
+            or record.get("q_entity"),
+            record.get("TopicEntityName")
+            or primary_parse.get("TopicEntityName")
+            or record.get("TopicEntity")
+            or record.get("q_entity_name"),
+        )
+    relation_chain = [
+        _stringify(x)
+        for x in _as_list(record.get("InferentialChain") or primary_parse.get("InferentialChain"))
+        if _stringify(x)
+    ]
+    sparql = _stringify(record.get("Sparql") or primary_parse.get("Sparql") or record.get("sparql"))
     if not relation_chain:
         relation_chain = _extract_sparql_relations(sparql)
     return KGQASample(
@@ -117,7 +140,12 @@ def parse_webqsp_record(record: Dict[str, Any], idx: int, split: str) -> KGQASam
         qid=qid,
         question=question,
         topic_entities=topic_entities,
-        gold_answers=_webqsp_answers(record.get("Answers") or record.get("answers") or record.get("answer")),
+        gold_answers=_webqsp_answers(
+            record.get("Answers")
+            or primary_parse.get("Answers")
+            or record.get("answers")
+            or record.get("answer")
+        ),
         split=_stringify(record.get("split") or split),
         gold_relation_chain=relation_chain,
         sparql=sparql,
