@@ -1,5 +1,98 @@
 [
   {
+    "key": "I9F2WIW4",
+    "citationKey": "hubertOlympiadLevelFormal2026",
+    "itemType": "journalArticle",
+    "title": "Olympiad-level formal mathematical reasoning with reinforcement learning",
+    "date": "2026-03",
+    "year": "2026-03",
+    "authors": [
+      "Thomas Hubert",
+      "Rishi Mehta",
+      "Laurent Sartran",
+      "Miklos Z. Horvath",
+      "Goran Zuzic",
+      "Eric Wieser",
+      "Aja Huang",
+      "Julian Schrittwieser",
+      "Yannick Schroecker",
+      "Hussain Masoom"
+    ],
+    "DOI": "10.1038/s41586-025-09833-y",
+    "url": "https://www.nature.com/articles/s41586-025-09833-y",
+    "collections": [
+      "PTBVBRXD"
+    ],
+    "tags": [
+      "/unread",
+      "AutoResearch",
+      "formal math",
+      "RL",
+      "verifiable reasoning"
+    ],
+    "dateModified": "2026-09-01T05:19:13Z"
+  },
+  {
+    "key": "Z9AQE3VY",
+    "citationKey": "jimenezSWEbenchCanLanguage2024",
+    "itemType": "conferencePaper",
+    "title": "SWE-bench: Can language models resolve real-world GitHub issues?",
+    "date": "2024",
+    "year": "2024",
+    "authors": [
+      "Carlos E. Jimenez",
+      "John Yang",
+      "Alexander Wettig",
+      "Shunyu Yao",
+      "Kexin Pei",
+      "Ofir Press",
+      "Karthik Narasimhan"
+    ],
+    "DOI": "",
+    "url": "https://proceedings.iclr.cc/paper_files/paper/2024/hash/edac78c3e300629acfe6cbe9ca88fb84-Abstract-Conference.html",
+    "collections": [
+      "PTBVBRXD"
+    ],
+    "tags": [
+      "/unread",
+      "AutoResearch",
+      "benchmark",
+      "code reasoning",
+      "verifiable reasoning"
+    ],
+    "dateModified": "2026-09-01T05:19:12Z"
+  },
+  {
+    "key": "B6JQDAPZ",
+    "citationKey": "yangSWEagentAgentComputer2024",
+    "itemType": "conferencePaper",
+    "title": "SWE-agent: Agent-computer interfaces enable automated software engineering",
+    "date": "2024",
+    "year": "2024",
+    "authors": [
+      "John Yang",
+      "Carlos E. Jimenez",
+      "Alexander Wettig",
+      "Kilian Lieret",
+      "Shunyu Yao",
+      "Karthik Narasimhan",
+      "Ofir Press"
+    ],
+    "DOI": "10.52202/079017-1601",
+    "url": "https://papers.nips.cc/paper_files/paper/2024/hash/5a7c947568c1b1328ccc5230172e1e7c-Abstract-Conference.html",
+    "collections": [
+      "PTBVBRXD"
+    ],
+    "tags": [
+      "/unread",
+      "AutoResearch",
+      "code agent",
+      "tool use",
+      "verifiable reasoning"
+    ],
+    "dateModified": "2026-09-01T05:19:12Z"
+  },
+  {
     "key": "R6HN2ZRJ",
     "citationKey": "chenLearningWhatRemember2026",
     "itemType": "journalArticle",
@@ -17,8 +110,8 @@
     ],
     "tags": [
       "/unread",
-      "agent memory",
       "AutoResearch",
+      "agent memory",
       "forgetting",
       "memory value"
     ],
@@ -76,10 +169,10 @@
     ],
     "tags": [
       "/unread",
-      "agent memory",
       "AutoResearch",
-      "memory utilization",
-      "reasoning"
+      "agent memory",
+      "reasoning",
+      "memory utilization"
     ],
     "dateModified": "2026-09-01T05:08:58Z"
   },
@@ -101,8 +194,8 @@
     ],
     "tags": [
       "/unread",
-      "agent memory",
       "AutoResearch",
+      "agent memory",
       "reasoning",
       "working memory"
     ],

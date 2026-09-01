@@ -17,7 +17,10 @@ zotero: [
   "@maMemChainLearningInterpretable2026",
   "@jiangAgenticRagR1Agentic2026",
   "@yanExploreongraphIncentivizingAutonomous2026a",
-  "@yuanKnowledgetoverificationExploringRLVR2026"
+  "@yuanKnowledgetoverificationExploringRLVR2026",
+  "@jimenezSWEbenchCanLanguage2024",
+  "@yangSWEagentAgentComputer2024",
+  "@hubertOlympiadLevelFormal2026"
 ]
 tags: ["reasoning", "memory", "rlvr", "kgr", "agent-memory", "verifiable-reasoning"]
 ---
@@ -74,6 +77,52 @@ memory utility = reduced invalid hops, higher path recall, better stop decisions
 4. **防泄漏更容易定义**：KGQA 可以明确禁止测试答案、gold path、同源改写样本进入 memory；普通 long-term memory benchmark 的污染边界更模糊。
 
 因此，KGR 的角色应该是 **verifiable sandbox**，不是研究边界。方法接口要写得通用，实验第一站用 KGR。
+
+## 如果直接离开 KG
+
+可以直接离开 KG，但必须重新回答一个问题：**新的环境能不能提供足够硬、足够便宜、足够细粒度的 verifier**。如果没有，memory 的贡献会很难归因，方法也容易变成普通 RAG 或普通 agent memory。
+
+| 非 KG 环境 | Verifier 强度 | Memory 的自然作用 | 0.6B pilot 可行性 | 风险 | 判断 |
+|---|---|---|---|---|---|
+| Code / unit-test reasoning | 强：单元测试、静态检查、执行结果、patch 是否通过。 | 记录错误类型、失败测试、修复模式、API 使用经验、调试轨迹。 | 中等：可从小型代码修复/函数生成开始，不必直接上 SWE-bench。 | 代码 agent 方向很挤；完整 SWE-bench 对小模型太难。 | **最适合直接离开 KG 的第一选择**。 |
+| Formal math / theorem proving | 极强：Lean/Coq/Isabelle verifier。 | 记录 lemma、proof tactic、失败证明状态、子目标分解策略。 | 低到中等：verifier 很硬，但数据和环境门槛高，0.6B 很可能只适合 tactic selection。 | 和 formal reasoning 专门系统竞争，memory 新意可能被 proof search 掩盖。 | 适合做强 verifier 上界，不适合作为最快 pilot。 |
+| Multi-hop text QA / citation RAG | 中等：答案匹配、evidence span、citation support。 | 记录文档组合模式、失败检索、证据链组织、何时继续检索。 | 高：数据和工程最容易。 | verifier 不够硬，答案泄漏和语义近邻检索难区分；AgenticRag-R1 等近邻压力大。 | 适合第二场景，不建议作为唯一主场。 |
+| Tool-use QA / browser or API agent | 中等：任务成功率、API 返回、环境状态。 | 记录工具调用策略、参数模板、失败恢复、停止条件。 | 中等：需要环境和日志，但动作空间可控。 | 任务差异大，复现实验和公平 baseline 难。 | 可作为后续泛化场景。 |
+| Pure long-term memory benchmark | 弱到中等：记忆命中、事实一致性、长期任务成功。 | 记录用户事实、偏好、历史事件、任务状态。 | 高。 | 已有 Memory-R1、Memory-R2、VerMem、MemChain 很近；没有外部 verifier 时容易拥挤。 | 不建议单独作为主线。 |
+
+如果完全离开 KG，我建议把第一版改成 **Memory-Contrastive RLVR for Code Reasoning**，而不是泛泛的 memory reasoning。形式可以是：
+
+```text
+q: issue / programming task
+E: repository or code context
+M: verified debugging memory
+V: unit tests + static checker + execution feedback
+a_t: inspect_file / edit_patch / run_test / retrieve_memory / reflect / stop
+R_memory_utility: memory 是否减少失败测试次数、无效编辑次数、debug steps 或 token cost
+```
+
+这条路线和 KG 版是一一对应的：
+
+| KG 版 | Code 版 |
+|---|---|
+| entity / relation / path | file / symbol / call chain / patch trajectory |
+| path validity verifier | unit test / static check / runtime verifier |
+| failed relation expansion | failed edit / failed test / wrong API usage |
+| relation path template memory | bug pattern / repair pattern / API usage memory |
+| answer hit within budget | tests passed within budget |
+| gold-path edge recall | touched relevant file/symbol recall |
+
+这样 memory 不再依赖 KG，但仍然保留“可验证、多步、低预算、可归因”的核心。第一阶段不要直接做完整 SWE-bench；可以先做小型可控数据：HumanEval/MBPP-style repair、Defects4J 小子集、或从真实仓库 issue 中抽小规模函数级修复任务。等 memory utility 信号稳定后，再考虑 SWE-bench Lite/Verified 或更完整的软件工程 agent。
+
+如果直接选择 formal math，最小任务不要写完整证明，而是做 tactic/action selection：在当前 proof state 下，memory 检索相似 lemma/tactic traces，模型选择下一步 tactic，verifier 立即检查。这个方向验证很硬，但 0.6B 成本和领域门槛会更高。
+
+因此，离开 KG 后的推荐排序是：
+
+```text
+Code/unit-test reasoning > multi-hop text QA as second scenario > formal math as strong-verifier extension > pure memory benchmark
+```
+
+对应论文主张也要改：不要再强调 KGR，而强调 **memory utility under verifiable feedback**。KGR 只作为可选实验场之一；code/unit-test reasoning 可以成为主实验场。
 
 ## 方法抽象
 

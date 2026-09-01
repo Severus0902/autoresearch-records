@@ -1,5 +1,16 @@
 # Zotero Library
 
+- `@hubertOlympiadLevelFormal2026` Olympiad-level formal mathematical reasoning with reinforcement learning (2026-03)
+  Authors: Thomas Hubert, Rishi Mehta, Laurent Sartran
+  DOI: 10.1038/s41586-025-09833-y
+  URL: https://www.nature.com/articles/s41586-025-09833-y
+- `@jimenezSWEbenchCanLanguage2024` SWE-bench: Can language models resolve real-world GitHub issues? (2024)
+  Authors: Carlos E. Jimenez, John Yang, Alexander Wettig
+  URL: https://proceedings.iclr.cc/paper_files/paper/2024/hash/edac78c3e300629acfe6cbe9ca88fb84-Abstract-Conference.html
+- `@yangSWEagentAgentComputer2024` SWE-agent: Agent-computer interfaces enable automated software engineering (2024)
+  Authors: John Yang, Carlos E. Jimenez, Alexander Wettig
+  DOI: 10.52202/079017-1601
+  URL: https://papers.nips.cc/paper_files/paper/2024/hash/5a7c947568c1b1328ccc5230172e1e7c-Abstract-Conference.html
 - `@chenLearningWhatRemember2026` Learning what to remember: A cognitively grounded multi-factor value model for agentic memory (2026-06-11)
   Authors: Zhibao Chen, Qian Cheng
   DOI: 10.48550/arXiv.2606.12945
