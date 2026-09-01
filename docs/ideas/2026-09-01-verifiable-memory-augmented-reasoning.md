@@ -209,6 +209,10 @@ We are the first to use memory in reasoning agents.
 
 因此，当前路线可以写成：第一场景用 KGR 提供硬 verifier 和强 KG baseline；第二场景用 RAG + memory 证明 memory interface 能迁移到文本证据链推理。若第二场景效果明显，再把论文主张从 KGR paper 提升到 verifiable memory-augmented reasoning。
 
+## Idea Portfolio
+
+围绕“利用 memory 做 agentic RAG / agentic KGR”的候选 idea 已整理到 [2026-09-01-agentic-memory-rag-kgr-idea-list.md](2026-09-01-agentic-memory-rag-kgr-idea-list.md)。当前最推荐的组合是：以 I1 `Memory-Guided Subgraph Action Selector` 作为 KGR 主实验，以 I2 `Memory-Augmented Evidence-Chain RAG` 作为第二场景，以 I4 `Memory-Contrastive Next-Step Policy Learning` 和 I5 `Memory-Aware GRM` 作为核心方法贡献。
+
 ## 当前判断
 
 不单纯做 KGR 是对的，但不应该放弃 KGR。最强的叙事是：**做 memory/reasoning 方向，用 KGR 作为第一块可验证实验场**。这样既能和 Memory-R1、REMem、MEM1、Memory-R2、VerMem 等 memory/reasoning 工作对话，也能保留 ToG/RoG/EoG 这些强 KG baseline 的清晰实验闭环。
