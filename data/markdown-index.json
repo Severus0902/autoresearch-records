@@ -59,6 +59,58 @@
     ]
   },
   {
+    "path": "E:\\research\\docs\\ideas\\2026-09-01-memory-augmented-evidence-chain-rag.md",
+    "title": "Memory-Augmented Evidence-Chain RAG：第二场景方案",
+    "type": "idea",
+    "status": "open",
+    "zotero": [
+      "@yangHotpotQADatasetDiverse2018",
+      "@hoConstructingMultihopQADataset2020",
+      "@trivediMuSiQueMultihopQuestions2022",
+      "@trivediInterleavingRetrievalChain2023",
+      "@gaoEnablingLargeLanguage2023",
+      "@asaiSelfragLearningRetrieve2024",
+      "@yanCorrectiveRetrievalAugmented2024",
+      "@dongRAGcriticLeveragingAutomated2025",
+      "@gutierrezHippoRAGNeurobiologicallyInspired2025",
+      "@guoLightRAGSimpleFast2025",
+      "@yuGraphRAGR1GraphRetrievalaugmented2026",
+      "@jiangAgenticRagR1Agentic2026",
+      "@shinnReflexionLanguageAgents2023",
+      "@packerMemGPTTowardsLLMs2023",
+      "@xuAMEMAgenticMemory2025",
+      "@chhikaraMem0BuildingProductionReady2025",
+      "@maMemChainLearningInterpretable2026"
+    ],
+    "citation_keys": [
+      "asaiSelfragLearningRetrieve2024",
+      "chhikaraMem0BuildingProductionReady2025",
+      "dongRAGcriticLeveragingAutomated2025",
+      "gaoEnablingLargeLanguage2023",
+      "guoLightRAGSimpleFast2025",
+      "gutierrezHippoRAGNeurobiologicallyInspired2025",
+      "hoConstructingMultihopQADataset2020",
+      "jiangAgenticRagR1Agentic2026",
+      "maMemChainLearningInterpretable2026",
+      "packerMemGPTTowardsLLMs2023",
+      "shinnReflexionLanguageAgents2023",
+      "trivediInterleavingRetrievalChain2023",
+      "trivediMuSiQueMultihopQuestions2022",
+      "xuAMEMAgenticMemory2025",
+      "yanCorrectiveRetrievalAugmented2024",
+      "yangHotpotQADatasetDiverse2018",
+      "yuGraphRAGR1GraphRetrievalaugmented2026"
+    ],
+    "tags": [
+      "rag",
+      "memory",
+      "rlvr",
+      "evidence-chain",
+      "multi-hop-qa",
+      "verifiable-reasoning"
+    ]
+  },
+  {
     "path": "E:\\research\\docs\\ideas\\2026-09-01-verifiable-memory-augmented-reasoning.md",
     "title": "Verifiable Memory-Augmented Reasoning：以 KGR 作为可验证实验场",
     "type": "idea",

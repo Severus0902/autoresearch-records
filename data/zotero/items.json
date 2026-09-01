@@ -1,5 +1,132 @@
 [
   {
+    "key": "3CM2IBF6",
+    "citationKey": "trivediMuSiQueMultihopQuestions2022",
+    "itemType": "journalArticle",
+    "title": "MuSiQue: Multihop questions via single-hop question composition",
+    "date": "2022",
+    "year": "2022",
+    "authors": [
+      "Harsh Trivedi",
+      "Niranjan Balasubramanian",
+      "Tushar Khot",
+      "Ashish Sabharwal"
+    ],
+    "DOI": "10.1162/tacl_a_00475",
+    "url": "https://aclanthology.org/2022.tacl-1.31/",
+    "collections": [
+      "PTBVBRXD"
+    ],
+    "tags": [
+      "/unread",
+      "dataset",
+      "multi-hop QA",
+      "RAG"
+    ],
+    "dateModified": "2026-09-01T05:32:12Z"
+  },
+  {
+    "key": "WHFM2HN2",
+    "citationKey": "trivediInterleavingRetrievalChain2023",
+    "itemType": "conferencePaper",
+    "title": "Interleaving retrieval with chain-of-thought reasoning for knowledge-intensive multi-step questions",
+    "date": "2023",
+    "year": "2023",
+    "authors": [
+      "Harsh Trivedi",
+      "Niranjan Balasubramanian",
+      "Tushar Khot",
+      "Ashish Sabharwal"
+    ],
+    "DOI": "10.18653/v1/2023.acl-long.557",
+    "url": "https://aclanthology.org/2023.acl-long.557/",
+    "collections": [
+      "PTBVBRXD"
+    ],
+    "tags": [
+      "/unread",
+      "baseline",
+      "multi-hop QA",
+      "RAG"
+    ],
+    "dateModified": "2026-09-01T05:32:12Z"
+  },
+  {
+    "key": "XXU6XHXR",
+    "citationKey": "gaoEnablingLargeLanguage2023",
+    "itemType": "conferencePaper",
+    "title": "Enabling large language models to generate text with citations",
+    "date": "2023",
+    "year": "2023",
+    "authors": [
+      "Tianyu Gao",
+      "Howard Yen",
+      "Jiatong Yu",
+      "Danqi Chen"
+    ],
+    "DOI": "10.18653/v1/2023.emnlp-main.398",
+    "url": "https://aclanthology.org/2023.emnlp-main.398/",
+    "collections": [
+      "PTBVBRXD"
+    ],
+    "tags": [
+      "/unread",
+      "citation",
+      "evaluation",
+      "RAG"
+    ],
+    "dateModified": "2026-09-01T05:32:12Z"
+  },
+  {
+    "key": "DLVU7UHX",
+    "citationKey": "hoConstructingMultihopQADataset2020",
+    "itemType": "conferencePaper",
+    "title": "Constructing a multi-hop QA dataset for comprehensive evaluation of reasoning steps",
+    "date": "2020",
+    "year": "2020",
+    "authors": [
+      "Xanh Ho",
+      "Anh-Khoa Duong Nguyen",
+      "Saku Sugawara",
+      "Akiko Aizawa"
+    ],
+    "DOI": "10.18653/v1/2020.coling-main.580",
+    "url": "https://aclanthology.org/2020.coling-main.580/",
+    "collections": [
+      "PTBVBRXD"
+    ],
+    "tags": [
+      "/unread",
+      "dataset",
+      "multi-hop QA",
+      "RAG"
+    ],
+    "dateModified": "2026-09-01T05:32:11Z"
+  },
+  {
+    "key": "R2U993DR",
+    "citationKey": "yangHotpotQADatasetDiverse2018",
+    "itemType": "conferencePaper",
+    "title": "HotpotQA: A dataset for diverse, explainable multi-hop question answering",
+    "date": "2018",
+    "year": "2018",
+    "authors": [
+      "Zhilin Yang"
+    ],
+    "DOI": "10.18653/v1/D18-1259",
+    "url": "https://aclanthology.org/D18-1259/",
+    "collections": [
+      "PTBVBRXD"
+    ],
+    "tags": [
+      "/unread",
+      "multi-hop QA",
+      "dataset",
+      "RAG"
+    ],
+    "dateModified": "2026-09-01T05:31:10Z"
+  },
+  {
     "key": "I9F2WIW4",
     "citationKey": "hubertOlympiadLevelFormal2026",
     "itemType": "journalArticle",
@@ -26,9 +153,9 @@
     "tags": [
       "/unread",
       "AutoResearch",
-      "formal math",
       "RL",
-      "verifiable reasoning"
+      "verifiable reasoning",
+      "formal math"
     ],
     "dateModified": "2026-09-01T05:19:13Z"
   },
@@ -86,9 +213,9 @@
     "tags": [
       "/unread",
       "AutoResearch",
+      "verifiable reasoning",
       "code agent",
-      "tool use",
-      "verifiable reasoning"
+      "tool use"
     ],
     "dateModified": "2026-09-01T05:19:12Z"
   },

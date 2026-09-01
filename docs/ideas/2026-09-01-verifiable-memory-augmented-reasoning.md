@@ -190,6 +190,25 @@ We are the first to use memory in reasoning agents.
 5. **第一核心指标**：answer hit within budget、gold-path edge recall、invalid action rate、steps-to-answer、memory utility delta。
 6. **第二阶段扩展**：增加一个非 KG 的 verifiable reasoning 场景，例如 multi-hop text QA、tool-use QA 或 code/unit-test reasoning，用同一套 memory interface 验证可迁移性。
 
+## 第二场景已选：RAG + memory
+
+第二场景可以收束为 **Memory-Augmented Evidence-Chain RAG**，详见 [2026-09-01-memory-augmented-evidence-chain-rag.md](2026-09-01-memory-augmented-evidence-chain-rag.md)。
+
+这条线不是泛泛地“给 RAG 加长期记忆”，而是让 memory 记录训练过程中经过 verifier 标注的检索策略、证据链模板、失败检索、过早停止错误和 citation 支撑问题。推理时，memory 只能作为 query-conditioned strategy prior，必须通过当前文档证据重新验证后才能影响 action selector 或 reward。
+
+它和 KGR 第一场景的映射关系很清楚：
+
+| KGR 第一场景 | RAG 第二场景 |
+|---|---|
+| entity / relation / path | document / span / evidence chain |
+| query-centered subgraph | query-centered retrieved evidence pool |
+| path validity verifier | supporting fact / citation support verifier |
+| memory-guided next-hop action | memory-guided retrieve/rewrite/select/stop action |
+| gold-path edge recall | supporting fact F1 / retrieval recall@k |
+| memory utility delta | evidence support delta / cost delta / citation error delta |
+
+因此，当前路线可以写成：第一场景用 KGR 提供硬 verifier 和强 KG baseline；第二场景用 RAG + memory 证明 memory interface 能迁移到文本证据链推理。若第二场景效果明显，再把论文主张从 KGR paper 提升到 verifiable memory-augmented reasoning。
+
 ## 当前判断
 
 不单纯做 KGR 是对的，但不应该放弃 KGR。最强的叙事是：**做 memory/reasoning 方向，用 KGR 作为第一块可验证实验场**。这样既能和 Memory-R1、REMem、MEM1、Memory-R2、VerMem 等 memory/reasoning 工作对话，也能保留 ToG/RoG/EoG 这些强 KG baseline 的清晰实验闭环。

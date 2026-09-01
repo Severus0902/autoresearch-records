@@ -1,5 +1,25 @@
 # Zotero Library
 
+- `@trivediMuSiQueMultihopQuestions2022` MuSiQue: Multihop questions via single-hop question composition (2022)
+  Authors: Harsh Trivedi, Niranjan Balasubramanian, Tushar Khot
+  DOI: 10.1162/tacl_a_00475
+  URL: https://aclanthology.org/2022.tacl-1.31/
+- `@trivediInterleavingRetrievalChain2023` Interleaving retrieval with chain-of-thought reasoning for knowledge-intensive multi-step questions (2023)
+  Authors: Harsh Trivedi, Niranjan Balasubramanian, Tushar Khot
+  DOI: 10.18653/v1/2023.acl-long.557
+  URL: https://aclanthology.org/2023.acl-long.557/
+- `@gaoEnablingLargeLanguage2023` Enabling large language models to generate text with citations (2023)
+  Authors: Tianyu Gao, Howard Yen, Jiatong Yu
+  DOI: 10.18653/v1/2023.emnlp-main.398
+  URL: https://aclanthology.org/2023.emnlp-main.398/
+- `@hoConstructingMultihopQADataset2020` Constructing a multi-hop QA dataset for comprehensive evaluation of reasoning steps (2020)
+  Authors: Xanh Ho, Anh-Khoa Duong Nguyen, Saku Sugawara
+  DOI: 10.18653/v1/2020.coling-main.580
+  URL: https://aclanthology.org/2020.coling-main.580/
+- `@yangHotpotQADatasetDiverse2018` HotpotQA: A dataset for diverse, explainable multi-hop question answering (2018)
+  Authors: Zhilin Yang
+  DOI: 10.18653/v1/D18-1259
+  URL: https://aclanthology.org/D18-1259/
 - `@hubertOlympiadLevelFormal2026` Olympiad-level formal mathematical reasoning with reinforcement learning (2026-03)
   Authors: Thomas Hubert, Rishi Mehta, Laurent Sartran
   DOI: 10.1038/s41586-025-09833-y
