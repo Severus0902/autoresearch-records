@@ -353,3 +353,73 @@ DPO/pairwise 样本格式：
 2. `memory_sft`：保留 verified memory relations。
 3. `random_memory_sft`：替换成随机 memory relations。
 4. 在 eval100 上比较 action selection accuracy、invalid relation rate、memory utility delta。
+
+## Qwen3-0.6B 最小 SFT 实验
+
+用户确认可以启动最小模型实验后，本轮使用服务器上已有的 Qwen3-0.6B 权重，没有重复下载模型。
+
+模型与环境：
+
+```text
+model: /data/wxr/Finance/Qwen3-0.6B
+python: /home/weixirun/anaconda3/envs/Finance/bin/python
+GPU: CUDA_VISIBLE_DEVICES=3, NVIDIA RTX 3090
+```
+
+代码版本：
+
+```text
+ef9cb4d Add Qwen 0.6B minimal action selector training
+```
+
+执行命令：
+
+```bash
+cd /data/wxr/AutoResearch/idea1-memory-kgr
+CUDA_VISIBLE_DEVICES=3 PYTHON_BIN=/home/weixirun/anaconda3/envs/Finance/bin/python \
+  bash scripts/submit_nohup.sh stage6 configs/qwen3_0p6b_memory_sft_minimal.json
+```
+
+日志与产物：
+
+```text
+log: /data/wxr/AutoResearch/idea1-memory-kgr/logs/stage6_20260901_210324.log
+run_dir: /data/wxr/AutoResearch/idea1-memory-kgr/runs/qwen3_0p6b_memory_sft_minimal_20260901_210324
+summary: runs/qwen3_0p6b_memory_sft_minimal_20260901_210324/summary.json
+adapter: runs/qwen3_0p6b_memory_sft_minimal_20260901_210324/adapter
+```
+
+训练设置：
+
+```text
+train_data: outputs/train_data/webqsp_train500_action_sft.jsonl
+max_train_samples: 256
+num_encoded_train_rows: 256
+max_steps: 30
+micro_batch_size: 1
+gradient_accumulation_steps: 8
+learning_rate: 2e-4
+LoRA r/alpha/dropout: 8 / 16 / 0.05
+trainable_params: 5,046,272 / 601,096,192 = 0.8395%
+eval_data: eval100 subgraphs + eval100 verified memory
+max_eval_samples: 60
+```
+
+结果：
+
+```text
+eval_before_accuracy: 0.0000
+eval_before_invalid_rate: 1.0000
+eval_after_accuracy: 0.7000
+eval_after_invalid_rate: 0.0000
+accuracy_delta: +0.7000
+mean_loss: 0.077124
+final_loss: 0.000402
+```
+
+初步解释：
+
+- 未训练的 Qwen3-0.6B 虽然能读 prompt，但在这个 constrained JSON action selection 格式下没有稳定输出候选 relation，初始 invalid rate 为 1.0。
+- 只用 256 条 SFT 样本、30 个 optimizer steps 的 LoRA warm start 后，模型已经能稳定输出合法 `relation_id`，eval60 下一跳 accuracy 达到 0.70。
+- 这个结果证明“把 KGR 下一跳搜索动作压缩成 action selector，再用小模型快速验证”是可行的。
+- 但这还不能单独证明 memory 的贡献，因为当前 prompt 保留了 verified memory relations，且 eval 只覆盖 60 条样本。下一步需要做 `no_memory_sft`、`random_memory_sft`、`verified_memory_sft` 三组模型级消融。
