@@ -506,3 +506,5 @@ EoG 是最应该优先复现的对象，因为它的 motivation 最近：固定�
 这是目前仍然值得推进的 idea，但 motivation 需要避开“首次 RLVR+KGR”。更稳的说法是：已有工作说明 KG verifier、路径 reward 和 RLVR 可以用于 KG/GraphRAG；本 idea 进一步检验 verified episodic memory 和 memory-aware GRM 是否能缓解 naive RLVR 在 KGQA 搜索中的 sparse reward、重复错误和训练不稳定问题。
 
 0.6B 模型只用于低成本早期验证。若 memory + GRM reranking 能在 0.6B 上降低 invalid action rate、提高 path recall 和 answer hit within budget，再把同一框架扩展到 Qwen2.5-7B 和 Llama3-8B，才适合作为正式论文实验主线。
+
+更宽的论文定位见 `docs/ideas/2026-09-01-verifiable-memory-augmented-reasoning.md`。推荐把最终题目上升为 verifiable memory-augmented reasoning，把 KGR/KGQA 作为第一阶段可验证实验场；如果后续能补一个非 KG 的 verifiable reasoning 场景，论文就不必被限定为纯 KGR 工作。

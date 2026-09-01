@@ -1,5 +1,199 @@
 [
   {
+    "key": "R6HN2ZRJ",
+    "citationKey": "chenLearningWhatRemember2026",
+    "itemType": "journalArticle",
+    "title": "Learning what to remember: A cognitively grounded multi-factor value model for agentic memory",
+    "date": "2026-06-11",
+    "year": "2026-06-11",
+    "authors": [
+      "Zhibao Chen",
+      "Qian Cheng"
+    ],
+    "DOI": "10.48550/arXiv.2606.12945",
+    "url": "https://arxiv.org/abs/2606.12945",
+    "collections": [
+      "PTBVBRXD"
+    ],
+    "tags": [
+      "/unread",
+      "agent memory",
+      "AutoResearch",
+      "forgetting",
+      "memory value"
+    ],
+    "dateModified": "2026-09-01T05:08:59Z"
+  },
+  {
+    "key": "7X5RYBAU",
+    "citationKey": "maMemChainLearningInterpretable2026",
+    "itemType": "journalArticle",
+    "title": "MemChain: Learning interpretable memory traces for memory-augmented LLM agents",
+    "date": "2026-07-27",
+    "year": "2026-07-27",
+    "authors": [
+      "Yiwen Ma",
+      "Songjun Tu",
+      "Qichao Zhang",
+      "Dong Li",
+      "Linjing Li",
+      "Dongbin Zhao"
+    ],
+    "DOI": "10.48550/arXiv.2607.24097",
+    "url": "https://arxiv.org/abs/2607.24097",
+    "collections": [
+      "PTBVBRXD"
+    ],
+    "tags": [
+      "/unread",
+      "AutoResearch",
+      "agent memory",
+      "reasoning",
+      "memory trace"
+    ],
+    "dateModified": "2026-09-01T05:08:58Z"
+  },
+  {
+    "key": "EJK5FBIL",
+    "citationKey": "xuChainMemoryLightweight2026",
+    "itemType": "journalArticle",
+    "title": "Chain-of-memory: Lightweight memory construction with dynamic evolution for LLM agents",
+    "date": "2026-01-14",
+    "year": "2026-01-14",
+    "authors": [
+      "Xiucheng Xu",
+      "Bingbing Xu",
+      "Xueyun Tian",
+      "Zihe Huang",
+      "Rongxin Chen",
+      "Yunfan Li",
+      "Huawei Shen"
+    ],
+    "DOI": "10.48550/arXiv.2601.14287",
+    "url": "https://arxiv.org/abs/2601.14287",
+    "collections": [
+      "PTBVBRXD"
+    ],
+    "tags": [
+      "/unread",
+      "agent memory",
+      "AutoResearch",
+      "memory utilization",
+      "reasoning"
+    ],
+    "dateModified": "2026-09-01T05:08:58Z"
+  },
+  {
+    "key": "5Q3VSF9M",
+    "citationKey": "khanMemoryLoopInProcess2026",
+    "itemType": "journalArticle",
+    "title": "Memory in the loop: In-process retrieval as extended working memory for language agents",
+    "date": "2026-07-06",
+    "year": "2026-07-06",
+    "authors": [
+      "Yusuf Khan",
+      "Carlo Lipizzi"
+    ],
+    "DOI": "10.48550/arXiv.2607.05690",
+    "url": "https://arxiv.org/abs/2607.05690",
+    "collections": [
+      "PTBVBRXD"
+    ],
+    "tags": [
+      "/unread",
+      "agent memory",
+      "AutoResearch",
+      "reasoning",
+      "working memory"
+    ],
+    "dateModified": "2026-09-01T05:08:58Z"
+  },
+  {
+    "key": "WPAFV2AH",
+    "citationKey": "jiangAgenticRagR1Agentic2026",
+    "itemType": "journalArticle",
+    "title": "AgenticRag-R1: Agentic reinforcement learning with stack memory for multi-step reasoning, retrieval and memorizing",
+    "date": "2026-08-30",
+    "year": "2026-08-30",
+    "authors": [
+      "Xinke Jiang",
+      "Yue Fang",
+      "Zhibang Yang",
+      "Jiaran Gao",
+      "Zhixin Zhang"
+    ],
+    "DOI": "10.48550/arXiv.2608.29622",
+    "url": "https://arxiv.org/abs/2608.29622",
+    "collections": [
+      "PTBVBRXD"
+    ],
+    "tags": [
+      "/unread",
+      "AutoResearch",
+      "agent memory",
+      "RLVR",
+      "reasoning"
+    ],
+    "dateModified": "2026-09-01T05:08:57Z"
+  },
+  {
+    "key": "388948NL",
+    "citationKey": "yanMemoryR2FairCredit2026",
+    "itemType": "journalArticle",
+    "title": "Memory-R2: Fair credit assignment for long-horizon memory-augmented LLM agents",
+    "date": "2026-05-20",
+    "year": "2026-05-20",
+    "authors": [
+      "Sikuan Yan",
+      "Ahmed Bahloul",
+      "Ercong Nie",
+      "Susanna Schwarzmann",
+      "Riccardo Trivisonno",
+      "Volker Tresp",
+      "Yunpu Ma"
+    ],
+    "DOI": "10.48550/arXiv.2605.21768",
+    "url": "https://arxiv.org/abs/2605.21768",
+    "collections": [
+      "PTBVBRXD"
+    ],
+    "tags": [
+      "/unread",
+      "AutoResearch",
+      "RL",
+      "agent memory",
+      "credit assignment"
+    ],
+    "dateModified": "2026-09-01T05:08:57Z"
+  },
+  {
+    "key": "TIQNEPZ8",
+    "citationKey": "sunVerifiableMemoryLearning2026",
+    "itemType": "journalArticle",
+    "title": "Verifiable memory: Learning unified memory management with local and global verifiers for large language model agents",
+    "date": "2026-08-04",
+    "year": "2026-08-04",
+    "authors": [
+      "Xiaolong Sun",
+      "Qichao Wang",
+      "Hangyu Li",
+      "Liang Chen"
+    ],
+    "DOI": "10.48550/arXiv.2608.03137",
+    "url": "https://arxiv.org/abs/2608.03137",
+    "collections": [
+      "PTBVBRXD"
+    ],
+    "tags": [
+      "/unread",
+      "AutoResearch",
+      "RL",
+      "agent memory",
+      "verifiable memory"
+    ],
+    "dateModified": "2026-09-01T05:08:57Z"
+  },
+  {
     "key": "UQZDAXKA",
     "citationKey": "packerMemGPTTowardsLLMs2023",
     "itemType": "journalArticle",
@@ -22,8 +216,8 @@
     ],
     "tags": [
       "/unread",
-      "agent memory",
       "AutoResearch",
+      "agent memory",
       "context management",
       "long-term memory"
     ],
@@ -51,8 +245,8 @@
     ],
     "tags": [
       "/unread",
-      "agent memory",
       "AutoResearch",
+      "agent memory",
       "graph memory",
       "NeurIPS 2025"
     ],
@@ -79,8 +273,8 @@
     ],
     "tags": [
       "/unread",
-      "agent memory",
       "AutoResearch",
+      "agent memory",
       "graph memory",
       "long-term memory"
     ],
@@ -110,8 +304,8 @@
     ],
     "tags": [
       "/unread",
-      "agent memory",
       "AutoResearch",
+      "agent memory",
       "procedural memory",
       "skill library"
     ],
@@ -139,8 +333,8 @@
     ],
     "tags": [
       "/unread",
-      "agent memory",
       "AutoResearch",
+      "agent memory",
       "planning",
       "reflection"
     ],
@@ -167,10 +361,10 @@
     ],
     "tags": [
       "/unread",
-      "agent memory",
       "AutoResearch",
-      "episodic memory",
-      "RL"
+      "RL",
+      "agent memory",
+      "episodic memory"
     ],
     "dateModified": "2026-09-01T03:22:44Z"
   },

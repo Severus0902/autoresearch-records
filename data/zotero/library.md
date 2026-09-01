@@ -1,5 +1,33 @@
 # Zotero Library
 
+- `@chenLearningWhatRemember2026` Learning what to remember: A cognitively grounded multi-factor value model for agentic memory (2026-06-11)
+  Authors: Zhibao Chen, Qian Cheng
+  DOI: 10.48550/arXiv.2606.12945
+  URL: https://arxiv.org/abs/2606.12945
+- `@maMemChainLearningInterpretable2026` MemChain: Learning interpretable memory traces for memory-augmented LLM agents (2026-07-27)
+  Authors: Yiwen Ma, Songjun Tu, Qichao Zhang
+  DOI: 10.48550/arXiv.2607.24097
+  URL: https://arxiv.org/abs/2607.24097
+- `@xuChainMemoryLightweight2026` Chain-of-memory: Lightweight memory construction with dynamic evolution for LLM agents (2026-01-14)
+  Authors: Xiucheng Xu, Bingbing Xu, Xueyun Tian
+  DOI: 10.48550/arXiv.2601.14287
+  URL: https://arxiv.org/abs/2601.14287
+- `@khanMemoryLoopInProcess2026` Memory in the loop: In-process retrieval as extended working memory for language agents (2026-07-06)
+  Authors: Yusuf Khan, Carlo Lipizzi
+  DOI: 10.48550/arXiv.2607.05690
+  URL: https://arxiv.org/abs/2607.05690
+- `@jiangAgenticRagR1Agentic2026` AgenticRag-R1: Agentic reinforcement learning with stack memory for multi-step reasoning, retrieval and memorizing (2026-08-30)
+  Authors: Xinke Jiang, Yue Fang, Zhibang Yang
+  DOI: 10.48550/arXiv.2608.29622
+  URL: https://arxiv.org/abs/2608.29622
+- `@yanMemoryR2FairCredit2026` Memory-R2: Fair credit assignment for long-horizon memory-augmented LLM agents (2026-05-20)
+  Authors: Sikuan Yan, Ahmed Bahloul, Ercong Nie
+  DOI: 10.48550/arXiv.2605.21768
+  URL: https://arxiv.org/abs/2605.21768
+- `@sunVerifiableMemoryLearning2026` Verifiable memory: Learning unified memory management with local and global verifiers for large language model agents (2026-08-04)
+  Authors: Xiaolong Sun, Qichao Wang, Hangyu Li
+  DOI: 10.48550/arXiv.2608.03137
+  URL: https://arxiv.org/abs/2608.03137
 - `@packerMemGPTTowardsLLMs2023` MemGPT: Towards LLMs as operating systems (2023-10-12)
   Authors: Charles Packer, Sarah Wooders, Kevin Lin
   DOI: 10.48550/arXiv.2310.08560
