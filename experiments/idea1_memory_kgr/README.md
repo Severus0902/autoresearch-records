@@ -43,6 +43,7 @@ scripts/
   stage3_eval_selector.py
   stage4_build_pairwise_preferences.py
   stage5_prepare_action_data.py
+  stage6_train_qwen_action_selector.py
   submit_nohup.sh
 tests/
   test_core.py
@@ -106,3 +107,21 @@ bash scripts/submit_nohup.sh stage5 configs/webqsp_smoke.json
 - DPO/pairwise JSONL：每条 preference 一个 `prompt/chosen/rejected` 样本。
 
 `stage5` 仍然只是数据准备，不启动模型训练。
+
+## Minimal 0.6B Training
+
+`stage6` 用 Qwen3-0.6B 做最小 action selector SFT。推荐先使用已有模型目录：
+
+```text
+/data/wxr/Finance/Qwen3-0.6B
+```
+
+启动示例：
+
+```bash
+cd /data/wxr/AutoResearch/idea1-memory-kgr
+PYTHON_BIN=/home/weixirun/anaconda3/envs/Finance/bin/python \
+  bash scripts/submit_nohup.sh stage6 configs/qwen3_0p6b_memory_sft_minimal.json
+```
+
+默认只做小步 LoRA SFT，并在 eval100 上做 greedy action selection 评估。输出目录位于 `runs/` 下。

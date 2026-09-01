@@ -17,6 +17,7 @@ case "$STAGE" in
   stage3) SCRIPT="scripts/stage3_eval_selector.py" ;;
   stage4) SCRIPT="scripts/stage4_build_pairwise_preferences.py" ;;
   stage5) SCRIPT="scripts/stage5_prepare_action_data.py" ;;
+  stage6) SCRIPT="scripts/stage6_train_qwen_action_selector.py" ;;
   *) echo "Unknown stage: $STAGE" >&2; exit 2 ;;
 esac
 
@@ -24,7 +25,9 @@ STAMP="$(date +%Y%m%d_%H%M%S)"
 LOG_PATH="logs/${STAGE}_${STAMP}.log"
 PID_PATH="logs/${STAGE}.latest.pid"
 
-nohup python3 "$SCRIPT" --config "$CONFIG" "$@" > "$LOG_PATH" 2>&1 &
+PYTHON_BIN="${PYTHON_BIN:-python3}"
+
+nohup "$PYTHON_BIN" "$SCRIPT" --config "$CONFIG" "$@" > "$LOG_PATH" 2>&1 &
 PID="$!"
 printf '%s\n' "$PID" > "$PID_PATH"
 
