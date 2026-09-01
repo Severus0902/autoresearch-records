@@ -8,9 +8,9 @@ venv/
 
 # Local secrets and machine-specific settings
 config.local.json
+.ssh/
 
 # Large local experiment artifacts should be staged intentionally.
 artifacts/
 outputs/
 *.log
-
