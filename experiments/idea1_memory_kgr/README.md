@@ -42,6 +42,7 @@ scripts/
   stage2_build_memory.py
   stage3_eval_selector.py
   stage4_build_pairwise_preferences.py
+  stage5_prepare_action_data.py
   submit_nohup.sh
 tests/
   test_core.py
@@ -64,6 +65,7 @@ bash scripts/submit_nohup.sh stage1 configs/webqsp_smoke.json
 bash scripts/submit_nohup.sh stage2 configs/webqsp_smoke.json
 bash scripts/submit_nohup.sh stage3 configs/webqsp_smoke.json
 bash scripts/submit_nohup.sh stage4 configs/webqsp_smoke.json
+bash scripts/submit_nohup.sh stage5 configs/webqsp_smoke.json
 ```
 
 这些命令只是推荐执行方式。本轮只上传代码，不启动任何实验。
@@ -97,3 +99,10 @@ bash scripts/submit_nohup.sh stage4 configs/webqsp_smoke.json
 ```
 
 这一步不训练模型，只为后续 0.6B action selector、pairwise reward/ranker 和 RLVR warm start 准备数据。
+
+`stage5` 会进一步导出两种 compact 数据：
+
+- SFT JSONL：每个 qid 一个 `messages` 训练样本，assistant 只输出 `{"relation_id": "..."}`。
+- DPO/pairwise JSONL：每条 preference 一个 `prompt/chosen/rejected` 样本。
+
+`stage5` 仍然只是数据准备，不启动模型训练。

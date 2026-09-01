@@ -1,0 +1,49 @@
+{
+  "project": {
+    "name": "idea1-memory-kgr-webqsp-train500",
+    "output_root": "/data/wxr/AutoResearch/idea1-memory-kgr"
+  },
+  "remote_safety": {
+    "allowed_root": "/data/wxr",
+    "allow_delete": false
+  },
+  "dataset": {
+    "name": "webqsp",
+    "path": "/data/wxr/Pilotenv/data/webqsp.json",
+    "split": "train_pseudo",
+    "offset": 0,
+    "limit": 500,
+    "memory_split": "train_pseudo",
+    "memory_offset": 0,
+    "memory_limit": 500
+  },
+  "kg": {
+    "sparql_endpoint": "http://127.0.0.1:8890/sparql",
+    "enabled": true,
+    "timeout_sec": 30,
+    "edge_limit_per_entity": 300
+  },
+  "subgraph": {
+    "max_hops": 1,
+    "max_nodes": 120,
+    "max_edges": 500,
+    "max_relation_candidates": 100
+  },
+  "memory": {
+    "top_k": 5,
+    "min_score": 0.05,
+    "path": "outputs/memory/webqsp_train500_memory.jsonl"
+  },
+  "outputs": {
+    "samples": "cache/webqsp_train500_samples.jsonl",
+    "subgraphs": "cache/webqsp_train500_subgraphs.jsonl",
+    "memory": "outputs/memory/webqsp_train500_memory.jsonl",
+    "eval": "outputs/eval/webqsp_train500_selector_eval.jsonl",
+    "summary": "outputs/eval/webqsp_train500_selector_summary.json",
+    "preferences": "outputs/preferences/webqsp_train500_pairwise_preferences.jsonl",
+    "preferences_summary": "outputs/preferences/webqsp_train500_pairwise_preferences_summary.json",
+    "sft_data": "outputs/train_data/webqsp_train500_action_sft.jsonl",
+    "dpo_data": "outputs/train_data/webqsp_train500_action_dpo.jsonl",
+    "train_data_summary": "outputs/train_data/webqsp_train500_action_data_summary.json"
+  }
+}

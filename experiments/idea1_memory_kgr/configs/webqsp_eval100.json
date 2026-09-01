@@ -41,6 +41,9 @@
     "eval": "outputs/eval/webqsp_eval100_selector_eval.jsonl",
     "summary": "outputs/eval/webqsp_eval100_selector_summary.json",
     "preferences": "outputs/preferences/webqsp_eval100_pairwise_preferences.jsonl",
-    "preferences_summary": "outputs/preferences/webqsp_eval100_pairwise_preferences_summary.json"
+    "preferences_summary": "outputs/preferences/webqsp_eval100_pairwise_preferences_summary.json",
+    "sft_data": "outputs/train_data/webqsp_eval100_action_sft.jsonl",
+    "dpo_data": "outputs/train_data/webqsp_eval100_action_dpo.jsonl",
+    "train_data_summary": "outputs/train_data/webqsp_eval100_action_data_summary.json"
   }
 }

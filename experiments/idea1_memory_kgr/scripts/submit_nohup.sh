@@ -16,6 +16,7 @@ case "$STAGE" in
   stage2) SCRIPT="scripts/stage2_build_memory.py" ;;
   stage3) SCRIPT="scripts/stage3_eval_selector.py" ;;
   stage4) SCRIPT="scripts/stage4_build_pairwise_preferences.py" ;;
+  stage5) SCRIPT="scripts/stage5_prepare_action_data.py" ;;
   *) echo "Unknown stage: $STAGE" >&2; exit 2 ;;
 esac
 
