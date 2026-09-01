@@ -28,7 +28,13 @@ zotero: [
   "@tangUniRelRelationCentricKnowledge2025",
   "@guoG1TeachingLLMs2025",
   "@tsangAutoGraphR1EndtoEndReinforcement2026",
-  "@manCoevolvingGraphText2026"
+  "@manCoevolvingGraphText2026",
+  "@shinnReflexionLanguageAgents2023",
+  "@wangVoyagerOpenEndedEmbodied2023",
+  "@parkGenerativeAgentsInteractive2023",
+  "@packerMemGPTTowardsLLMs2023",
+  "@xuAMEMAgenticMemory2025",
+  "@chhikaraMem0BuildingProductionReady2025"
 ]
 tags: ["agentic-kgr", "memory", "grm", "rlvr", "baseline", "small-model", "0.6b", "rl"]
 ---
@@ -217,6 +223,32 @@ Memory record：
 ```
 
 推理时只按 question pattern、seed entity type 和 relation overlap 检索 top-k memory hints。每条 memory hint 都必须在当前子图里重新验证，只有验证通过后才允许影响动作选择或 reward。
+
+## Memory 的切入位置
+
+这里的 memory 主切入点是 **跨 query 的图搜索经验复用**，而不是单个 query 内的 working memory，也不是把 KG 事实长期塞进模型参数。更具体地说，memory 应该进入四个位置：
+
+| 位置 | 输入/输出 | 作用 |
+|---|---|---|
+| Query 开始时 | `read_memory(q_pattern, seed_entity_types, relation_candidates)` | 给当前子图搜索一个 relation/path prior，减少一开始的盲目扩展。 |
+| 每一步扩展前 | `memory_hints + current_frontier -> candidate action rerank` | 帮助模型判断哪些 relation 值得扩展、哪些历史上常是错误分支。 |
+| 停止/回退时 | `trajectory + verifier_feedback + memory_hints -> stop/backtrack decision` | 复用“何时继续、何时停止、何时回退”的程序性经验。 |
+| Episode 结束后 | `write_memory(q, tau, verifier_result, failure_reason)` | 只把经过 verifier 标注的成功路径、失败分支、无效扩展和 stop mistake 写回 memory。 |
+
+因此，最适合的 memory 不是原始问答样本，也不是完整实体答案，而是 **schema-level / trajectory-level memory**：例如 `question pattern -> relation path template`、`seed entity type -> useful relation prior`、`failed relation expansion -> failure reason`、`stop condition -> verifier evidence`。这类 memory 可以跨 query 复用，同时比直接保存具体答案更不容易造成 test leakage。
+
+通用 LLM agent memory 已经有很多可借鉴机制。Reflexion 把失败后的语言反思写入 episodic memory，Voyager 把可复用行为沉淀成 skill library，Generative Agents 使用 memory stream 和 reflection 组织长期行为经验，MemGPT/Mem0 关注长期记忆的分层管理、抽取和检索，A-MEM 进一步把 memory 组织成可演化的结构化网络。这些工作说明“跨任务/跨 episode 经验复用”不是空白方向。
+
+但它们不能直接搬到 KGQA/KGR 的原因也很明确：
+
+1. **记忆单元不同**：通用 memory 多存自然语言事件、对话偏好或技能描述；KG 推理需要存实体类型、relation sequence、path validity、失败边和 verifier 证据。
+2. **检索目标不同**：通用 memory 往往按语义相似度召回；KGR memory 必须 query-conditioned，并且和当前 seed entity、candidate relation、局部子图可达性对齐。
+3. **可信度要求不同**：通用 memory 被召回后常直接进入 prompt；这里的 memory 只能作为 hint，必须在当前子图和 KG verifier 中重新验证。
+4. **奖励归因不同**：已有 memory 系统通常不回答“这条 memory 是否真的减少了无效 hop 或提高了 path recall”；本方法要显式定义 `memory_utility`，否则 memory 可能只是增加上下文噪声。
+5. **泄漏风险不同**：WebQSP/CWQ 这类 KGQA benchmark 容易被近似问题、gold path 或答案实体污染。未经约束的 memory 会把方法变成近邻检索，而不是图上推理策略学习。
+6. **动作空间不同**：通用 memory 增强的是生成上下文；本方法要训练的是受约束 action selector，输出必须是合法的 `expand/retrieve/reflect/stop` 动作。
+
+所以可以直接借鉴的是 memory infrastructure：`read/write/update` 接口、reflection/consolidation、向量检索、图式索引、skill/procedural memory、memory operation as action。不能直接照搬的是 memory 的语义和评价方式。本文需要把它改造成 **verified cross-query graph-search memory**，并通过消融证明它不是 prompt 增广、不是答案缓存、也不是普通 RAG。
 
 ## GRM 角色
 

@@ -1,5 +1,29 @@
 # Zotero Library
 
+- `@packerMemGPTTowardsLLMs2023` MemGPT: Towards LLMs as operating systems (2023-10-12)
+  Authors: Charles Packer, Sarah Wooders, Kevin Lin
+  DOI: 10.48550/arXiv.2310.08560
+  URL: https://arxiv.org/abs/2310.08560
+- `@xuAMEMAgenticMemory2025` A-MEM: Agentic memory for LLM agents (2025)
+  Authors: Wujiang Xu, Zujie Liang, Kai Mei
+  DOI: 10.52202/085713-0593
+  URL: https://proceedings.neurips.cc/paper_files/paper/2025/hash/19909c36f51abc4856b4560aff3d36d6-Abstract-Conference.html
+- `@chhikaraMem0BuildingProductionReady2025` Mem0: Building production-ready AI agents with scalable long-term memory (2025-04-28)
+  Authors: Prateek Chhikara, Dev Khant, Saket Aryan
+  DOI: 10.48550/arXiv.2504.19413
+  URL: https://arxiv.org/abs/2504.19413
+- `@wangVoyagerOpenEndedEmbodied2023` Voyager: An open-ended embodied agent with large language models (2023)
+  Authors: Guanzhi Wang, Yuqi Xie, Yunfan Jiang
+  DOI: 10.48550/arXiv.2305.16291
+  URL: https://arxiv.org/abs/2305.16291
+- `@parkGenerativeAgentsInteractive2023` Generative agents: Interactive simulacra of human behavior (2023-10-29)
+  Authors: Joon Sung Park, Joseph C. O'Brien, Carrie J. Cai
+  DOI: 10.1145/3586183.3606763
+  URL: https://doi.org/10.1145/3586183.3606763
+- `@shinnReflexionLanguageAgents2023` Reflexion: Language agents with verbal reinforcement learning (2023)
+  Authors: Noah Shinn, Federico Cassano, Ashwin Gopinath
+  DOI: 10.52202/075280-0377
+  URL: https://papers.nips.cc/paper_files/paper/2023/hash/1b44b878bb782e6954cd888628510e90-Abstract-Conference.html
 - `@manCoevolvingGraphText2026` Co-evolving graph and text memory for training-free multi-hop question answering (2026-07-25)
   Authors: Hieu Man, Thien Huu Nguyen
   DOI: 10.48550/arXiv.2607.23278

@@ -278,6 +278,22 @@ R = alpha * R_answer
 
 在 CWQ 和 WebQSP 上，memory 的必要性也不能写成“路径很长”。这两个数据集通常只需要 2-4 hop，单纯以 hop 长度为动机会弱。更好的动机是：即使路径不长，图上的 branching factor、entity/relation linking 噪声、spurious path、过早 stop、以及有限 step/tool budget 仍会导致 agent 在相似问题上重复犯相似错误。因此 memory 的作用不是补长上下文，而是复用经过验证的搜索经验；reward 的作用不是替代 verifier，而是在 RLVR 的 hard reward 之外提供 memory utility、step utility 和 stop quality 等 dense process signal。
 
+### 通用 LLM memory 近邻工作
+
+大模型领域已经有较成熟的 agent memory 思路，因此本方向不能声称“首次让 agent 使用 memory”。更准确的说法是：已有工作证明了跨 episode 经验、反思、长期记忆和 memory operation 可以提升 agent 行为；本方向要把这些机制改造成 KGQA 中可验证、可消融、可奖励的图搜索 memory。
+
+| 工作 | Zotero key | 出处/状态 | 可借鉴部分 | 不能直接搬用的原因 |
+|---|---|---|---|---|
+| Reflexion | `@shinnReflexionLanguageAgents2023` | NeurIPS 2023 | 把失败后的 verbal reflection 写入 episodic memory，后续 trial 复用。 | 记忆是自然语言反思，不绑定 KG entity/relation/path，也没有图验证和 benchmark leakage 控制。 |
+| Voyager | `@wangVoyagerOpenEndedEmbodied2023` | arXiv 2023 | 把可复用行为沉淀为 skill library，体现 procedural memory。 | 面向开放世界技能学习，不是 query-conditioned KG navigation；skill 是否适用于当前子图仍需 verifier 判定。 |
+| Generative Agents | `@parkGenerativeAgentsInteractive2023` | ACM UIST 2023 | memory stream、reflection 和 planning 的组合。 | 目标是行为模拟，memory 主要服务社会行为生成，不评价 KG 路径可信度或 answer support。 |
+| MemGPT | `@packerMemGPTTowardsLLMs2023` | arXiv 2023 | 分层 memory/context 管理，解决固定上下文窗口限制。 | 解决的是记忆容量和调度，不是图上动作选择；直接接入会变成 prompt 增广。 |
+| A-MEM | `@xuAMEMAgenticMemory2025` | NeurIPS 2025 | 动态索引、链接和演化 memory，接近 graph memory infrastructure。 | 记忆图是经验组织结构，不等于 KGQA 的可达子图；还需要 relation-level validity 和 memory utility reward。 |
+| Mem0 | `@chhikaraMem0BuildingProductionReady2025` | arXiv 2025 | 长期 memory 抽取、整合、检索，以及 graph-memory variant。 | 更偏通用会话/agent 产品记忆；缺少 KGQA split 防泄漏、path validity 和 action-level credit assignment。 |
+| REMem / Memory-R1 / MEM1 / Memory-T1 | `@luReasoningEpisodicMemory2026`, `@linMemoryR1EnhancingLarge2026`, `@xiaoMEM1LearningSynergize2026`, `@liuMemoryT1ReinforcementLearning2026` | 2026 ICLR/ACL 近邻 | RL 训练 memory 检索、写入、管理和推理协同。 | 很适合作为训练范式参考，但任务不是 KG-grounded path reasoning，不能替代 KG verifier、子图构造和 relation/action 消融。 |
+
+因此，本文的 memory 切入点应写成 **verified cross-query graph-search memory**。它不保存“某个问题的答案”，而保存可迁移的搜索经验：`question pattern -> relation path template`、`seed entity type -> relation prior`、`failed expansion -> failure reason`、`trajectory -> stop/backtrack evidence`。推理时 memory 只能作为 hint 进入 action selector，必须在当前 query-centered subgraph 中重新验证；训练时还要用 `memory_utility` 衡量它是否真的减少无效 hop、提高 gold-path edge recall 或改善 stop decision。
+
 ### EoG 的定位
 
 EoG 主要是 agentic KG 推理方式和训练范式的创新。它当然借用了 LLM RL、GRPO、过程奖励/路径奖励这类来自更广泛 RL/LLM-agent 领域的方法，但不是简单搬运：它把创新点压到 KG 推理里的 path exploration 上，用 path-refined reward 去缓解固定规则或固定示范路径导致的泛化瓶颈。因此，复现 EoG 很值得，因为它会成为你最强的近邻 baseline；但如果只做“EoG + memory 名义模块”，新意会偏弱。

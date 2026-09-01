@@ -1,5 +1,180 @@
 [
   {
+    "key": "UQZDAXKA",
+    "citationKey": "packerMemGPTTowardsLLMs2023",
+    "itemType": "journalArticle",
+    "title": "MemGPT: Towards LLMs as operating systems",
+    "date": "2023-10-12",
+    "year": "2023-10-12",
+    "authors": [
+      "Charles Packer",
+      "Sarah Wooders",
+      "Kevin Lin",
+      "Vivian Fang",
+      "Shishir G. Patil",
+      "Ion Stoica",
+      "Joseph E. Gonzalez"
+    ],
+    "DOI": "10.48550/arXiv.2310.08560",
+    "url": "https://arxiv.org/abs/2310.08560",
+    "collections": [
+      "PTBVBRXD"
+    ],
+    "tags": [
+      "/unread",
+      "agent memory",
+      "AutoResearch",
+      "context management",
+      "long-term memory"
+    ],
+    "dateModified": "2026-09-01T03:22:46Z"
+  },
+  {
+    "key": "YSZGID69",
+    "citationKey": "xuAMEMAgenticMemory2025",
+    "itemType": "conferencePaper",
+    "title": "A-MEM: Agentic memory for LLM agents",
+    "date": "2025",
+    "year": "2025",
+    "authors": [
+      "Wujiang Xu",
+      "Zujie Liang",
+      "Kai Mei",
+      "Hang Gao",
+      "Juntao Tan",
+      "Yongfeng Zhang"
+    ],
+    "DOI": "10.52202/085713-0593",
+    "url": "https://proceedings.neurips.cc/paper_files/paper/2025/hash/19909c36f51abc4856b4560aff3d36d6-Abstract-Conference.html",
+    "collections": [
+      "PTBVBRXD"
+    ],
+    "tags": [
+      "/unread",
+      "agent memory",
+      "AutoResearch",
+      "graph memory",
+      "NeurIPS 2025"
+    ],
+    "dateModified": "2026-09-01T03:22:46Z"
+  },
+  {
+    "key": "DLH8I8K6",
+    "citationKey": "chhikaraMem0BuildingProductionReady2025",
+    "itemType": "journalArticle",
+    "title": "Mem0: Building production-ready AI agents with scalable long-term memory",
+    "date": "2025-04-28",
+    "year": "2025-04-28",
+    "authors": [
+      "Prateek Chhikara",
+      "Dev Khant",
+      "Saket Aryan",
+      "Taranjeet Singh",
+      "Deshraj Yadav"
+    ],
+    "DOI": "10.48550/arXiv.2504.19413",
+    "url": "https://arxiv.org/abs/2504.19413",
+    "collections": [
+      "PTBVBRXD"
+    ],
+    "tags": [
+      "/unread",
+      "agent memory",
+      "AutoResearch",
+      "graph memory",
+      "long-term memory"
+    ],
+    "dateModified": "2026-09-01T03:22:46Z"
+  },
+  {
+    "key": "QCFKX7FV",
+    "citationKey": "wangVoyagerOpenEndedEmbodied2023",
+    "itemType": "journalArticle",
+    "title": "Voyager: An open-ended embodied agent with large language models",
+    "date": "2023",
+    "year": "2023",
+    "authors": [
+      "Guanzhi Wang",
+      "Yuqi Xie",
+      "Yunfan Jiang",
+      "Ajay Mandlekar",
+      "Chaowei Xiao",
+      "Yuke Zhu",
+      "Linxi Fan",
+      "Anima Anandkumar"
+    ],
+    "DOI": "10.48550/arXiv.2305.16291",
+    "url": "https://arxiv.org/abs/2305.16291",
+    "collections": [
+      "PTBVBRXD"
+    ],
+    "tags": [
+      "/unread",
+      "agent memory",
+      "AutoResearch",
+      "procedural memory",
+      "skill library"
+    ],
+    "dateModified": "2026-09-01T03:22:45Z"
+  },
+  {
+    "key": "5VDQXXQZ",
+    "citationKey": "parkGenerativeAgentsInteractive2023",
+    "itemType": "conferencePaper",
+    "title": "Generative agents: Interactive simulacra of human behavior",
+    "date": "2023-10-29",
+    "year": "2023-10-29",
+    "authors": [
+      "Joon Sung Park",
+      "Joseph C. O'Brien",
+      "Carrie J. Cai",
+      "Meredith Ringel Morris",
+      "Percy Liang",
+      "Michael S. Bernstein"
+    ],
+    "DOI": "10.1145/3586183.3606763",
+    "url": "https://doi.org/10.1145/3586183.3606763",
+    "collections": [
+      "PTBVBRXD"
+    ],
+    "tags": [
+      "/unread",
+      "agent memory",
+      "AutoResearch",
+      "planning",
+      "reflection"
+    ],
+    "dateModified": "2026-09-01T03:22:45Z"
+  },
+  {
+    "key": "8L32UV27",
+    "citationKey": "shinnReflexionLanguageAgents2023",
+    "itemType": "conferencePaper",
+    "title": "Reflexion: Language agents with verbal reinforcement learning",
+    "date": "2023",
+    "year": "2023",
+    "authors": [
+      "Noah Shinn",
+      "Federico Cassano",
+      "Ashwin Gopinath",
+      "Karthik Narasimhan",
+      "Shunyu Yao"
+    ],
+    "DOI": "10.52202/075280-0377",
+    "url": "https://papers.nips.cc/paper_files/paper/2023/hash/1b44b878bb782e6954cd888628510e90-Abstract-Conference.html",
+    "collections": [
+      "PTBVBRXD"
+    ],
+    "tags": [
+      "/unread",
+      "agent memory",
+      "AutoResearch",
+      "episodic memory",
+      "RL"
+    ],
+    "dateModified": "2026-09-01T03:22:44Z"
+  },
+  {
     "key": "5QETWING",
     "citationKey": "manCoevolvingGraphText2026",
     "itemType": "journalArticle",
@@ -411,10 +586,10 @@
     "tags": [
       "/unread",
       "ICLR 2026",
-      "long-horizon agents",
-      "MEM1",
       "memory",
-      "reinforcement learning"
+      "reinforcement learning",
+      "long-horizon agents",
+      "MEM1"
     ],
     "dateModified": "2026-08-31T07:44:23Z"
   },
@@ -435,11 +610,11 @@
     ],
     "tags": [
       "/unread",
-      "ACL 2026",
       "agent memory",
       "memory",
-      "Memory-R1",
-      "reinforcement learning"
+      "reinforcement learning",
+      "ACL 2026",
+      "Memory-R1"
     ],
     "dateModified": "2026-08-31T07:44:23Z"
   },
@@ -478,9 +653,9 @@
       "/unread",
       "agentic-kgr",
       "arXiv",
+      "reinforcement learning",
       "graph search",
-      "GRPO",
-      "reinforcement learning"
+      "GRPO"
     ],
     "dateModified": "2026-08-31T07:44:23Z"
   },
@@ -514,8 +689,8 @@
       "/unread",
       "ICLR 2026",
       "memory",
-      "multi-session agents",
       "reinforcement learning",
+      "multi-session agents",
       "temporal reasoning"
     ],
     "dateModified": "2026-08-31T07:44:22Z"
@@ -576,8 +751,8 @@
     ],
     "tags": [
       "/unread",
-      "agent memory",
       "ICLR 2026",
+      "agent memory",
       "memory",
       "reinforcement learning",
       "REMem"
@@ -1025,8 +1200,8 @@
       "PTBVBRXD"
     ],
     "tags": [
-      "/unread",
       "Computer Science - Artificial Intelligence",
+      "/unread",
       "Computer Science - Computation and Language",
       "Computer Science - Machine Learning"
     ],
@@ -1480,9 +1655,9 @@
       "SZD5P4DT"
     ],
     "tags": [
+      "Computer Science - Computation and Language",
       "ccfInfo: CCF-None ICLR",
-      "citationNumber: 345",
-      "Computer Science - Computation and Language"
+      "citationNumber: 345"
     ],
     "dateModified": "2026-02-27T06:58:17Z"
   },
