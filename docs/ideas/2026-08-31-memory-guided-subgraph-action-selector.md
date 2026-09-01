@@ -284,6 +284,55 @@ GRM 输出可以先做成结构化 JSON：
 
 如果 hard verifier 判定路径非法，`R_GRM` 应该被封顶或置零。这个 gating 很重要，因为否则模型可能学会用流畅但不忠实的解释欺骗 GRM。
 
+## Pointwise / Pairwise / Listwise 训练信号
+
+Pointwise、pairwise 和 listwise 的 learning-to-rank 思路可以直接借鉴到这个问题里，但它们适合的位置不同。KGQA 的逐跳搜索本质上是一个受约束的序列决策问题：每一步从当前 frontier、candidate relations 和 memory hints 中选择下一跳；完整 episode 又会产生多条候选路径。因此，更合理的设计不是只选一种 ranking loss，而是分层使用。
+
+| 形式 | 在本方法中的对象 | 优点 | 风险 | 推荐用途 |
+|---|---|---|---|---|
+| Pointwise | 单个 action 或单条 path 的绝对分数：`score(q, s_t, a_t)` 或 `score(q, P)` | 简单、便宜、容易用 verifier 自动标注，可快速冷启动。 | 分数校准困难；多个可行 action 共存时，硬标签会把合理但非 gold 的动作误伤。 | 第一版 action validity / path validity 过滤器，或 GRM 的辅助维度。 |
+| Pairwise | 同一 state 下两个 candidate actions 的相对偏好：`a_i > a_j` | 很适合下一跳选择；不要求绝对分数可比；能处理多条可行路径和 spurious path。 | 需要构造足够多的正负 action 对；如果负样本太简单，模型只学会排除非法动作。 | 逐跳 search 的主监督信号，尤其是 memory-guided next-hop reranker。 |
+| Listwise | 同一 query 或同一 state 下的一组 candidate paths/actions 的整体排序 | 直接对齐 beam search / global path ranking，能优化 top-k 路径质量。 | 候选集合大时训练贵；候选列表质量会强烈影响学习；早期环境不稳时噪声大。 | 全局路径 rerank、beam rerank、最终 answer path selection。 |
+
+因此，若目标是“找下一跳、逐跳搜索”，第一阶段建议以 **pairwise next-hop preference** 为主。构造方式可以是：在同一个 state `s_t` 中，把能到达 gold path、提高 verifier score、减少无效 hop 或被成功历史 memory 支持且当前可验证的 action 作为 preferred action；把非法 relation、不可达 entity、重复扩展、spurious path 或导致过早 stop 的 action 作为 dispreferred action。
+
+形式化地，pairwise 样本可以写成：
+
+```text
+D_pair = {
+  (q, s_t, m_t, a_pos, a_neg)
+}
+
+where score_theta(q, s_t, m_t, a_pos)
+    > score_theta(q, s_t, m_t, a_neg)
+```
+
+这里 `m_t` 是当前检索到并重新验证过的 memory hints。这个设计天然适合训练两类模块：第一，训练 action selector 在候选动作中选下一跳；第二，训练 GRM/reranker 判断哪一个候选动作更可能带来可验证收益。
+
+全局路径则更适合 listwise。每个 query 可以先用 ToG-style beam search、RoG-style relation planning、shortest-path oracle 或当前 policy rollout 生成候选路径集合：
+
+```text
+C_q = {P_1, P_2, ..., P_k}
+```
+
+然后根据 answer correctness、path validity、evidence coverage、cost、memory utility 和 stop quality 构造排序标签：
+
+```text
+P_i > P_j if
+  R_answer(P_i) + R_hard_graph(P_i) + R_GRM(P_i) - Cost(P_i)
+  >
+  R_answer(P_j) + R_hard_graph(P_j) + R_GRM(P_j) - Cost(P_j)
+```
+
+推荐的训练路线是：
+
+1. **Pointwise warm-up**：先训练 action/path validity scorer，保证模型知道什么是合法动作、合法路径和可解析输出。
+2. **Pairwise next-hop reranking**：把同一 state 下的候选下一跳组成偏好对，训练 memory-guided action selector。
+3. **Listwise path reranking**：对 beam 产生的完整候选路径排序，训练 final path/answer selector。
+4. **RLVR fine-tuning**：把 pointwise/pairwise/listwise 学到的 scorer 或 GRM 放回环境，用 hard verifier + GRM + memory utility + cost 做闭环优化。
+
+对 0.6B pilot 来说，最小可行版本可以只做两步：先 pointwise 过滤非法 action，再 pairwise 训练下一跳偏好。listwise 可以放到第二阶段，因为它依赖候选路径生成质量；如果 beam 本身很差，listwise 学到的是候选生成器的偏差，而不是全局推理能力。
+
 ## 最小实验
 
 数据集：
