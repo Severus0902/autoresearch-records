@@ -423,3 +423,79 @@ final_loss: 0.000402
 - 只用 256 条 SFT 样本、30 个 optimizer steps 的 LoRA warm start 后，模型已经能稳定输出合法 `relation_id`，eval60 下一跳 accuracy 达到 0.70。
 - 这个结果证明“把 KGR 下一跳搜索动作压缩成 action selector，再用小模型快速验证”是可行的。
 - 但这还不能单独证明 memory 的贡献，因为当前 prompt 保留了 verified memory relations，且 eval 只覆盖 60 条样本。下一步需要做 `no_memory_sft`、`random_memory_sft`、`verified_memory_sft` 三组模型级消融。
+
+## Qwen3-0.6B Memory Ablation
+
+为了判断提升是否真的来自 memory，本轮补充三组可比的 stage6 对照实验。三组实验都使用同一份 train500 SFT 数据、同一个 Qwen3-0.6B base model、同样的 LoRA 配置、同样的 256 条训练样本、30 个 optimizer steps 和 eval60 设置。
+
+代码版本：
+
+```text
+c5e7441 Add Qwen memory ablation configs
+```
+
+对照定义：
+
+```text
+verified_memory: 训练和评估都保留 verified memory relations
+no_memory: 训练和评估都把 memory relations 置为空列表
+random_memory: 训练和评估都用候选 relation 中随机 relation 替换 verified memory
+```
+
+执行记录：
+
+```text
+no_memory:
+  log: logs/stage6_20260901_211950.log
+  run_dir: runs/qwen3_0p6b_no_memory_sft_minimal_20260901_211950
+random_memory:
+  log: logs/stage6_20260901_212358.log
+  run_dir: runs/qwen3_0p6b_random_memory_sft_minimal_20260901_212358
+verified_memory:
+  log: logs/stage6_20260901_212727.log
+  run_dir: runs/qwen3_0p6b_memory_sft_minimal_20260901_212727
+```
+
+注：第一次并行启动 `random_memory` 时落到繁忙 GPU 后 OOM 退出，随后单独绑定 GPU3 重跑成功；未执行清理或删除操作。
+
+指标：
+
+| setting | train_memory_mode | eval_memory_mode | eval_after_accuracy | eval_after_invalid_rate | mean_loss | final_loss |
+|---|---|---|---:|---:|---:|---:|
+| no_memory | none | none | 0.7167 | 0.0167 | 0.167086 | 0.073575 |
+| random_memory | random | random | 0.7167 | 0.0167 | 0.160913 | 0.002509 |
+| verified_memory | verified | verified | 0.7333 | 0.0000 | 0.077972 | 0.000523 |
+
+正确集合重叠：
+
+```text
+all_correct: 36
+verified_only_vs_no: 6
+no_only_vs_verified: 5
+verified_only_vs_random: 8
+random_only_vs_verified: 7
+all_wrong: 8
+```
+
+verified memory 帮助的样例：
+
+```json
+{"qid": "WebQTest-1031", "question": "what has angelina jolie accomplished?", "gold": "people.person.profession", "verified_pred": "people.person.profession", "no_pred": "award.award_winner.awards_won", "random_pred": "award.award_winner.awards_won", "verified_memory": ["film.actor.film", "people.person.parents", "people.person.profession"]}
+{"qid": "WebQTest-1164", "question": "what type of art does claude monet do?", "gold": "visual_art.visual_artist.associated_periods_or_movements", "verified_pred": "visual_art.visual_artist.associated_periods_or_movements", "no_pred": "visual_art.visual_artist.art_forms", "random_pred": "people.person.profession", "verified_memory": ["people.person.profession", "visual_art.visual_artist.art_forms", "visual_art.visual_artist.associated_periods_or_movements"]}
+{"qid": "WebQTest-1464", "question": "what to do with my kids in toronto?", "gold": "travel.travel_destination.tourist_attractions", "verified_pred": "travel.travel_destination.tourist_attractions", "no_pred": "travel.travel_destination.how_to_get_here", "random_pred": "travel.travel_destination.how_to_get_here", "verified_memory": ["travel.travel_destination.tourist_attractions"]}
+```
+
+verified memory 误导的样例：
+
+```json
+{"qid": "WebQTest-1329", "question": "who played bilbo in the fellowship of the ring?", "gold": "film.film.starring", "verified_pred": "film.film_character.portrayed_in_films", "no_pred": "film.film.starring", "random_pred": "film.film.starring", "verified_memory": ["film.film.starring", "film.film_character.portrayed_in_films"]}
+{"qid": "WebQTest-1333", "question": "where does the tennessee river go?", "gold": "geography.river.mouth", "verified_pred": "geography.river.origin", "no_pred": "geography.river.mouth", "random_pred": "geography.river.mouth", "verified_memory": ["geography.river.mouth", "geography.river.origin", "location.location.partially_contained_by"]}
+{"qid": "WebQTest-312", "question": "who plays captain kirk in star trek?", "gold": "tv.tv_character.appeared_in_tv_program", "verified_pred": "film.film_character.portrayed_in_films", "no_pred": "tv.tv_character.appeared_in_tv_program", "random_pred": "film.film_character.portrayed_in_films", "verified_memory": ["film.film_character.portrayed_in_films", "tv.tv_character.appeared_in_tv_program"]}
+```
+
+当前结论：
+
+1. Qwen3-0.6B 经过极少量 SFT 后已经能学会 action selection 输出格式，invalid rate 从 1.0 降到约 0。
+2. 在 WebQSP eval60 的浅跳场景中，verified memory 的模型级收益很小：相对 no/random 只多对 1/60。
+3. memory 不是天然有效，主要问题是“多个候选 memory relation 同时合理”时会放大混淆；这直接指向 GRM/reranker 或 memory gating，而不是继续把 memory 简单拼进 prompt。
+4. 对 Idea1 来说，下一步更应该把问题定义成：如何让 agent 在 query-conditioned subgraph 中判断哪些 memory 可用、哪些 memory 应该被抑制，而不是只证明“有 memory 字段会更好”。
