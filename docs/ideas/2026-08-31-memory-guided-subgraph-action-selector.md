@@ -309,6 +309,31 @@ where score_theta(q, s_t, m_t, a_pos)
 
 这里 `m_t` 是当前检索到并重新验证过的 memory hints。这个设计天然适合训练两类模块：第一，训练 action selector 在候选动作中选下一跳；第二，训练 GRM/reranker 判断哪一个候选动作更可能带来可验证收益。
 
+这个设计需要避免一种牵强写法：**不要把 memory 只当成拼到 prompt 里的额外特征**。如果训练样本只是 `score(q, s_t, m_t, a_t)`，而 memory 既不改变候选动作，也不改变偏好标签，也不参与写回更新，那么 reviewer 很容易认为这是普通 retrieval-augmented reranking，不是 memory-guided reasoning。
+
+更强的结合方式是让 memory 参与四件事：
+
+| 结合点 | 具体做法 | 为什么不牵强 |
+|---|---|---|
+| Memory-conditioned candidate generation | 用 verified memory 中的 relation template、failed expansion 和 stop mistake 生成或剪枝候选 action。 | memory 改变了 search space，而不是只给模型多一段文本。 |
+| Memory-contrastive pair construction | 构造 `memory-supported action > no-memory action`、`verified memory > unverified memory`、`successful-memory hint > failed/spurious hint` 等偏好对。 | pairwise 学到的是“何时信任 memory”，而不只是“哪个 relation 像答案”。 |
+| Memory utility labeling | 用 rollout 差值标注 memory 是否有用，例如是否减少 invalid hop、提高 gold-path edge recall、减少 steps-to-answer。 | reward 直接衡量 memory 的因果贡献，而不是奖励“读了 memory”。 |
+| Memory write-back / pruning | episode 结束后，根据 verifier 和 utility score 决定写入、合并、降权或删除 memory record。 | memory 是一个会被训练过程更新的外部状态，不是静态检索库。 |
+
+因此，pairwise 在这里最好写成 **memory-contrastive next-hop preference**。例如在同一状态 `s_t` 下构造：
+
+```text
+(q, s_t, m_good, a_mem) > (q, s_t, m_empty, a_base)
+```
+
+只有当 `m_good` 在当前子图中可验证，并且 `a_mem` 的 rollout 比 `a_base` 带来更高的 verifier reward 或更低 cost 时，这个 pair 才成立。反过来，如果某条 memory 虽然语义相似但无法在当前子图验证，或者诱导模型走向 spurious path，就构造负例：
+
+```text
+(q, s_t, m_verified, a_good) > (q, s_t, m_unverified, a_bad)
+```
+
+这样训练目标就从“排序下一跳”变成“在图搜索中学习何时、如何、以及是否使用 memory”。这才是 memory 和 pairwise/listwise 结合的关键。
+
 全局路径则更适合 listwise。每个 query 可以先用 ToG-style beam search、RoG-style relation planning、shortest-path oracle 或当前 policy rollout 生成候选路径集合：
 
 ```text
