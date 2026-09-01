@@ -1,0 +1,44 @@
+{
+  "project": {
+    "name": "idea1-memory-kgr-webqsp-eval100",
+    "output_root": "/data/wxr/AutoResearch/idea1-memory-kgr"
+  },
+  "remote_safety": {
+    "allowed_root": "/data/wxr",
+    "allow_delete": false
+  },
+  "dataset": {
+    "name": "webqsp",
+    "path": "/data/wxr/Pilotenv/data/webqsp.json",
+    "split": "eval_pseudo",
+    "offset": 500,
+    "limit": 100,
+    "memory_split": "train_pseudo",
+    "memory_offset": 0,
+    "memory_limit": 500
+  },
+  "kg": {
+    "sparql_endpoint": "http://127.0.0.1:8890/sparql",
+    "enabled": true,
+    "timeout_sec": 30,
+    "edge_limit_per_entity": 300
+  },
+  "subgraph": {
+    "max_hops": 1,
+    "max_nodes": 120,
+    "max_edges": 500,
+    "max_relation_candidates": 100
+  },
+  "memory": {
+    "top_k": 5,
+    "min_score": 0.05,
+    "path": "outputs/memory/webqsp_eval100_train_memory.jsonl"
+  },
+  "outputs": {
+    "samples": "cache/webqsp_eval100_samples.jsonl",
+    "subgraphs": "cache/webqsp_eval100_subgraphs.jsonl",
+    "memory": "outputs/memory/webqsp_eval100_train_memory.jsonl",
+    "eval": "outputs/eval/webqsp_eval100_selector_eval.jsonl",
+    "summary": "outputs/eval/webqsp_eval100_selector_summary.json"
+  }
+}
