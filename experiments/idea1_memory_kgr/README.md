@@ -28,6 +28,9 @@
 configs/
   webqsp_pilot.json
   cwq_pilot.json
+  qwen3_0p6b_memory_sft_minimal.json
+  qwen3_0p6b_no_memory_sft_minimal.json
+  qwen3_0p6b_random_memory_sft_minimal.json
 idea1_kgr/
   data_adapters.py
   freebase_adapter.py
@@ -125,3 +128,21 @@ PYTHON_BIN=/home/weixirun/anaconda3/envs/Finance/bin/python \
 ```
 
 默认只做小步 LoRA SFT，并在 eval100 上做 greedy action selection 评估。输出目录位于 `runs/` 下。
+
+### Memory Ablations
+
+`stage6` 支持三种 prompt memory 条件：
+
+- `verified`: 训练和评估都保留 verified memory relations。
+- `none`: 训练和评估都把 memory relations 置为空列表。
+- `random`: 训练和评估都用候选 relation 中的随机 relation 替换 verified memory，保持字段格式不变。
+
+对照组示例：
+
+```bash
+cd /data/wxr/AutoResearch/idea1-memory-kgr
+CUDA_VISIBLE_DEVICES=3 PYTHON_BIN=/home/weixirun/anaconda3/envs/Finance/bin/python \
+  bash scripts/submit_nohup.sh stage6 configs/qwen3_0p6b_no_memory_sft_minimal.json
+CUDA_VISIBLE_DEVICES=0 PYTHON_BIN=/home/weixirun/anaconda3/envs/Finance/bin/python \
+  bash scripts/submit_nohup.sh stage6 configs/qwen3_0p6b_random_memory_sft_minimal.json
+```

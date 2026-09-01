@@ -1,6 +1,6 @@
 {
   "project": {
-    "name": "idea1-qwen3-0p6b-memory-sft-minimal",
+    "name": "idea1-qwen3-0p6b-no-memory-sft-minimal",
     "output_root": "/data/wxr/AutoResearch/idea1-memory-kgr"
   },
   "remote_safety": {
@@ -13,7 +13,7 @@
   },
   "train": {
     "sft_data": "outputs/train_data/webqsp_train500_action_sft.jsonl",
-    "memory_mode": "verified",
+    "memory_mode": "none",
     "random_memory_top_k": 5,
     "max_train_samples": 256,
     "max_steps": 30,
@@ -34,7 +34,7 @@
   "eval": {
     "subgraphs": "cache/webqsp_eval100_subgraphs.jsonl",
     "memory": "outputs/memory/webqsp_eval100_train_memory.jsonl",
-    "memory_mode": "verified",
+    "memory_mode": "none",
     "random_memory_top_k": 5,
     "max_eval_samples": 60,
     "max_candidates": 80,
@@ -43,6 +43,6 @@
   },
   "outputs": {
     "run_root": "runs",
-    "run_name": "qwen3_0p6b_memory_sft_minimal"
+    "run_name": "qwen3_0p6b_no_memory_sft_minimal"
   }
 }

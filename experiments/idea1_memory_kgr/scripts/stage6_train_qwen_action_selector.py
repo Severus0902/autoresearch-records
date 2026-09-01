@@ -2,12 +2,12 @@ from __future__ import annotations
 
 import argparse
 import json
-import math
 import os
 import random
 import re
 import sys
 import time
+from collections import OrderedDict
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Dict, Iterable, List, Sequence
@@ -26,6 +26,8 @@ SYSTEM_PROMPT = (
     "Choose exactly one relation_id from the candidate relations. "
     "Return compact JSON only."
 )
+MEMORY_LINE_RE = re.compile(r"^Verified memory relations: (?P<payload>.*)$", re.MULTILINE)
+SUPPORTED_MEMORY_MODES = {"verified", "none", "random"}
 
 
 def set_seed(seed: int) -> None:
@@ -52,6 +54,106 @@ def load_sft_rows(path: Path, max_rows: int) -> List[Dict[str, object]]:
     if max_rows and max_rows > 0:
         rows = rows[:max_rows]
     return rows
+
+
+def require_memory_mode(mode: str) -> str:
+    normalized = mode.lower().strip()
+    if normalized not in SUPPORTED_MEMORY_MODES:
+        raise ValueError(f"Unsupported memory_mode={mode!r}; expected one of {sorted(SUPPORTED_MEMORY_MODES)}")
+    return normalized
+
+
+def stable_rng(seed: int, key: str) -> random.Random:
+    return random.Random(f"{seed}:{key}")
+
+
+def parse_memory_relations_from_prompt(prompt: str) -> List[str]:
+    match = MEMORY_LINE_RE.search(prompt)
+    if not match:
+        return []
+    try:
+        parsed = json.loads(match.group("payload"))
+    except json.JSONDecodeError:
+        return []
+    if not isinstance(parsed, list):
+        return []
+    return [str(item) for item in parsed if isinstance(item, str) and item]
+
+
+def replace_memory_relations_in_prompt(prompt: str, memory_relations: Sequence[str]) -> str:
+    replacement = f"Verified memory relations: {json.dumps(list(memory_relations), ensure_ascii=False)}"
+    if MEMORY_LINE_RE.search(prompt):
+        return MEMORY_LINE_RE.sub(replacement, prompt, count=1)
+    marker = "Candidate relations:"
+    if marker in prompt:
+        return prompt.replace(marker, f"{replacement}\n{marker}", 1)
+    return f"{prompt.rstrip()}\n{replacement}\n"
+
+
+def choose_memory_relations(
+    mode: str,
+    verified_relations: Sequence[str],
+    candidate_relations: Sequence[str],
+    excluded_relations: Iterable[str],
+    seed: int,
+    key: str,
+    random_top_k: int,
+) -> List[str]:
+    mode = require_memory_mode(mode)
+    verified = list(OrderedDict.fromkeys(rel for rel in verified_relations if rel))
+    if mode == "verified":
+        return verified
+    if mode == "none":
+        return []
+    excluded = set(rel for rel in excluded_relations if rel)
+    pool = [
+        rel
+        for rel in OrderedDict.fromkeys(candidate_relations)
+        if rel and rel not in excluded
+    ]
+    sample_size = len(verified) if verified else random_top_k
+    if not pool or sample_size <= 0:
+        return []
+    rng = stable_rng(seed, key)
+    return rng.sample(pool, k=min(sample_size, len(pool)))
+
+
+def prepare_sft_rows(
+    rows: Sequence[Dict[str, object]],
+    memory_mode: str,
+    seed: int,
+    random_top_k: int,
+) -> List[Dict[str, object]]:
+    prepared = []
+    for row in rows:
+        new_row = dict(row)
+        messages_obj = row.get("messages")
+        if not isinstance(messages_obj, list):
+            prepared.append(new_row)
+            continue
+        messages = [dict(message) if isinstance(message, dict) else message for message in messages_obj]
+        if len(messages) < 2 or not isinstance(messages[1], dict):
+            prepared.append(new_row)
+            continue
+        prompt = str(messages[1].get("content", ""))
+        verified = parse_memory_relations_from_prompt(prompt)
+        candidates = [str(rel) for rel in row.get("candidate_relations", []) if rel]
+        target = str(row.get("target_relation_id", ""))
+        selected = choose_memory_relations(
+            mode=memory_mode,
+            verified_relations=verified,
+            candidate_relations=candidates,
+            excluded_relations=[target],
+            seed=seed,
+            key=f"train:{row.get('qid', row.get('id', len(prepared)))}",
+            random_top_k=random_top_k,
+        )
+        messages[1]["content"] = replace_memory_relations_in_prompt(prompt, selected)
+        new_row["messages"] = messages
+        new_row["memory_mode"] = memory_mode
+        new_row["memory_relations_used"] = selected
+        prepared.append(new_row)
+    return prepared
 
 
 def action_json(relation_id: str) -> str:
@@ -173,6 +275,9 @@ def build_eval_rows(cfg: Dict[str, object], root: Path) -> List[Dict[str, object
     subgraph_path = root / str(eval_cfg["subgraphs"])  # type: ignore[index]
     memory_path = root / str(eval_cfg["memory"])  # type: ignore[index]
     memory = MemoryStore.load(memory_path)
+    memory_mode = require_memory_mode(str(eval_cfg.get("memory_mode", "verified")))  # type: ignore[union-attr]
+    seed = int(eval_cfg.get("seed", cfg.get("train", {}).get("seed", 42)))  # type: ignore[union-attr]
+    random_top_k = int(eval_cfg.get("random_memory_top_k", 5))  # type: ignore[union-attr]
     max_eval_samples = int(eval_cfg.get("max_eval_samples", 0))  # type: ignore[union-attr]
     max_candidates = int(eval_cfg.get("max_candidates", 80))  # type: ignore[union-attr]
     rows = []
@@ -185,23 +290,34 @@ def build_eval_rows(cfg: Dict[str, object], root: Path) -> List[Dict[str, object
         candidate_relations = [action.relation_id for action in actions if action.relation_id]
         if gold_next not in candidate_relations:
             continue
+        compact = compact_candidates(candidate_relations, [gold_next], max_candidates=max_candidates)
         retrieved = memory.retrieve(record["question"], actions, top_k=5)
-        memory_relations = sorted(
+        verified_memory_relations = sorted(
             {
                 relation
                 for row in retrieved
                 for relation in row["item"].relation_template  # type: ignore[index,union-attr]
-                if relation in candidate_relations
+                if relation in compact
             }
         )
-        compact = compact_candidates(candidate_relations, [gold_next], max_candidates=max_candidates)
+        memory_relations = choose_memory_relations(
+            mode=memory_mode,
+            verified_relations=verified_memory_relations,
+            candidate_relations=compact,
+            excluded_relations=[gold_next],
+            seed=seed,
+            key=f"eval:{record['qid']}",
+            random_top_k=random_top_k,
+        )
         rows.append(
             {
                 "qid": record["qid"],
                 "question": record["question"],
                 "seed_entities": record.get("seed_entities", []),
                 "candidate_relations": compact,
+                "verified_memory_relations": verified_memory_relations,
                 "memory_relations": memory_relations,
+                "memory_mode": memory_mode,
                 "gold_next_relation": gold_next,
             }
         )
@@ -265,6 +381,10 @@ def evaluate_model(model, tokenizer, rows: Sequence[Dict[str, object]], device, 
                 "prediction": prediction,
                 "valid": bool(is_valid),
                 "correct": bool(is_correct),
+                "memory_mode": row.get("memory_mode"),
+                "memory_relations": row.get("memory_relations", []),
+                "verified_memory_relations": row.get("verified_memory_relations", []),
+                "num_candidates": len(row.get("candidate_relations", [])),  # type: ignore[arg-type]
                 "raw_output": output_text,
             }
         )
@@ -289,6 +409,8 @@ def main() -> None:
     model_cfg = cfg["model"]
     run_name = cfg["outputs"].get("run_name", "qwen3_0p6b_memory_sft_minimal")
     run_dir = ensure_run_dir(root, str(run_name))
+    train_memory_mode = require_memory_mode(str(train_cfg.get("memory_mode", "verified")))
+    eval_memory_mode = require_memory_mode(str(eval_cfg.get("memory_mode", train_memory_mode)))
 
     os.environ.setdefault("HF_HOME", str(root / "hf_cache"))
     os.environ.setdefault("TRANSFORMERS_CACHE", str(root / "hf_cache" / "transformers"))
@@ -333,13 +455,28 @@ def main() -> None:
 
     train_path = root / str(train_cfg["sft_data"])
     rows = load_sft_rows(train_path, int(train_cfg.get("max_train_samples", 0)))
+    rows = prepare_sft_rows(
+        rows,
+        memory_mode=train_memory_mode,
+        seed=int(train_cfg.get("seed", 42)),
+        random_top_k=int(train_cfg.get("random_memory_top_k", 5)),
+    )
     dataset = ActionSFTDataset(rows, tokenizer, max_length=int(train_cfg.get("max_length", 2048)))
     if len(dataset) == 0:
         raise RuntimeError(f"No trainable examples loaded from {train_path}")
 
     eval_rows = build_eval_rows(cfg, root)
     write_json(run_dir / "config_snapshot.json", cfg, overwrite=False)
-    write_json(run_dir / "train_data_summary.json", {"num_rows": len(rows), "num_encoded": len(dataset)}, overwrite=False)
+    write_json(
+        run_dir / "train_data_summary.json",
+        {
+            "num_rows": len(rows),
+            "num_encoded": len(dataset),
+            "train_memory_mode": train_memory_mode,
+            "eval_memory_mode": eval_memory_mode,
+        },
+        overwrite=False,
+    )
 
     if eval_cfg.get("eval_before_training", True):
         before = evaluate_model(
@@ -400,6 +537,8 @@ def main() -> None:
         "num_train_rows": len(rows),
         "num_encoded_train_rows": len(dataset),
         "num_eval_rows": len(eval_rows),
+        "train_memory_mode": train_memory_mode,
+        "eval_memory_mode": eval_memory_mode,
         "max_steps": max_steps,
         "final_loss": losses[-1] if losses else None,
         "mean_loss": sum(losses) / len(losses) if losses else None,
