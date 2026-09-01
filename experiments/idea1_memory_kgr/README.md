@@ -12,7 +12,7 @@
 远端默认工作目录：
 
 ```text
-/data/wxr/autoresearch/idea1-memory-kgr
+/data/wxr/AutoResearch/idea1-memory-kgr
 ```
 
 约束：

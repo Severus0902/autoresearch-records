@@ -1,7 +1,7 @@
 {
   "project": {
     "name": "idea1-memory-kgr-webqsp",
-    "output_root": "/data/wxr/autoresearch/idea1-memory-kgr"
+    "output_root": "/data/wxr/AutoResearch/idea1-memory-kgr"
   },
   "remote_safety": {
     "allowed_root": "/data/wxr",
