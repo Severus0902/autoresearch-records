@@ -51,17 +51,17 @@ tests/
 先只做环境盘点，确认数据、输出目录和 SPARQL endpoint：
 
 ```bash
-cd /data/wxr/autoresearch/idea1-memory-kgr
+cd /data/wxr/AutoResearch/idea1-memory-kgr
 bash scripts/submit_nohup.sh stage0 configs/webqsp_pilot.json
 ```
 
 再做 WebQSP 小样本：
 
 ```bash
-cd /data/wxr/autoresearch/idea1-memory-kgr
-bash scripts/submit_nohup.sh stage1 configs/webqsp_pilot.json
-bash scripts/submit_nohup.sh stage2 configs/webqsp_pilot.json
-bash scripts/submit_nohup.sh stage3 configs/webqsp_pilot.json
+cd /data/wxr/AutoResearch/idea1-memory-kgr
+bash scripts/submit_nohup.sh stage1 configs/webqsp_smoke.json
+bash scripts/submit_nohup.sh stage2 configs/webqsp_smoke.json
+bash scripts/submit_nohup.sh stage3 configs/webqsp_smoke.json
 ```
 
 这些命令只是推荐执行方式。本轮只上传代码，不启动任何实验。

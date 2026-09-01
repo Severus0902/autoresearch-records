@@ -23,8 +23,9 @@ def main() -> None:
     samples = load_samples(
         dataset=cfg["dataset"]["name"],
         path=resolve_dataset_path(cfg),
-        limit=int(cfg["dataset"].get("limit", 0)),
-        split=cfg["dataset"].get("split", "unknown"),
+        limit=int(cfg["dataset"].get("memory_limit", cfg["dataset"].get("limit", 0))),
+        split=cfg["dataset"].get("memory_split", cfg["dataset"].get("split", "unknown")),
+        offset=int(cfg["dataset"].get("memory_offset", 0)),
     )
     store = build_memory_from_samples(samples)
     count = store.save(resolve_output_path(cfg, "memory"), overwrite=args.overwrite)

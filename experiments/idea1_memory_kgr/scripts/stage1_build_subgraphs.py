@@ -28,6 +28,7 @@ def main() -> None:
         path=resolve_dataset_path(cfg),
         limit=int(cfg["dataset"].get("limit", 0)),
         split=cfg["dataset"].get("split", "unknown"),
+        offset=int(cfg["dataset"].get("offset", 0)),
     )
     kg_cfg = cfg.get("kg", {})
     kg = FreebaseAdapter(

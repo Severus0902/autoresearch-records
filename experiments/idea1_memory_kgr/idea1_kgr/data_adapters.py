@@ -151,8 +151,16 @@ def parse_cwq_record(record: Dict[str, Any], idx: int, split: str) -> KGQASample
     )
 
 
-def load_samples(dataset: str, path: str | Path, limit: int = 0, split: str = "unknown") -> List[KGQASample]:
+def load_samples(
+    dataset: str,
+    path: str | Path,
+    limit: int = 0,
+    split: str = "unknown",
+    offset: int = 0,
+) -> List[KGQASample]:
     records = read_records(Path(path))
+    if offset and offset > 0:
+        records = records[offset:]
     parser = parse_webqsp_record if dataset.lower() == "webqsp" else parse_cwq_record
     samples = [parser(record, idx, split) for idx, record in enumerate(records)]
     samples = [sample for sample in samples if sample.question and sample.topic_entities]
