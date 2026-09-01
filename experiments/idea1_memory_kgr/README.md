@@ -41,6 +41,7 @@ scripts/
   stage1_build_subgraphs.py
   stage2_build_memory.py
   stage3_eval_selector.py
+  stage4_build_pairwise_preferences.py
   submit_nohup.sh
 tests/
   test_core.py
@@ -62,6 +63,7 @@ cd /data/wxr/AutoResearch/idea1-memory-kgr
 bash scripts/submit_nohup.sh stage1 configs/webqsp_smoke.json
 bash scripts/submit_nohup.sh stage2 configs/webqsp_smoke.json
 bash scripts/submit_nohup.sh stage3 configs/webqsp_smoke.json
+bash scripts/submit_nohup.sh stage4 configs/webqsp_smoke.json
 ```
 
 这些命令只是推荐执行方式。本轮只上传代码，不启动任何实验。
@@ -79,3 +81,19 @@ bash scripts/submit_nohup.sh stage3 configs/webqsp_smoke.json
 - `unverified_memory`: 验证“只检索相似经验但不落到当前子图验证”是否会污染路径。
 - `grm_reranker`: 加生成式奖励模型/图证据 judge，对候选 action 或完整路径重排。
 - `rlvr`: 只在 offline signal 稳定后接 GRPO/PPO 类训练。
+
+## Pairwise Preference Format
+
+`stage4` 会把每个可见 gold next relation 的样本转成若干 pairwise action preference：
+
+```json
+{
+  "qid": "WebQTest-1215",
+  "question": "who was stephen r covey?",
+  "positive_action": {"action_type": "expand", "relation_id": "people.person.profession"},
+  "negative_action": {"action_type": "expand", "relation_id": "people.person.quotationsbook_id"},
+  "negative_source": "rule_top_wrong"
+}
+```
+
+这一步不训练模型，只为后续 0.6B action selector、pairwise reward/ranker 和 RLVR warm start 准备数据。

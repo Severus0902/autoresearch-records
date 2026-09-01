@@ -39,6 +39,8 @@
     "subgraphs": "cache/webqsp_smoke_subgraphs.jsonl",
     "memory": "outputs/memory/webqsp_smoke_train_memory.jsonl",
     "eval": "outputs/eval/webqsp_smoke_selector_eval.jsonl",
-    "summary": "outputs/eval/webqsp_smoke_selector_summary.json"
+    "summary": "outputs/eval/webqsp_smoke_selector_summary.json",
+    "preferences": "outputs/preferences/webqsp_smoke_pairwise_preferences.jsonl",
+    "preferences_summary": "outputs/preferences/webqsp_smoke_pairwise_preferences_summary.json"
   }
 }

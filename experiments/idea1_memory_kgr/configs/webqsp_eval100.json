@@ -39,6 +39,8 @@
     "subgraphs": "cache/webqsp_eval100_subgraphs.jsonl",
     "memory": "outputs/memory/webqsp_eval100_train_memory.jsonl",
     "eval": "outputs/eval/webqsp_eval100_selector_eval.jsonl",
-    "summary": "outputs/eval/webqsp_eval100_selector_summary.json"
+    "summary": "outputs/eval/webqsp_eval100_selector_summary.json",
+    "preferences": "outputs/preferences/webqsp_eval100_pairwise_preferences.jsonl",
+    "preferences_summary": "outputs/preferences/webqsp_eval100_pairwise_preferences_summary.json"
   }
 }
