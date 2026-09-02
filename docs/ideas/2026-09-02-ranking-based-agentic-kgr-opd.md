@@ -27,13 +27,32 @@ tags: ["agentic-kgr", "rog", "eog", "bog", "grpo", "rlvr", "pairwise", "listwise
 |---|---|---|---|---|---|
 | RoG | ICLR 2024 | planning -> retrieval -> reasoning | LLM 生成 relation path，再在已有子图上按 relation rule BFS 得到 reasoning paths | SFT/joint fine-tuning，不是 RL | 解决 relation-path planning 和路径式检索，但没有学习在线探索策略 |
 | EoG | ICLR 2026 | RoG-style graph-grounded reasoning -> RL exploration | 使用 query/KG/subgraph/reasoning path 作为环境与证据，重点不在重做 retriever | `GRPO + custom_reward_function`，`reward_model.enable=False`；代码中主要是 path match pointwise reward | 让 LLM 自主探索，但 reward 仍是单条轨迹的 pointwise verification |
-| BoG | ICML 2026 main poster | forward/backjump/yield/halt 的回溯式探索 | 公开信息显示重点在 dead-end 后 backjump，不是新的初始图检索 | SFT + RL，hybrid reward；当前官方仓库尚未公开训练代码 | 改进探索控制，但没有看到显式 pairwise/listwise action ranking |
+| BoG | ICML 2026 main conference / PMLR 306 | forward/backjump/yield/halt 的回溯式探索 | 论文确认重点在 dead-end 后 backjump、历史状态恢复和重新探索，不是新的初始图检索 | SFT + GRPO，hybrid reward = outcome + efficiency + format + faithfulness；官方仓库当前尚未公开训练代码 | 改进探索控制，但没有看到显式 pairwise/listwise action ranking |
 
 代码观察：
 
 - RoG 官方代码：`RManLuo/reasoning-on-graphs`。本地参考目录为 `.refs/reasoning-on-graphs`。
 - EoG 代码：`ysq111333/Explore-on-Graph`。本地参考目录为 `.refs/Explore-on-Graph`。
+- BoG 论文：`Backjump-on-Graph: Empowering Large Language Models with Reinforced Retrospective Exploration for Agentic Knowledge Graph Reasoning`。用户已提供 PDF：`C:\Users\15462\Desktop\1837_Backjump_on_Graph_Empower.pdf`。
 - BoG 官方仓库：`zhangSchnee/BoG`。截至 2026-09-02，本地 clone 后只看到 `Token.png`、`decoding.png`、`statistics.png`，没有训练/reward 代码。
+
+## 检索边界与数据入口判断
+
+EoG 和 BoG 的主要创新点都不在初始 KG 检索器本身，而在 **如何让模型沿着 KG 推理出正确路径**。更准确地说，它们默认沿用 KGQA 中常见的入口设定：给定 question 后先完成 entity linking，得到 query 中的中心实体或 topic entities，再围绕这些实体构造局部 KG 证据。后续模型面对的不是整张 Freebase，而是 query-conditioned 的局部图、候选邻居、候选路径或 reasoning-path hints。
+
+这意味着第一阶段数据处理通常可以理解为：
+
+```text
+question
+-> entity linking / topic entity
+-> 从 KG 中围绕 topic entity 取局部邻居、子图或 start-to-answer reference paths
+-> 把子图 triples、当前实体、邻居集合、路径历史或 notebook 作为 LLM 输入
+-> 让 LLM 生成 reasoning/action/answer
+```
+
+EoG 更接近“把 question + KG triples/subgraph + starting entity 喂给模型，让模型生成 `<think>` reasoning path 和 `<answer>`”；BoG 更接近“每一步根据当前实体查询邻居，把当前 state、neighbors、notebook/memory 喂给模型，让模型选择 `select_neighbor/backtrack/mark_answer/finish_search`”。BoG 在推理时是 step-by-step 查询邻居，并在邻居太多时做 semantic filtering；但这仍然属于 query-centered local candidate construction，而不是提出一个新的全局 KG retrieval 方法。
+
+因此本文的 related work 边界可以写成：RoG/EoG/BoG 的主线不是发明新的 dense retriever 或大规模 KG indexing 方法，而是从 relation-path planning、autonomous exploration、backjumping control 等角度改进 **路径选择与推理策略**。本文的切入点也应沿着这个边界展开：在已有 query-centered 子图/候选动作基础上，把下一跳选择和整条路径选择显式建模为 ranking problem。
 
 ## Pointwise Reward 的本质问题
 
