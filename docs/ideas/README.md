@@ -4,6 +4,7 @@ Use this folder for research ideas, hypotheses, reading questions, and possible 
 
 Recent notes:
 
+- [面向 Agentic 知识图谱推理的记忆条件排序奖励学习](2026-09-02-memory-conditioned-ranking-reward-kgr-validation-plan.md)
 - [Ranking-based Agentic KGR: Pairwise/Listwise Reward, RLVR, and OPD](2026-09-02-ranking-based-agentic-kgr-opd.md)
 
 Create a new idea with:
