@@ -48,6 +48,7 @@ scripts/
   stage5_prepare_action_data.py
   stage6_train_qwen_action_selector.py
   stage7_eval_memory_gate.py
+  stage8_eval_ranking_signal.py
   submit_nohup.sh
 tests/
   test_core.py
@@ -171,3 +172,31 @@ bash scripts/submit_nohup.sh stage7 configs/qwen3_0p6b_memory_gate_eval.json
 ```
 
 这一步的目的不是形成正式论文指标，而是判断下一步是否值得训练真正的 GRM/memory gate。
+
+## Stage8: Ranking Signal and Reward Simulation
+
+`stage8` 在启动更重的 SFT/DPO/RL 之前验证最小排序闭环。它读取已有的 train500 pairwise preferences 和 eval100 subgraphs，比较：
+
+- `rule`: relation lexical overlap 排序。
+- `memory`: rule score 加 verified-memory relation boost。
+- `pointwise_lr`: 从 positive/negative action label 训练的轻量 pointwise classifier。
+- `pairwise_lr`: 从 `positive_action > hard_negative_action` 训练的轻量 pairwise ranker。
+- `listwise_rrf`: 对 rule、memory、pointwise、pairwise 的候选排序做 reciprocal-rank fusion。
+
+启动示例：
+
+```bash
+cd /data/wxr/AutoResearch/idea1-memory-kgr
+PYTHON_BIN=/home/weixirun/anaconda3/envs/Finance/bin/python \
+  bash scripts/submit_nohup.sh stage8 configs/webqsp_eval100.json \
+  --train-config configs/webqsp_train500.json
+```
+
+输出位于新的时间戳目录：
+
+```text
+runs/ranking_signal_*/summary.json
+runs/ranking_signal_*/eval_ranking_details.jsonl
+```
+
+这一步回答的是：在相同 candidate graph 下，pairwise/listwise ranking 和 verified memory 是否有可测信号。如果这一步不成立，就不急着进入 verl GRPO/RLVR。
