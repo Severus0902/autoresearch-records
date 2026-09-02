@@ -271,3 +271,80 @@ token/tool/step cost
 
 > Ranking-based Memory-Conditioned GRPO for Agentic Knowledge Graph Reasoning.
 
+## Research Gap
+
+RoG 主要通过 query-to-relation-path planning 约束 KG 上的路径检索，将自然语言问题转化为可在 KG 中匹配的 relation-path plans。EoG/BoG 进一步沿着 RoG-style graph-grounded reasoning 的方向，把静态路径规划推进为由 SFT/RL 优化的 agentic graph exploration。然而，这些方法的奖励或训练信号仍主要作用在单条候选路径或单条推理轨迹上，没有显式建模同一 query-conditioned graph state 下多个候选 action/path 之间的相对竞争关系。因此，现有 pointwise-style verification 难以充分利用 hard negatives、memory support，以及多候选路径之间的细粒度优劣关系。
+
+更稳妥的边界表述是：这些方法并非完全没有多候选生成或组内比较，RoG 有 beam-style relation-path generation，EoG/BoG 使用 GRPO 时也会对同一 query 的多条 rollout 做 group-relative normalization；但它们没有把候选 action/path 之间的 pairwise/listwise preference 显式作为 reward modeling 或 policy learning 的核心对象。
+
+## Expected Hypotheses
+
+第一阶段实验可以围绕以下递进假设展开：
+
+| ID | 假设 | 对照 | 预期观察 |
+|---|---|---|---|
+| H1 | `SFT + OPD` 优于单纯 SFT | SFT vs SFT+OPD | OPD 在 student-visited states 上提供补救监督，降低 exposure bias，提升 next-hop/path accuracy |
+| H2 | 冷启动 `GRPO/GSPO` 优于无 RL 的 SFT policy | SFT vs cold-start RL | 可验证 reward 能纠正 SFT 的局部模仿偏差，但可能不稳定 |
+| H3 | `SFT/OPD warm start + GRPO/GSPO` 优于冷启动 RL | cold-start RL vs warm-start RL | warm start 降低 invalid action 和 reward sparsity，提高训练稳定性 |
+| H4 | stepwise pairwise reward 优于 stepwise pointwise reward | pointwise step reward vs pairwise step reward | hard negatives 被显式利用，下一跳选择更稳 |
+| H5 | listwise path/action reward 在候选集合质量足够时进一步提升 | pairwise vs listwise | 完整候选排序改善 global path selection、answer F1 和 stop decision |
+| H6 | memory-conditioned ranking 优于无 memory ranking | no/random/verified memory | verified memory 改变 action preference；memory gate 避免 harmful memory |
+
+推荐的消融顺序：
+
+```text
+SFT
+SFT + OPD
+SFT + pointwise GRPO/GSPO
+SFT + pairwise GRPO/GSPO
+SFT + listwise GRPO/GSPO
+SFT + OPD + pairwise/listwise GRPO/GSPO
+SFT + OPD + pairwise/listwise GRPO/GSPO + verified memory gate
+```
+
+## Reward Decomposition
+
+Pairwise/listwise 更适合放在 **过程步骤奖励** 中，结果奖励仍应保留显式的 answer-level metric，例如 F1、Hits@1、EM 或 answer entity recall。
+
+一个清晰的分层 reward 是：
+
+```text
+R_total = R_outcome
+        + lambda_step * R_step_ranking
+        + lambda_path * R_path_ranking
+        + lambda_graph * R_graph_validity
+        + lambda_memory * R_memory_utility
+        - lambda_cost * R_cost
+```
+
+其中：
+
+| Reward | 作用层级 | 推荐形式 | 说明 |
+|---|---|---|---|
+| `R_outcome` | episode-level result reward | F1 / Hits@1 / EM / answer recall | 保持显式、可验证，作为最终任务目标 |
+| `R_step_ranking` | stepwise process reward | pairwise next-action win rate | 比较同一 state 下哪个下一跳更接近 gold/supporting path |
+| `R_path_ranking` | trajectory/path-level process reward | listwise MRR/nDCG over candidate paths | 比较一组完整路径或 partial trajectories 的全局优劣 |
+| `R_graph_validity` | hard constraint | action legality, path connectivity, no invalid relation | 约束模型不能靠语言幻觉拿分 |
+| `R_memory_utility` | memory-specific process reward | memory changes preference toward useful action | 衡量 memory 是否真的改善搜索，而不是只增加上下文 |
+| `R_cost` | budget control | steps, tokens, tool calls, repeated expansion | 防止模型靠过度探索换分 |
+
+因此，pairwise/listwise 不应替代 F1，而应作为 dense process reward 解决 credit assignment：
+
+```text
+Outcome reward answers: did the final answer match?
+Stepwise pairwise reward answers: did this action beat plausible alternatives?
+Listwise path reward answers: did the policy rank the best path above other candidates?
+Memory utility reward answers: did memory improve this decision under current state?
+```
+
+第一版可以先做：
+
+```text
+R_total = R_answer_f1
+        + lambda_step * R_pairwise_next_action
+        + lambda_graph * R_action_validity
+        + lambda_memory * R_memory_delta
+        - lambda_cost * R_steps
+```
+
+等候选路径生成质量稳定后，再加入 `R_listwise_path_ranking`。
