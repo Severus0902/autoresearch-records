@@ -1,0 +1,22 @@
+{
+  "project": {
+    "name": "idea1-qwen3-0p6b-memory-gate-eval",
+    "output_root": "/data/wxr/AutoResearch/idea1-memory-kgr"
+  },
+  "remote_safety": {
+    "allowed_root": "/data/wxr",
+    "allow_delete": false
+  },
+  "gate_eval": {
+    "detail_file": "eval_after_details.jsonl",
+    "runs": {
+      "no_memory": "runs/qwen3_0p6b_no_memory_sft_minimal_20260901_211950",
+      "random_memory": "runs/qwen3_0p6b_random_memory_sft_minimal_20260901_212358",
+      "verified_memory": "runs/qwen3_0p6b_memory_sft_minimal_20260901_212727"
+    }
+  },
+  "outputs": {
+    "run_root": "runs",
+    "run_name": "qwen3_0p6b_memory_gate_eval"
+  }
+}

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-STAGE="${1:?Usage: bash scripts/submit_nohup.sh <stage0|stage1|stage2|stage3> [config] [extra args...]}"
+STAGE="${1:?Usage: bash scripts/submit_nohup.sh <stage0|stage1|stage2|stage3|stage4|stage5|stage6|stage7> [config] [extra args...]}"
 CONFIG="${2:-configs/webqsp_pilot.json}"
 shift || true
 shift || true
@@ -18,6 +18,7 @@ case "$STAGE" in
   stage4) SCRIPT="scripts/stage4_build_pairwise_preferences.py" ;;
   stage5) SCRIPT="scripts/stage5_prepare_action_data.py" ;;
   stage6) SCRIPT="scripts/stage6_train_qwen_action_selector.py" ;;
+  stage7) SCRIPT="scripts/stage7_eval_memory_gate.py" ;;
   *) echo "Unknown stage: $STAGE" >&2; exit 2 ;;
 esac
 

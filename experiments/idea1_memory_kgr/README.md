@@ -47,6 +47,7 @@ scripts/
   stage4_build_pairwise_preferences.py
   stage5_prepare_action_data.py
   stage6_train_qwen_action_selector.py
+  stage7_eval_memory_gate.py
   submit_nohup.sh
 tests/
   test_core.py
@@ -146,3 +147,27 @@ CUDA_VISIBLE_DEVICES=3 PYTHON_BIN=/home/weixirun/anaconda3/envs/Finance/bin/pyth
 CUDA_VISIBLE_DEVICES=0 PYTHON_BIN=/home/weixirun/anaconda3/envs/Finance/bin/python \
   bash scripts/submit_nohup.sh stage6 configs/qwen3_0p6b_random_memory_sft_minimal.json
 ```
+
+## Stage7: Memory Gate / GRM-Lite
+
+`stage7` 是 gate 诊断阶段。它不重新加载 Qwen 权重，也不访问 Freebase，而是读取 stage6 的三组逐样本预测：
+
+- `no_memory`
+- `random_memory`
+- `verified_memory`
+
+它会评估：
+
+- always-no / always-random / always-verified 三个基线。
+- 若干 rule gate，例如 memory 非空才使用、verified 预测在 memory 中才使用。
+- `loocv_grm_lite_gate`：用 leave-one-out 方式训练一个轻量线性 gate，估计可学习 gating 的初步空间。
+- `oracle_no_vs_verified`：如果完美知道 memory 是否会帮忙，在 no-memory 和 verified-memory 之间切换的上限。
+
+启动示例：
+
+```bash
+cd /data/wxr/AutoResearch/idea1-memory-kgr
+bash scripts/submit_nohup.sh stage7 configs/qwen3_0p6b_memory_gate_eval.json
+```
+
+这一步的目的不是形成正式论文指标，而是判断下一步是否值得训练真正的 GRM/memory gate。
