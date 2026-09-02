@@ -48,6 +48,103 @@ EoG 和 BoG 进一步把 RoG-style graph-grounded reasoning 推向 agentic graph
 
 BoG 中的 notebook/memory 更像 query 内部的短期搜索状态记录；本方向如果主张 memory，需要把贡献放在 cross-query verified memory、memory utility、memory gate 和 memory-conditioned ranking 上，而不是简单说“加入记忆模块”。
 
+## 图检索与子图构造边界
+
+这一点需要单独写清楚，因为它直接决定论文里到底是在比“检索能力”，还是在比“给定候选图之后的推理/探索策略”。
+
+### EoG
+
+EoG 公开代码里没有看到从原始 Freebase/Wikidata 在线构造子图的核心流程。代码主要消费已经预处理好的字段：
+
+```text
+question
+q_entity
+graph
+reasoning_path
+answer / a_entity
+```
+
+`data/EoG_process.py` 会直接读取 `example['graph']`，把它线性化成 prompt 中的 `Knowledge Graph`，并把 `graph_info`、`reasoning_path` 放进 `ground_truth` 供 reward function 使用。`data/kg_qa_sft_process.py` 也是读取已有 JSONL 的 `graph` 字段并转成 SFT 格式。
+
+因此，对 EoG 更稳妥的判断是：它的公开实现主要讨论如何在已有 graph / reasoning_path 条件下训练和奖励模型探索 reasoning path；raw KG 到 input subgraph 的构造过程并没有在公开代码里完整展开。
+
+这意味着如果 EoG 的输入 `graph` 已经接近 answer-visible subgraph，模型效果会自然受益。EoG 的主要贡献应理解为 reasoning/path exploration reward，而不是一个透明可复现的新 KG retriever。
+
+### RoG
+
+RoG 的边界更清楚。RoG README 明确说明 subgraph extraction 是从 Freebase 中沿用 previous studies，并指向 NSM/WSDM2021 的 Freebase 预处理代码。RoG 自身的主要流程是：
+
+```text
+question
+-> generate relation path plans
+-> build graph from preprocessed question_dict['graph']
+-> use relation path as rule
+-> BFS over the local graph to retrieve concrete reasoning paths
+-> feed reasoning paths to LLM for answer generation
+```
+
+也就是说，RoG 的 retrieval 不是从完整 Freebase 开始随时查询全局邻居，而是在已经抽好的局部子图内，用 LLM 生成的 relation path 去约束 BFS，取出可解释的 concrete reasoning paths。
+
+所以 RoG 的贡献主要是 query-to-relation-path planning 和 rule-guided path retrieval；它并没有把每一步候选 action 的相对优劣显式建模为 ranking problem。
+
+### BoG
+
+BoG 明确包含检索过程，但它不是 RoG 式的一次性静态子图输入，而是 agent-based step-wise neighbor retrieval。
+
+BoG 的 Algorithm 1 可以概括为：
+
+```text
+Initialize path with start entity
+for each step:
+    current_entity = last node on path
+    neighbors = QuerySPARQL(G, current_entity)
+    if len(neighbors) > K:
+        neighbors = SemanticFilter(neighbors, question, K)
+    remove already backjump-pruned nodes
+    prompt LLM with question, current entity, neighbors, notebook, collected answers
+    parse action: select_neighbor / backjump / mark_answer / finish_search
+    update path, notebook, collected answers
+```
+
+因此 BoG 的“检索”是每一步围绕当前实体查询邻居，并在邻居过多时用 Sentence-BERT 一类语义相似度过滤 relation labels。它不把整张 KG 或一个大子图直接塞进模型，而是通过 SPARQL endpoint 动态暴露局部邻居。
+
+但是 BoG 的 SFT 数据构造使用了很强的 oracle 条件：论文 Appendix F 的 oracle-conditioned trajectory construction 会先用 start entities 和 ground-truth answer entities 在 KG 上 BFS 得到 reference relational paths，再把这些路径作为 structural hints 提供给 Gemini 2.5 Flash 合成带有 backjump 的专家轨迹。论文强调这些 hints 不直接泄露答案，但它们确实使用了答案实体来构造训练轨迹。
+
+所以 BoG 的边界应写成：
+
+```text
+Inference: dynamic neighbor retrieval + semantic filtering + learned backjump policy
+SFT data construction: oracle-conditioned trajectory synthesis using answer-connected BFS paths
+Main contribution: backjumping control, step-wise reward, outcome/efficiency reward
+Not main contribution: a new global KG subgraph retriever
+```
+
+### 对本方向的影响
+
+这三篇工作提示我们，必须在实验里把 retrieval 上界和 reasoning/policy 改进拆开，否则很容易出现“因为子图更接近黄金子图所以效果更好”的混淆。
+
+建议本方向固定四种图证据设置：
+
+| Setting | 构造方式 | 用途 |
+|---|---|---|
+| query-only local graph | 只根据 question entity / topic entity 扩展，不用答案 | 最公平的主实验设置 |
+| query-only noisy graph | query-only 基础上加入 distractors | 测试 hard negatives 和 ranking reward |
+| answer-visible graph | 保证答案或答案附近路径在图中，但包含噪声 | 测试在上界较高时 policy 是否能找对路径 |
+| gold-path graph | 直接包含黄金 reasoning path，distractor 很少 | 只作为 oracle upper bound，不作为主指标 |
+
+主实验应尽量在相同 candidate graph / dynamic neighbor stream 下比较：
+
+```text
+pointwise reward
+pairwise reward
+listwise reward
+no memory
+verified memory
+verified memory + gate
+```
+
+这样才能清楚说明：本文提升来自候选 action/path 排序和 memory-conditioned policy，而不是来自更强或更 oracle 的子图构造。
+
 ## 为什么 Pointwise Reward 不够
 
 EoG/BoG-style reward 大多可以抽象为：
