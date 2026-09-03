@@ -1,13 +1,15 @@
 ---
 title: "MetaMemBench：面向 Agentic Memory 的记忆监控与控制策略诊断基准"
 type: research-proposal
-status: proposed
+status: merged-archive
 created: "2026-09-03"
 branch: "agent-memory-benchmark"
 tags: ["agent-memory", "agentic-memory", "benchmark", "metamemory", "memory-control"]
 ---
 
 # MetaMemBench：面向 Agentic Memory 的记忆监控与控制策略诊断基准
+
+> **状态说明（2026-09-03）**：本文中的 memory monitoring、admissible action、counterfactual state、oracle decomposition 和训练设计已并入 [MemReadyBench 统一方案](./2026-09-03-memreadybench-unified-research-proposal.md)。当前研究不再将本文作为独立版本或主方案。
 
 ## 0. 结论先行
 

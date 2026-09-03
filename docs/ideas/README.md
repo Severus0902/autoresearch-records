@@ -4,8 +4,9 @@ Use this folder for research ideas, hypotheses, reading questions, and possible 
 
 Recent notes:
 
-- [MemReadyBench：持久记忆 Agent 的来源感知行动准备度评测](2026-09-03-memreadybench-source-aware-readiness-v2.md)（当前推荐主线，已完成同期 arXiv 撞题修订）
-- [MetaMemBench：面向 Agentic Memory 的记忆监控与控制策略诊断基准](2026-09-03-metamembench-agentic-memory-control-proposal.md)（v1 历史方案，已被 MemReadyBench v2 取代）
+- [MemReadyBench：持久记忆 Agent 的来源感知证据闭合与行动控制基准](2026-09-03-memreadybench-unified-research-proposal.md)（当前唯一推荐主线）
+- [MemReadyBench：来源感知行动准备度评测](2026-09-03-memreadybench-source-aware-readiness-v2.md)（已并入统一方案的推导记录）
+- [MetaMemBench：记忆监控与控制策略诊断基准](2026-09-03-metamembench-agentic-memory-control-proposal.md)（已并入统一方案的推导记录）
 - [Agent Memory 两阶段研究路线：Benchmark 到 Method](2026-09-03-agent-memory-two-stage-research-roadmap.md)
 - [Strategic Memory Management Benchmark 选题定位](2026-09-03-strategic-memory-management-positioning.md)
 - [从 StratMem-Bench 切入 Agentic Memory Benchmark 的研究方案](2026-09-03-stratmem-agentic-memory-cut-in.md)

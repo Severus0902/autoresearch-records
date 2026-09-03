@@ -1,14 +1,14 @@
 ---
 title: "MemReadyBench：持久记忆 Agent 的来源感知行动准备度评测"
 type: research-proposal
-status: current-recommended
-version: "v2"
+status: merged-archive
 created: "2026-09-03"
-supersedes: "2026-09-03-metamembench-agentic-memory-control-proposal.md"
 tags: ["agent-memory", "benchmark", "action-readiness", "source-routing", "counterfactual-evaluation"]
 ---
 
 # MemReadyBench：持久记忆 Agent 的来源感知行动准备度评测
+
+> **状态说明（2026-09-03）**：本文中的 source-aware readiness、`VERIFY_WORLD`、Source × Integrity 和 closure convergence 已与记忆监控/控制框架合并为 [MemReadyBench 统一方案](./2026-09-03-memreadybench-unified-research-proposal.md)。当前研究不再把两份材料作为彼此竞争的版本。
 
 ## 0. 方案重判
 

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Build the revised MemReadyBench proposal deck.
+"""Build the canonical unified MemReadyBench proposal deck.
 
 Run from the repository root with a Python environment that can import
 python-pptx. The shared drawing helpers live in build_metamembench_pptx.py.
@@ -49,7 +49,7 @@ from build_metamembench_pptx import (
 )
 
 
-OUT = ROOT / "docs" / "slides" / "2026-09-03-memreadybench-source-aware-readiness-v2.pptx"
+OUT = ROOT / "docs" / "slides" / "2026-09-03-memreadybench-unified-research-proposal.pptx"
 
 
 def add_header(slide, section, title, number, subtitle=None):
@@ -66,7 +66,7 @@ def add_header(slide, section, title, number, subtitle=None):
 def add_footer(slide, citation=None):
     if citation:
         add_text(slide, citation, 0.56, 7.14, 10.15, 0.20, size=8, color=MUTED, font=FONT_EN)
-    add_text(slide, "MemReadyBench v2 · 2026-09-03", 10.72, 7.14, 2.02, 0.20, size=8, color=MUTED, align=PP_ALIGN.RIGHT, font=FONT_EN)
+    add_text(slide, "MemReadyBench · Unified Proposal", 10.62, 7.14, 2.12, 0.20, size=8, color=MUTED, align=PP_ALIGN.RIGHT, font=FONT_EN)
 
 
 def add_action(slide, x, y, label, accent, fill, width=2.05):
@@ -90,13 +90,13 @@ def build_deck():
     slide = prs.slides.add_slide(blank)
     rect(slide, 0, 0, SW, SH, fill=LIGHT, line=LIGHT)
     rect(slide, 0, 0, 0.18, SH, fill=TEAL, line=TEAL)
-    add_badge(slide, "REVISED AFTER 2026 ARXIV COLLISION AUDIT", 0.76, 0.62, 4.05, fill=RED_LIGHT, color=RED, size=10)
+    add_badge(slide, "CANONICAL RESEARCH PROPOSAL", 0.76, 0.62, 3.16, fill=TEAL_LIGHT, color=TEAL, size=10)
     add_text(slide, "MemReadyBench", 0.76, 1.28, 7.7, 0.68, size=35, color=INK, bold=True, font=FONT_EN)
-    add_text(slide, "持久记忆 Agent 的来源感知行动准备度评测", 0.76, 2.05, 8.45, 0.54, size=25, color=INK, bold=True)
-    add_text(slide, "Evaluating Source-Aware Action Readiness in Persistent-Memory Agents", 0.78, 2.73, 8.9, 0.40, size=15, color=TEAL, bold=True, font=FONT_EN)
+    add_text(slide, "来源感知证据闭合与行动控制基准", 0.76, 2.05, 8.45, 0.54, size=25, color=INK, bold=True)
+    add_text(slide, "Source-Aware Evidence Closure and Action Control for Persistent-Memory Agents", 0.78, 2.73, 8.9, 0.40, size=14, color=TEAL, bold=True, font=FONT_EN)
     rect(slide, 0.78, 3.53, 7.78, 1.54, fill=WHITE, line=LINE, radius=True)
-    add_text(slide, "核心转向", 1.05, 3.80, 1.32, 0.28, size=13, color=RED, bold=True)
-    add_text(slide, "不再争夺“记忆是否足够”的首创，\n而是诊断缺失证据位于哪里、应向哪个权威来源路由、何时才可以执行。", 2.36, 3.71, 5.78, 0.94, size=17, color=INK, bold=True, line_spacing=1.12)
+    add_text(slide, "创新锚点", 1.05, 3.80, 1.32, 0.28, size=13, color=TEAL, bold=True)
+    add_text(slide, "以 requirement-level readiness 为监控基础，\n以 source-aware evidence closure 为核心，以可执行结果形成验证闭环。", 2.36, 3.71, 5.78, 0.94, size=17, color=INK, bold=True, line_spacing=1.12)
     source_y = 5.63
     for i, (name, accent, fill) in enumerate([
         ("MEMORY", BLUE, BLUE_LIGHT),
@@ -112,24 +112,18 @@ def build_deck():
     add_text(slide, "Benchmark first\nMethod second", 9.91, 4.49, 2.30, 0.98, size=18, color=TEAL_LIGHT, bold=True, font=FONT_EN)
     add_text(slide, "2026-09-03", 9.91, 6.21, 2.30, 0.28, size=10, color=WHITE, font=FONT_EN)
 
-    # 2 Verdict
+    # 2 Unified positioning
     slide = prs.slides.add_slide(blank)
-    add_header(slide, "01 / Verdict", "审稿式重判：方向继续，首创表述必须更换", 2)
-    score_cards = [
-        (0.70, "8.5/10", "问题重要性", TEAL),
-        (3.02, "5/10", "原问题新颖性", RED),
-        (5.34, "8/10", "修订 Benchmark", BLUE),
-        (7.66, "5/10", "当前 Controller", ORANGE),
-        (9.98, "8.5/10", "资源可行性", GREEN),
-    ]
-    for x, score, label, accent in score_cards:
-        add_number_card(slide, x, 1.88, 2.04, 1.34, score, label, accent)
-    add_card(slide, 0.70, 3.64, 3.64, 2.25, "不能再主张", "首次提出 memory sufficiency、safe commitment、ask/verify/abstain、paired executable evaluation 或 memory operation as action。", accent=RED, fill=RED_LIGHT, title_size=18, body_size=13)
-    add_card(slide, 4.84, 3.64, 3.64, 2.25, "仍可主张", "来源感知 readiness、决定性证据来源迁移、动作翻转与闭合收敛、真实 memory stack 的逐层 oracle 诊断。", accent=TEAL, fill=TEAL_LIGHT, title_size=18, body_size=13)
-    add_card(slide, 8.98, 3.64, 3.64, 2.25, "最大风险", "被审稿人理解为 SafeCommit + MCB + AgentAbstain 的组件拼接；必须用因果 family 和新发现消除这一印象。", accent=ORANGE, fill=ORANGE_LIGHT, title_size=18, body_size=13)
-    rect(slide, 1.44, 6.30, 10.45, 0.51, fill=INK, line=INK, radius=True)
-    add_text(slide, "Decision: CONDITIONAL GO · 先做 20-task source-relocation pilot，再决定是否扩展。", 1.72, 6.42, 9.90, 0.25, size=14, color=WHITE, bold=True, align=PP_ALIGN.CENTER, font=FONT_EN)
-    add_footer(slide, "Independent judgment after checking 2025–2026 conference and arXiv work.")
+    add_header(slide, "01 / Positioning", "一个方案、一个形式体系、一个创新锚点", 2)
+    add_card(slide, 0.70, 1.90, 3.64, 2.16, "研究基础：Monitoring", "判断当前 packet 是否已经覆盖全部行动要求，并识别 stale、conflict、irreducible 与 no-memory-needed 状态。", accent=TEAL, fill=TEAL_LIGHT, title_size=16, body_size=13)
+    add_card(slide, 4.84, 1.90, 3.64, 2.16, "创新锚点：Source Routing", "指出缺失 requirement 的权威来源，并在 memory、world、user 与 unavailable 之间选择获取动作。", accent=BLUE, fill=BLUE_LIGHT, title_size=16, body_size=13)
+    add_card(slide, 8.98, 1.90, 3.64, 2.16, "验证闭环：Execution", "用来源迁移反事实、动作翻转、闭合收敛、精确环境终态与 oracle ladder 证明诊断价值。", accent=ORANGE, fill=ORANGE_LIGHT, title_size=16, body_size=13)
+    rect(slide, 0.70, 4.55, 11.92, 1.26, fill=INK, line=INK, radius=True)
+    add_text(slide, "统一主张", 0.98, 4.87, 1.18, 0.26, size=13, color=TEAL_LIGHT, bold=True)
+    add_text(slide, "Agent 不仅要知道“够不够”，还要知道“缺什么、去哪里找、何时闭合、何时可以行动”。", 2.20, 4.80, 9.95, 0.44, size=19, color=WHITE, bold=True, align=PP_ALIGN.CENTER)
+    rect(slide, 1.44, 6.30, 10.45, 0.51, fill=WHITE, line=TEAL, radius=True, width=2)
+    add_text(slide, "Research anchor: requirement-aware readiness + source-aware acquisition + executable closure", 1.72, 6.42, 9.90, 0.25, size=13, color=TEAL, bold=True, align=PP_ALIGN.CENTER, font=FONT_EN)
+    add_footer(slide, "Monitoring is the foundation; source-aware evidence closure is the defensible technical anchor.")
 
     # 3 Why arXiv
     slide = prs.slides.add_slide(blank)
@@ -212,41 +206,27 @@ def build_deck():
     rect(slide, 0.70, 6.98, 11.92, 0.03, fill=TEAL, line=TEAL)
     add_footer(slide, "Full matrix and status notes: docs/reports/2026-09-03-memreadybench-concurrent-arxiv-audit.md")
 
-    # 7 Covered vs remaining
+    # 7 Unified taxonomy
     slide = prs.slides.add_slide(blank)
-    add_header(slide, "04 / Gap", "创新不能落在组件，要落在尚未被共同覆盖的交叉点", 7)
-    rect(slide, 0.72, 1.90, 5.10, 4.72, fill=RED_LIGHT, line=RED, radius=True)
-    add_text(slide, "已被覆盖", 1.02, 2.20, 1.38, 0.30, size=17, color=RED, bold=True)
-    add_list(slide, [
-        "evidence sufficiency / retrieve-or-stop",
-        "safe commitment / probe / fallback",
-        "verify world / ask user",
-        "act-abstain paired tasks",
-        "memory operation as action",
-        "stale / conflict / poison / authority",
-        "setwise verifier 与风险校准",
-    ], 1.02, 2.72, 4.46, 3.38, size=13, bullet_color=RED, gap=5)
-    rect(slide, 6.20, 1.90, 6.42, 4.72, fill=TEAL_LIGHT, line=TEAL, radius=True)
-    add_text(slide, "仍可形成统一贡献", 6.52, 2.20, 2.54, 0.30, size=17, color=TEAL, bold=True)
-    chain = [
-        ("Persistent", "交互生成、跨 session", BLUE),
-        ("Source-aware", "memory / world / user", PURPLE),
-        ("Counterfactual", "移动决定性证据来源", ORANGE),
-        ("Decision gold", "readiness / requirement / action", TEAL),
-        ("Executable", "获取后闭合并验证终态", GREEN),
-        ("Diagnostic", "oracle 分离系统瓶颈", RED),
+    add_header(slide, "04 / Framework", "旧状态不再独立：统一映射到 Readiness × Source × Integrity", 7)
+    headers = ["Benchmark slice", "Readiness", "Source / Integrity", "Expected control"]
+    rows = [
+        ["NO_MEMORY_NEEDED", "READY", "当前 observation 已闭合", "EXECUTE"],
+        ["SUFFICIENT", "READY", "PACKET + FRESH", "EXECUTE"],
+        ["RETRIEVABLE_MISSING", "NOT_READY", "PERSISTENT_MEMORY", "SEARCH_MEMORY"],
+        ["WORLD_ONLY_MISSING", "NOT_READY", "WORLD", "VERIFY_WORLD"],
+        ["USER_ONLY_MISSING", "NOT_READY", "USER", "ASK_USER"],
+        ["STALE / CONFLICT", "CONFLICTED", "authority 决定来源", "SEARCH / VERIFY / ASK"],
+        ["IRREDUCIBLE", "NOT_READY", "UNAVAILABLE", "ABSTAIN"],
     ]
-    for i, (title, body, accent) in enumerate(chain):
-        col = i % 2; row = i // 2
-        x = 6.52 + col * 2.92; y = 2.77 + row * 1.02
-        rect(slide, x, y, 2.62, 0.76, fill=WHITE, line=accent, radius=True)
-        add_text(slide, title, x + 0.12, y + 0.10, 2.38, 0.23, size=11, color=accent, bold=True, align=PP_ALIGN.CENTER, font=FONT_EN)
-        add_text(slide, body, x + 0.12, y + 0.39, 2.38, 0.24, size=10, color=INK, bold=True, align=PP_ALIGN.CENTER)
-    add_footer(slide, "The contribution is the controlled intersection, not any single component.")
+    add_table(slide, 0.66, 1.84, [2.62, 1.60, 4.18, 3.54], 0.59, headers, rows, body_size=9)
+    rect(slide, 0.78, 6.68, 11.68, 0.25, fill=TEAL_LIGHT, line=TEAL_LIGHT, radius=True)
+    add_text(slide, "DISTRACTOR_HEAVY 不是独立 readiness：它继承原状态，并用于测试 irrelevant invariance。", 1.08, 6.70, 11.08, 0.19, size=10, color=TEAL, bold=True, align=PP_ALIGN.CENTER, font=FONT_EN)
+    add_footer(slide, "The former six-state taxonomy becomes interpretable slices of one extensible factorization.")
 
     # 8 Question
     slide = prs.slides.add_slide(blank)
-    add_header(slide, "04 / Gap", "修订后的研究问题：Source-Aware Action Readiness", 8)
+    add_header(slide, "04 / Gap", "统一研究问题：Source-Aware Evidence Closure and Action Control", 8)
     rect(slide, 0.78, 1.91, 11.80, 1.18, fill=INK, line=INK, radius=True)
     add_text(slide, "给定历史交互形成的持久记忆、当前工作 packet 和 world/user 接口，Agent 能否识别尚未闭合的行动条件，定位其权威来源，并在外部副作用发生前选择正确的信息获取或承诺动作？", 1.10, 2.16, 11.16, 0.64, size=18, color=WHITE, bold=True, align=PP_ALIGN.CENTER)
     prompts = [
@@ -569,7 +549,7 @@ def build_deck():
     for row, item in enumerate(refs_right):
         add_reference(slide, *item, 6.78, 1.84 + row * 0.69, 5.82)
     rect(slide, 0.72, 6.82, 11.92, 0.20, fill=TEAL_LIGHT, line=TEAL_LIGHT)
-    add_text(slide, "Proposal: docs/ideas/2026-09-03-memreadybench-source-aware-readiness-v2.md", 0.86, 6.82, 11.56, 0.20, size=8, color=TEAL, bold=True, align=PP_ALIGN.CENTER, font=FONT_EN)
+    add_text(slide, "Proposal: docs/ideas/2026-09-03-memreadybench-unified-research-proposal.md", 0.86, 6.82, 11.56, 0.20, size=8, color=TEAL, bold=True, align=PP_ALIGN.CENTER, font=FONT_EN)
 
     OUT.parent.mkdir(parents=True, exist_ok=True)
     prs.save(OUT)
