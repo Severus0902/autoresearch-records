@@ -63,3 +63,16 @@ After completing the P0/P1/P2 deep reading and the 2026 novelty audit, 38 additi
 - Scientific-agent anchors: `AutoResearchBench`, `CORE-Bench`, and `ScienceAgentBench` were added for benchmark-boundary comparison.
 
 The new records include priority/topic tags and links to their detailed reports in `docs/papers/memory/`. Creator metadata was left empty where it had not yet been independently verified; titles, venues, links, and research-role tags were prioritized for reliable retrieval.
+
+## MetaMemBench Collision Audit Update
+
+The following 6 records were added after reframing the benchmark around memory sufficiency monitoring and query-time control. The `Memory` collection now contains 66 top-level items.
+
+- `Memory as a Controlled Process: Learned Adaptive Memory Management for LLM Agents` (`43BMMDU9`)
+- `MemOps: Benchmarking Lifecycle Memory Operations in Long-Horizon Conversations` (`TM4IP9YX`)
+- `Mem2ActBench: A Benchmark for Evaluating Long-Term Memory Utilization in Task-Oriented Autonomous Agents` (`RNBRCTGW`)
+- `StreamMemBench: Streaming Evaluation of Agent Memory for Future-Oriented Assistance` (`CVTYBU79`)
+- `CIMemories: A Compositional Benchmark for Contextual Integrity in LLMs` (`TS7EFVB7`)
+- `Decision-Aware Memory Cards: Counterfactual-Inspired Context Selection and Compression for Tool-Using LLM Agents` (`M42JMTGK`)
+
+These papers define the nearest boundaries for the new proposal: memory control methods already exist (`MemCon`), lifecycle operation evaluation already exists (`MemOps`), and dynamic, actionable, streaming, privacy-aware, and decision-aware memory each have direct prior work. The remaining target is a controlled diagnostic benchmark for whether an agent can assess memory sufficiency and choose `SEARCH / ASK / EXECUTE / ABSTAIN` before committing to an action.

@@ -7,6 +7,8 @@ branch: "agent-memory-benchmark"
 tags: ["agent-memory", "benchmark", "scientific-agent", "research-memory", "method"]
 ---
 
+> **方向更新（2026-09-03）**：通用 benchmark 主线已进一步收缩为“记忆充分性监控与查询时控制”，以避免与 StratMem-Bench、MemoryArena、MemOps、MemCon 等近期工作重叠。完整方案见 [`2026-09-03-metamembench-agentic-memory-control-proposal.md`](./2026-09-03-metamembench-agentic-memory-control-proposal.md)。本文件中的 ResearchLedgerBench 保留为可选的科研领域 stress test，不再作为当前第一优先级。
+
 # Agent Memory 两阶段研究路线
 
 ## 最终建议
