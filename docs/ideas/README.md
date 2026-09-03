@@ -4,6 +4,7 @@ Use this folder for research ideas, hypotheses, reading questions, and possible 
 
 Recent notes:
 
+- [Strategic Memory Management Benchmark 选题定位](2026-09-03-strategic-memory-management-positioning.md)
 - [从 StratMem-Bench 切入 Agentic Memory Benchmark 的研究方案](2026-09-03-stratmem-agentic-memory-cut-in.md)
 - [MemoAgentBench-Lite：面向 Agentic RAG 的记忆能力评测](2026-09-03-agent-memory-benchmark-proposal.md)
 - [面向 Agentic 知识图谱推理的记忆条件排序奖励学习](2026-09-02-memory-conditioned-ranking-reward-kgr-validation-plan.md)
