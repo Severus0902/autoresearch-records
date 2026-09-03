@@ -51,3 +51,15 @@ The following 4 seed items already existed in Zotero under `Agentic KGR`. They w
 - `Memory-R1: Enhancing large language model agents to manage and utilize memories via reinforcement learning`
 
 Reason: this Zotero Local API build supports connector imports but does not implement item `PUT`, so I cannot attach existing records to another collection without either duplicating them or using the Zotero UI.
+
+## Deep-Reading And Frontier Update
+
+After completing the P0/P1/P2 deep reading and the 2026 novelty audit, 38 additional records were added to `Memory`. The collection now contains 60 top-level items.
+
+- P1: 14 new records; together with `MemSearcher`, 15 P1 records are in `Memory`. `A-MEM` remains as the existing non-duplicated record under `Agentic KGR`.
+- P2: all 7 records were added.
+- Surveys: `Rethinking Memory Mechanisms of Foundation Agents in the Second Half` (`UTJ4DHYF`) and `From Storage to Experience` (`KU7LS2QG`) were added.
+- Frontier audit: 13 records tagged `frontier-collision` were added, including `EvoMemBench` (`4G8BA8VK`), `MemTrace` (`YDJ69YLJ`), `StateMemBench`'s paper (`Q2K86EDY`), `LongMemEval-V2` (`53HKGMGU`), and `Scientific-RAM` (`6Z95ULSP`).
+- Scientific-agent anchors: `AutoResearchBench`, `CORE-Bench`, and `ScienceAgentBench` were added for benchmark-boundary comparison.
+
+The new records include priority/topic tags and links to their detailed reports in `docs/papers/memory/`. Creator metadata was left empty where it had not yet been independently verified; titles, venues, links, and research-role tags were prioritized for reliable retrieval.

@@ -9,6 +9,8 @@ tags: ["agentic-memory", "agentic-rag", "memory", "benchmark", "survey"]
 
 # Agentic Memory / Agent Memory Benchmark 调研综述
 
+> **2026-09-03 更新**：MemTrace 已覆盖 operation-variable execution graph 与 operation-level failure attribution；EvoMemBench 已统一 in/cross-episode 和 knowledge/execution memory；StateMemBench、AuthMem-Bench、TANGLE、PM-Bench、MemGauge 又分别覆盖状态、权威、冲突、未来意图和阶段风险。因此，下文原 `Strategic Memory Management Benchmark` 应视为第一版思路，不再是最终推荐。当前建议转向 versioned scientific validity，即 [ResearchLedgerBench -> LedgerMem 两阶段路线](../ideas/2026-09-03-agent-memory-two-stage-research-roadmap.md)。
+
 ## 方向切换判断
 
 当前建议从 KG-constrained KGR 切到 agentic memory benchmark。原因很直接：KG 场景的约束太强，实验竞争往往落在图谱检索、路径推理、Freebase/CWQ/WebQSP 复现细节和大模型推理策略上；在最多 4 卡 4090 的条件下，很难靠训练规模或 KG 资源优势打出明显差异。相比之下，agent memory 更适合做 benchmark、framework 和 evaluation protocol，核心贡献可以不依赖大规模训练。

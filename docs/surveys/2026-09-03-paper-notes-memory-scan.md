@@ -9,6 +9,8 @@ tags: ["agent-memory", "benchmark", "paper-notes", "2025", "2026"]
 
 # Paper-Notes 2025-2026 Agent Memory 扫描
 
+> **2026-09-03 补充核验**：Paper-Notes 清单外又发现 MemTrace、EvoMemBench、StateMemBench、AuthMem-Bench、TANGLE、PM-Bench、MemGauge 和 LongMemEval-V2 等直接相关工作。它们使本文后半部分的“operation trace + causal diagnosis”方案不再足以单独构成新颖性。更新后的撞题审查见 [Agent Memory 2026 前沿撞题审查](../papers/memory/2026-09-frontier-collision-audit.md)，当前主推荐见 [两阶段研究路线](../ideas/2026-09-03-agent-memory-two-stage-research-roadmap.md)。下文保留作为方向演化记录。
+
 ## 扫描范围
 
 来源仓库：<https://github.com/Severus0902/Paper-Notes>

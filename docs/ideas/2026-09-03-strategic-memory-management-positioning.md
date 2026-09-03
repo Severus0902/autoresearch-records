@@ -9,6 +9,8 @@ tags: ["agentic-memory", "research-gap", "benchmark", "strategic-memory-manageme
 
 # Strategic Memory Management Benchmark 选题定位
 
+> **选题状态：已被后续文献核验显著收窄。** MemTrace 已直接研究 operation-level tracing/attribution，EvoMemBench、StateMemBench、AuthMem-Bench、TANGLE 和 MemGauge 也覆盖了本文提出的多个子维度。本文件保留为思路演化记录，不建议再按“通用 lifecycle benchmark”直接立项。新的主线为 [ResearchLedgerBench -> LedgerMem](./2026-09-03-agent-memory-two-stage-research-roadmap.md)，详细撞题证据见 [2026 前沿撞题审查](../papers/memory/2026-09-frontier-collision-audit.md)。
+
 ## 你要做的东西是什么
 
 你要做的不是一个新的大模型训练方法，也不是单纯复现某个 memory framework，而是一个面向 LLM agent 的 **Strategic Memory Management Benchmark**。
