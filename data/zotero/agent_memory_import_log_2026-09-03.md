@@ -15,8 +15,9 @@ Collection identifiers:
 
 ## Imported
 
-The following 15 items are now in `Memory`:
+The following 16 items are now in `Memory`:
 
+- `MobileMem: Learning from a Year of Mobile Experiences`
 - `StratMem-Bench: Evaluating Strategic Memory Use in Virtual Character Conversation Beyond Factual Recall`
 - `MIRIX: Multi-agent memory system for LLM-based agents`
 - `Memory OS of AI agent`

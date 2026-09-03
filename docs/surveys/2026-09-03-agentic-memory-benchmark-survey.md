@@ -106,6 +106,19 @@ StratMem-Bench 的 memory 定义很值得借鉴：它不是把 memory 只看作�
 链接：https://aclanthology.org/2026.acl-long.1491/
 代码：https://github.com/seucoin/StratMem-Bench
 
+### MobileMem
+
+全称：MobileMem: Learning from a Year of Mobile Experiences。
+
+出处：arXiv 2026 technical report。
+
+MobileMem 是近期非常值得参考的 on-device personal memory benchmark。它把 memory 场景从对话历史扩展到手机端长期用户经验，覆盖 Calendar、Photos、Notes、Documents、To-Do List、Voice Recorder、Breeno Memory、Video Memo、浏览和截图等多源数据。它提出 KEME 数据合成流程，用 user prior knowledge、temporal event graph 和 user-app trajectory synthesis 构造一年尺度、时间一致的用户轨迹。
+
+MobileMem 提供文本和多模态两个设置：`MobileMem` 关注应用通过模板向系统级 memory layer 发送 structured memory event；`MobileMem-Omni` 关注应用不直接接入 memory layer 时，用户通过截图分享重要交互。任务覆盖 single-hop、multi-hop、temporal reasoning、knowledge update、implicit preference、abstention、visual reasoning 等。它对我们的启发是：agent memory benchmark 要走向长期、个人化、多源和部署受限；但它主要还是 end-to-end QA 评测，缺少对每条 memory 是否该写、该改、该取、该用、该忽略、该保护的过程级监督。
+
+链接：https://arxiv.org/abs/2608.13606
+代码：https://github.com/zjunlp/MobileMem
+
 ### MemoryArena
 
 出处：arXiv 2026。
@@ -205,8 +218,8 @@ Memory-R1 是少数直接把 RL 用到 memory management 的工作，训练 Memo
 
 优先做 benchmark，而不是 method-first：
 
-1. 先复现/跑通 LoCoMo、LongMemEval、MemoryAgentBench 中至少一个轻量子集。
-2. 梳理这些 benchmark 没覆盖好的维度：memory write correctness、memory update under contradiction、permission-aware retrieval、experience-to-action transfer、noise injection、cross-session preference drift。
+1. 先复现/跑通 LongMemEval、MobileMem、MemoryAgentBench 中至少一个轻量子集。
+2. 梳理这些 benchmark 没覆盖好的维度：memory write correctness、memory update under contradiction、permission-aware retrieval、experience-to-action transfer、noise injection、cross-session preference drift、abstention under insufficient evidence。
 3. 构造一个轻量 benchmark：不追求超大规模，追求任务定义清楚、可自动评测、能对比多种 memory backend。
 4. Baseline 先用 API 模型或本地 7B/8B reader + 多种 memory backend，不做训练。
 5. 论文故事先定位为 evaluation + benchmark + framework analysis。
@@ -254,9 +267,10 @@ Baseline：
 第二优先级：选择一个已有 benchmark 跑通最小评测，推荐顺序为：
 
 1. LongMemEval：协议清楚，ICLR 2025，适合 memory retrieval/reading pipeline。
-2. MemoryAgentBench：最贴 agent memory，但需要先看数据构造成本。
-3. LoCoMo：经典且引用价值高，但偏长对话。
-4. PersonaMem：适合补 personalization/dynamic preference 子任务。
-5. MemoryArena：非常贴 agentic，但 2026 新工作，需看代码/数据可用性。
+2. MobileMem：最贴 on-device/personal memory benchmark，可以优先参考数据合成、任务类型和 baseline。
+3. MemoryAgentBench：最贴 agent memory，但需要先看数据构造成本。
+4. LoCoMo：经典且引用价值高，但偏长对话。
+5. PersonaMem：适合补 personalization/dynamic preference 子任务。
+6. MemoryArena：非常贴 agentic，但 2026 新工作，需看代码/数据可用性。
 
 第三优先级：再决定是否做 `MemoAgentBench-Lite` 的自定义数据集。

@@ -50,6 +50,7 @@ StratMem-Bench 的核心贡献是把 memory 从“事实召回库”推进到“
 | 综述 | Memory in the Age of AI Agents; Rethinking Memory in LLM-based Agents; Memory for Autonomous LLM Agents | 从 memory forms、functions、operations、management 等角度建立 taxonomy | 说明 memory 已经从 RAG 附件变成 agent 基础设施 | 多为 taxonomy，不直接给出可复现实验闭环 |
 | 对话长期记忆 | LoCoMo; LongMemEval | 长对话、多 session QA、时间推理、知识更新 | 可作为 long-term conversational memory 的强 baseline | 仍偏“历史中找答案”，agentic action 较弱 |
 | 策略性记忆使用 | StratMem-Bench | `must / nice / irrelevant` 候选记忆选择与回复生成 | 是最适合继承的直接起点 | 记忆池是给定的，缺少 memory lifecycle |
+| 移动端/个人长期记忆 | MobileMem; MemArena | 手机应用、截图、日历、相册、笔记、文档等多源长期用户经验 | 可参考其 on-device personal memory 场景、KEME 数据合成和 baseline 设置 | 规模和生态资源较强，不适合直接复刻；过程级 memory management 监督仍不够显式 |
 | Agent memory benchmark | MemoryAgentBench; MemoryArena; MemArena | 增量交互、多 session agent 任务、个人 memory assistant | 证明 benchmark 化方向是合理的 | 需要进一步看是否充分拆解 use/update/protect 等组件 |
 | 记忆框架 | Generative Agents; MemGPT/Letta; A-MEM; MemoryOS; MIRIX | observation/reflection、虚拟上下文、结构化 note、分层记忆、多 agent memory manager | 适合作为 framework baseline | 各框架接口差异大，统一评测成本高 |
 | 训练型方法 | Memory-R1; AgeMem; GAM; AutoMem | 把 memory operation 或 memory policy 训练成可学习技能 | 可作为后续 method 扩展 | 初期不适合作为主线，训练成本和变量太多 |
@@ -94,6 +95,7 @@ StratMem-Bench 的核心贡献是把 memory 从“事实召回库”推进到“
 - personal assistant：日程、旅行、购物、偏好管理。
 - research assistant：论文阅读、idea 记录、实验状态、引用偏好。
 - coding assistant：项目约定、bug 修复经验、代码风格、失败命令记录。
+- mobile personal assistant：日历、相册、笔记、文档、浏览、截图和待办等多源个人经验。
 - enterprise assistant：权限隔离、团队知识、跨用户信息边界。
 
 推荐 baseline：
@@ -117,6 +119,14 @@ StratMem-Bench 的核心贡献是把 memory 从“事实召回库”推进到“
 - `answer_success`：最终任务是否成功。
 - `permission_violation_rate`：是否误用 forbidden/private memory。
 - `cost`：token、latency、存储量。
+
+## MobileMem 对本方案的补充启发
+
+MobileMem 是非常强的近期参考：它把 benchmark 场景落到 on-device personal assistant，覆盖日历、相册、笔记、文档、待办、录音、浏览和截图等多源长期用户经验，并提出 KEME 数据合成流程，用 prior knowledge、temporal event graph 和 user-app trajectory synthesis 构造一年尺度的用户记忆。
+
+它可以支撑我们的背景叙事：agent memory 正在从对话历史检索走向长期、个人化、多源、动态和部署受限的 memory system。但它也提示我们不能直接做同类大规模 mobile benchmark，因为 OPPO/OpenKG 有真实手机生态和数据构造资源优势。
+
+因此我们的差异应该写得更细：MobileMem 主要评测 memory system 能否回答长期用户问题，而我们更强调 process-level strategic memory management，即每条 memory 是否该写、该更新、该检索、该忽略、该用于回答、该因权限而禁止使用。这样可以和 StratMem-Bench 的 `must / nice / irrelevant` 监督形成更自然的延伸。
 
 ## 写作故事线
 
@@ -190,6 +200,8 @@ StratMem-Bench 的核心贡献是把 memory 从“事实召回库”推进到“
 - MemoryAgentBench: https://arxiv.org/abs/2507.05257
 - MemoryBench: https://arxiv.org/abs/2510.17281
 - MemoryArena: https://arxiv.org/abs/2602.16313
+- MobileMem: https://arxiv.org/abs/2608.13606
+- MobileMem GitHub: https://github.com/zjunlp/MobileMem
 - MemGPT: https://arxiv.org/abs/2310.08560
 - A-MEM: https://arxiv.org/abs/2502.12110
 - Memory-R1: https://arxiv.org/abs/2508.19828
