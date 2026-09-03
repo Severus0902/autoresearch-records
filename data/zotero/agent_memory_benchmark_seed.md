@@ -13,9 +13,28 @@ Agentic Memory Benchmark
   06_Evaluation_Methodology
 ```
 
-Local Zotero read API works at `http://127.0.0.1:23119/api/users/0/items/top`, but this Zotero build reports `X-Zotero-Version: 9.0.6` and rejects `POST /api/users/0/collections` with `Endpoint does not support method`. That means I could not create the collection or write items through the local API in this run.
+Local Zotero read API works at `http://127.0.0.1:23119/api/users/0/items/top`, but this Zotero build reports `X-Zotero-Version: 9.0.6` and rejects `POST /api/users/0/collections` with `Endpoint does not support method`. The `Memory` collection was created manually in Zotero and then used as the target collection.
 
 Use `agent_memory_benchmark_seed.bib` as the import seed after Zotero write access is available.
+
+## 2026-09-03 Import Status
+
+- Target collection: `Memory`
+- Zotero collection key: `XQRQDC4S`
+- Zotero connector target: `C11`
+- Items currently in `Memory`: 14
+- Newly imported through Zotero Connector: 14
+- Failed imports: 0
+- Existing seed items not duplicated: 4
+
+The following seed items were already in the Zotero library under `Agentic KGR` and were not duplicated:
+
+- `Generative Agents: Interactive Simulacra of Human Behavior`
+- `MemGPT: Towards LLMs as Operating Systems`
+- `A-MEM: Agentic Memory for LLM Agents`
+- `Memory-R1: Enhancing Large Language Model Agents to Manage and Utilize Memories via Reinforcement Learning`
+
+Current Zotero Local API supports reading but returns `501 Method not implemented` for `PUT /api/users/0/items/{key}`, so these existing records were not programmatically re-attached to `Memory`. They can be manually dragged into `Memory` in Zotero, or duplicated intentionally later if needed.
 
 ## Seed Papers
 
