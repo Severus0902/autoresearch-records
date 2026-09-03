@@ -1,46 +1,52 @@
 ---
-title: "MemReadyBench：持久记忆 Agent 的来源感知证据闭合与行动控制基准"
+title: "MemReadyBench：受控记忆状态干预下的使用、行动与修复评测"
 type: research-proposal
 status: canonical
 created: "2026-09-03"
 branch: "agent-memory-benchmark"
-tags: ["agent-memory", "benchmark", "action-readiness", "evidence-closure", "source-routing", "counterfactual-evaluation"]
+tags: ["agent-memory", "benchmark", "memory-state-intervention", "memory-use-control", "memory-repair", "longitudinal-evaluation"]
 ---
 
-# MemReadyBench：持久记忆 Agent 的来源感知证据闭合与行动控制基准
+# MemReadyBench：受控记忆状态干预下的使用、行动与修复评测
 
 ## 0. 最终统一方案
 
 ### 0.1 一句话研究问题
 
-> **在持久记忆和部分可观测环境中，Agent 能否判断当前证据是否已经闭合全部行动条件；若尚未闭合，能否识别缺失条件及其权威来源，在 `SEARCH_MEMORY / VERIFY_WORLD / ASK_USER / EXECUTE / ABSTAIN` 之间进行风险与成本校准的控制，并只在证据闭合后执行可验证行动？**
+> **面对由过去交互形成、但可能缺失、过期、冲突、过度压缩或失去授权的持久记忆，Agent 能否诊断该记忆对当前行动是否充分可信，正确调节记忆对行动的影响，并在获得新证据后修复记忆，使后续会话不再重复同类错误？**
 
-这一表述将此前两个侧重点统一为一条完整链路：
+研究对象是一条跨会话的 memory lifecycle：
 
-1. **Memory monitoring**：当前可见证据够不够。
-2. **Requirement diagnosis**：缺少哪个行动条件，或者哪里存在冲突。
-3. **Source-aware control**：应从 memory、world、user 中哪个来源解决。
-4. **Evidence closure**：新证据是否真正闭合了 requirement graph。
-5. **Executable commitment**：何时可以产生外部副作用，以及结果是否正确。
+1. **Memory formation**：历史交互、工具反馈和用户状态如何形成持久记忆。
+2. **Memory-state intervention**：只改变记忆的覆盖度、时效性、冲突、压缩和授权状态。
+3. **Memory adequacy diagnosis**：记忆是否覆盖当前 requirement，能否被信任和直接使用。
+4. **Memory-conditioned control**：应该使用、继续检索、外部验证、询问、忽略还是拒绝。
+5. **Memory repair and re-use**：新证据是否被正确写回，以及未来相关任务是否真正受益。
 
-因此，本项目既不是单纯的 memory retrieval benchmark，也不是一般的 act/abstain benchmark。研究对象是：
+因此，本项目不是把 memory 当作多个信息源之一，而是把 **persistent memory state 设为受控因果变量**。来源、证据闭合和执行门控只是用于诊断 memory 如何影响行动的内部机制。
 
-> **persistent-memory Agent 在行动承诺前，对“证据状态—缺失条件—权威来源—控制动作—执行结果”完整决策链的诊断。**
+> **persistent-memory Agent 的“形成—诊断—使用—校验—修复—再利用”闭环。**
 
-### 0.2 推荐标题
+### 0.2 方案框架图
 
-> **MemReadyBench: Evaluating Source-Aware Evidence Closure and Action Control in Persistent-Memory Agents**
+![MemReadyBench memory-centric framework](../figures/2026-09-03-memreadybench-memory-centric-framework.png)
+
+图中的固定项是当前 Query、World State、User Goal 和 Requirement Graph；主要干预只施加在 Persistent Memory Store。这样可以测量记忆状态变化是否因果性地改变控制策略，以及修复后的记忆是否改善未来会话。
+
+### 0.3 推荐标题
+
+> **MemReadyBench: Counterfactual Memory-State Intervention and Longitudinal Use–Repair Evaluation**
 
 较短版本：
 
-> **MemReadyBench: Source-Aware Action Readiness for Persistent-Memory Agents**
+> **MemReadyBench: Benchmarking Memory-Conditioned Action Control and Repair**
 
-### 0.3 审稿式判断
+### 0.4 审稿式判断
 
 - **问题重要性**：强。长期 Agent 会在不完整、过时、冲突或来源错误的记忆上过早行动。
 - **问题层首创**：不能声称。SafeCommit 已直接研究 memory uncertainty 下的 safe commitment。
-- **可防守创新**：较强，但必须落在 requirement-source closure、来源迁移反事实、逐决策点联合 gold 和真实 memory stack 诊断的交叉点。
-- **方法创新**：第二阶段再做。通用 ranker/verifier/controller/gate 的模块组合不足以单独构成主要贡献。
+- **可防守创新**：必须落在 controlled memory-state intervention、跨会话 use-repair evaluation、逐决策点联合 gold 和真实 memory stack 诊断的交叉点。
+- **方法创新**：第二阶段再做。通用 retriever/router/verifier/gate 的模块组合不足以单独构成贡献，memory repairer 也必须通过未来会话价值验证。
 - **资源可行性**：适合四卡 4090。主要工程量是 generator、simulator、validator 和 evaluation harness，而不是大规模预训练。
 
 ## 1. 为什么要做：问题来自哪些已有工作
@@ -73,7 +79,7 @@ tags: ["agent-memory", "benchmark", "action-readiness", "evidence-closure", "sou
 
 由此得到第三层问题：
 
-> 证据不足不是单一状态；真正的控制难点是判断缺失条件应由 memory、world、user 还是其他来源解决。
+> 记忆不足不是单一状态；真正的 memory-use 难点是判断持久记忆何时可直接信任，何时必须检索原始历史、外部验证、重新询问或忽略。
 
 ### 1.4 Paired act/abstain 和 memory skepticism 也已有工作
 
@@ -81,7 +87,7 @@ tags: ["agent-memory", "benchmark", "action-readiness", "evidence-closure", "sou
 
 [MemSyco-Bench](https://arxiv.org/abs/2607.01071) 已评估记忆何时不应被当作事实、如何处理记忆与客观证据冲突以及如何限制记忆作用域。因此“记忆并不总是有益”也不是新结论。
 
-仍然缺少的，是把反事实干预明确施加在 **持久记忆中决定性证据的来源位置和有效性** 上，并同时检查来源路由与最终闭合。
+仍然缺少的，是把反事实干预明确施加在 **交互生成的 persistent memory state** 上，并跨后续会话检查信任控制、修复与未来复用。
 
 ### 1.5 Sufficiency router 与 memory operation policy 已经存在
 
@@ -93,60 +99,83 @@ tags: ["agent-memory", "benchmark", "action-readiness", "evidence-closure", "sou
 
 因此，`retrieve-or-stop`、`operation-as-action`、`setwise verifier` 或 SFT-to-RL 均只能作为 baseline 或实现组件，不能单独锚定贡献。
 
+### 1.6 最危险的邻近工作进一步限定了边界
+
+- [EComAgentBench](https://arxiv.org/abs/2606.17698) 已覆盖 distributed requirements、profile/user clarification、长期工具执行和 source-tagged failure attribution，因此“多来源要求 + 最终执行”不是本项目创新。
+- [AuthMem-Bench](https://arxiv.org/abs/2608.01679) 已覆盖 consolidation 过程中的 authority preservation，因此 authority intervention 本身不能作为创新。
+- [MemFail](https://arxiv.org/abs/2605.26667) 已诊断 summarization、storage 和 retrieval failure，因此 memory system decomposition 本身也不是创新。
+
+本项目只保留更窄的交叉点：**同一跨会话任务中的 persistent memory state 被受控改变，Agent 必须调整 memory-use policy，并在校验后修复该记忆；修复价值由未来相关与无关任务共同验证。**
+
 ## 2. 统一的 Research Gap
 
 ### 2.1 中文版本
 
-> 近期研究已经分别覆盖了候选记忆的战略选择、记忆充分性路由、记忆不确定性下的安全承诺、澄清与拒绝以及 memory operation policy；但现有评测通常只研究其中一个边界，或者只报告最终任务成功。尚缺少一个面向交互生成持久记忆的统一诊断 benchmark：它能够显式表示行动所需的 requirement closure，区分当前 packet、持久 memory、外部 world 和 user 等权威来源，通过受控来源迁移改变正确的获取动作，并在成功获取证据后验证所有可解决版本是否收敛到相同的可执行结果。
+> 近期工作已经分别研究了战略记忆选择、记忆充分性、安全承诺、写入边界、abstention、authority preservation 和 memory operation policy；但这些评测通常固定持久记忆的状态，或者只观察单次任务结果。尚缺少一种以 **persistent memory state 为受控变量** 的纵向评测：在保持当前任务、世界状态、用户目标与 requirement graph 不变时，系统性改变记忆的覆盖度、时效性、冲突、压缩和授权完整性，测量 Agent 是否相应调整记忆信任与行动策略，并在校验后正确修复记忆、改善未来会话而不污染无关行为。
 
 ### 2.2 英文版本
 
-> Recent work has studied strategic memory use, evidence sufficiency routing, safe commitment under memory uncertainty, clarification and abstention, and memory-operation policies. However, existing evaluations typically isolate one boundary or collapse the full process into end-task success. What remains under-evaluated is whether agents grounded in interaction-derived persistent memory can identify unresolved action requirements, locate the authoritative source capable of resolving each requirement, switch acquisition actions under matched source-relocation interventions, and converge to a verified executable outcome once the evidence is closed.
+> Recent work has studied strategic memory use, memory sufficiency, safe commitment, memory-boundary decisions, abstention, authority preservation, and memory-operation policies. Yet existing evaluations usually hold the persistent-memory state fixed or collapse the lifecycle into a single task outcome. What remains under-evaluated is whether agents correctly regulate the influence of interaction-derived memory when its coverage, freshness, consistency, compression, or authorization status is counterfactually changed, and whether they repair that memory after verification so that later sessions improve without collateral contamination.
 
 ### 2.3 核心创新锚点
 
-本项目的创新不应写成某个组件，而应写成下面这组完整对象：
+本项目的创新不写成某个模型组件，也不写成“把多个任务合并”，而写成下面的评测协议：
 
-> **Requirement-aware readiness + source-aware acquisition + counterfactual source relocation + executable closure verification**
+> **Counterfactual memory-state intervention + memory-conditioned action control + longitudinal memory repair evaluation**
 
 更具体地说：
 
-1. **Requirement-level readiness**：准备度不是模型置信度，而是 action requirements 是否被当前、有效、权威的证据闭合。
-2. **Source-aware acquisition**：对每个缺失 requirement，显式判断应访问 memory、world、user 还是应停止。
-3. **Counterfactual source relocation**：保持同一任务目标和大部分语言不变，只移动决定性证据的位置或有效性，要求控制动作发生可预测翻转。
-4. **Executable closure**：信息获取成功后，不只检查文本回答，还检查是否达到同一个合法环境终态。
-5. **Diagnostic decomposition**：通过 oracle packet/retriever/monitor/router/executor 分离真实 memory stack 的失败位置。
+1. **Memory-state intervention**：固定 query、world、goal 和 requirements，只改变 persistent memory，建立记忆对行为的因果归因。
+2. **Memory adequacy diagnosis**：判断记忆是否覆盖当前 requirement，以及内容、来源、时间、作用域和授权是否仍有效。
+3. **Memory-conditioned control**：根据记忆状态选择 use、retrieve、verify、ask、ignore、abstain 或 execute，而不是形成固定搜索惯性。
+4. **Longitudinal repair**：发现错误后执行 update、invalidate、merge 或 provenance restoration，并在未来相关任务中验证修复价值。
+5. **Prospective decomposition**：通过 oracle memory content/retrieval/diagnosis/control/repair/execution 分离真实 memory stack 的失败位置。
+
+### 2.4 三个 Research Questions
+
+**RQ1：Memory Adequacy Diagnosis**
+
+> Agent 能否判断持久记忆对当前行动 requirements 的覆盖程度、时效性、权威性、作用域和一致性？
+
+**RQ2：Memory Trust and Use Control**
+
+> 当同一任务的 persistent memory state 被受控改变时，Agent 能否正确调节记忆对行动的影响，并选择使用、继续检索、验证、询问、忽略或拒绝？
+
+**RQ3：Memory Repair and Longitudinal Value**
+
+> Agent 发现记忆错误或缺口并获得新证据后，能否正确修复持久记忆，使未来相关任务不再重复错误，同时不污染无关任务？
 
 ## 3. 统一概念模型
 
-### 3.1 五层决策链
+### 3.1 六阶段 Memory Lifecycle
 
-| 层 | 核心问题 | 主要输出 | 典型错误 |
+| 阶段 | 核心问题 | 主要输出 | 典型错误 |
 |---|---|---|---|
-| L1 Monitor | 当前证据够不够？ | `READY / NOT_READY / CONFLICTED` | 把相关当充分；忽略冲突 |
-| L2 Diagnose | 缺什么或冲突在哪？ | missing requirement / conflict set | 只说“不确定”，找不到具体 slot |
-| L3 Locate | 哪个来源能够权威解决？ | packet / memory / world / user / unavailable | 在错误来源反复搜索 |
-| L4 Control | 下一步做什么？ | search / verify / ask / execute / abstain | 过早执行或不必要询问 |
-| L5 Commit | 获取后是否真正闭合并执行正确？ | evidence closure + exact outcome | lucky success、越权或错误终态 |
+| L1 Form | 过去交互如何形成记忆？ | memory item + metadata | 漏写、错误摘要、来源丢失 |
+| L2 Diagnose | 记忆对当前需求是否充分可信？ | coverage / integrity / authority / scope | 把相关当充分；信任旧值 |
+| L3 Control | 记忆应如何影响下一步？ | use / retrieve / verify / ask / ignore | 盲目信任或永远不用记忆 |
+| L4 Commit | 当前是否形成合法行动闭包？ | closure + admissible action | premature commit、越权执行 |
+| L5 Repair | 新证据应如何写回记忆？ | update / invalidate / merge / provenance | 旧值残留、错误覆盖、再次污染 |
+| L6 Re-evaluate | 修复是否改善未来任务？ | future utility + contamination | 重复错误或伤害无关任务 |
 
-这五层共同定义 **Source-Aware Memory Readiness and Control**。L1 保留“记忆监控”的研究价值，L2-L4 构成主要新颖性锚点，L5 保证 benchmark 不退化成静态分类。
+这六阶段共同定义 **Memory-Conditioned Action Control and Repair**。Source routing、evidence closure 和 execution gate 均保留，但服务于 memory lifecycle，而不是作为 benchmark 身份。
 
-### 3.2 旧状态分类如何被统一吸收
+### 3.2 受控 Memory-State Slices
 
-原来基于 memory sufficiency 的状态不再作为另一套并行定义，而作为统一状态空间中的 benchmark slices：
+对同一个 base task，固定当前 query、world state、user goal 和 requirement graph，只改变从历史交互形成的 persistent memory：
 
-| 可解释 Slice | Readiness | 缺失来源/完整性 | 预期动作 |
+| Memory Slice | 记忆状态 | 主要能力 | 典型合理控制 |
 |---|---|---|---|
-| `NO_MEMORY_NEEDED` | READY | 当前 observation 已闭合，无历史依赖 | EXECUTE |
-| `SUFFICIENT` | READY | CURRENT_PACKET + FRESH | EXECUTE |
-| `RETRIEVABLE_MISSING` | NOT_READY | PERSISTENT_MEMORY | SEARCH_MEMORY |
-| `WORLD_ONLY_MISSING` | NOT_READY | WORLD | VERIFY_WORLD |
-| `USER_ONLY_MISSING` | NOT_READY | USER | ASK_USER |
-| `RESOLVABLE_STALE_OR_CONFLICT` | CONFLICTED | 来源由 authority/provenance 决定 | SEARCH / VERIFY / ASK |
-| `IRREDUCIBLE` | NOT_READY 或 CONFLICTED | UNAVAILABLE | ABSTAIN |
-| `DISTRACTOR_HEAVY` | 继承原状态 | 相关但不闭合 requirement | 动作应保持不变 |
+| `FRESH_COMPLETE` | requirement 已被有效记忆覆盖 | 正确使用记忆 | USE / EXECUTE |
+| `MISSING` | decisive memory 未形成或未保留 | 识别覆盖缺口 | RETRIEVE / VERIFY / ASK |
+| `STALE` | 历史内容曾正确但当前失效 | 时间敏感信任控制 | VERIFY / IGNORE |
+| `CONFLICTING` | 多条记忆相互冲突 | provenance 与 supersession | VERIFY / ASK / RECONCILE |
+| `OVER_COMPRESSED` | 摘要丢失限定条件或授权 | 识别 consolidation loss | RETRIEVE RAW / ASK |
+| `AUTHORITY_DRIFT` | 内容存在但权限或作用域失效 | 授权边界 | ASK / POLICY BLOCK |
+| `DISTRACTOR` | 高相关但不支持 requirement | 抗记忆干扰 | 保持原策略 |
+| `NO_MEMORY_NEEDED` | 当前观察已闭合任务 | 避免不必要记忆访问 | EXECUTE |
 
-这样既保留原方案对 sufficient、stale、irreducible 和 no-memory 的诊断，又补上 `WORLD_ONLY_MISSING`，并避免把状态和来源混成一个不可扩展的平面标签。
+所有变体必须由同一段历史语义或等价历史事件派生，并按 `base_task_id` 放入同一数据划分。不是把事实任意搬到不同来源，而是对合法的 memory lifecycle failure 进行干预。
 
 ## 4. 正式问题定义
 
@@ -164,172 +193,173 @@ tags: ["agent-memory", "benchmark", "action-readiness", "evidence-closure", "sou
 
 只有当 memory 来自跨 session 的 interaction history 并持续影响后续决策时，主任务才归入 Agent Memory；若只是固定外部文档库，则更接近 Agentic RAG，可作为 transfer setting。
 
-### 4.2 Requirement–Source Closure Graph
+### 4.2 Persistent Memory Object
 
-每个任务具有一组行动要求：
+持久记忆不是静态文档库，而是由历史会话生成并跨 session 保留的内部状态：
 
 \[
-R(g_t)=\{r_1,r_2,\ldots,r_n\}.
+M_t = \operatorname{MemSystem}(H_{1:t-1}).
 \]
 
-每个 requirement 包含：
-
-- value 或约束；
-- freshness/time validity；
-- authority；
-- provenance；
-- authorization；
-- 可接受的替代证据集合。
-
-定义 evidence graph 中的关系：
-
-- `supports(e, r)`；
-- `refutes(e, r)`；
-- `supersedes(e_i, e_j)`；
-- `authorizes(e, action)`；
-- `located_at(e, source)`。
-
-当前 evidence packet 形成闭合，当且仅当至少存在一个合法证据集合 \(E_k^*\)，完整覆盖全部必要 requirements，且不存在未解决冲突、过时值或授权缺口：
+每条 memory item 至少包含：
 
 \[
-\operatorname{Closed}(C_t,g_t)=1
+m_i=(content, provenance, timestamp, authority, scope, status).
+\]
+
+benchmark 同时保留原始历史 \(H\)、canonical memory \(M^*\) 和真实 backend 生成的 \(M_t\)，以区分 formation、consolidation、retrieval 与 use-time control 的错误。
+
+### 4.3 Counterfactual Memory-State Intervention
+
+定义干预算子 \(\mathcal I_z\)，只改变 memory state：
+
+\[
+M_t^{(z)}=\mathcal I_z(M_t),
+\quad
+z\in\{fresh,missing,stale,conflict,compressed,auth\_drift,distractor\}.
+\]
+
+matched family 中以下变量保持不变：
+
+\[
+(g_t,o_t,W_t,U_t,R(g_t)).
+\]
+
+因此，策略差异可以归因于持久记忆状态，而不是 query、世界真值、用户目标或任务难度变化。
+
+### 4.4 Requirement–Memory Closure Graph
+
+每个任务具有行动要求 \(R(g_t)=\{r_1,\ldots,r_n\}\)。为避免把“权威来源”“存储位置”和“可获得性”混为一谈，分别定义：
+
+\[
+authority(r)\in\{USER,WORLD,POLICY,SYSTEM\},
+\]
+
+\[
+available\_at(e,t)\in\{PACKET,MEMORY,TOOL,USER,UNAVAILABLE\},
+\]
+
+\[
+integrity(e)\in\{FRESH,STALE,CONFLICTING,POISONED,AUTH\_DRIFT\}.
+\]
+
+图中记录 `supports`、`refutes`、`supersedes`、`authorizes`、`derived_from` 和 `stored_as`。当前证据集合 \(E_t\) 形成合法闭包，当且仅当存在至少一组证据完整覆盖必要 requirements，且每条证据满足 authority、freshness、scope 与 authorization 约束：
+
+\[
+Closed(E_t,g_t)=1
 \iff
-\exists E_k^* \subseteq C_t,
-\ E_k^* \models R(g_t).
+\exists E_k^*\subseteq E_t,
+E_k^*\models R(g_t).
 \]
 
-允许多个 \(E_k^*\)，避免将一种措辞或一条检索路径误设为唯一 gold。
+允许多个合法闭包；memory relevance 不能替代 closure validity。
 
-### 4.3 Readiness
+### 4.5 Memory Adequacy
+
+对当前任务定义：
 
 \[
-y_t^{ready}\in\{\text{READY},\text{NOT\_READY},\text{CONFLICTED}\}.
+y_t^{mem}\in\{ADEQUATE,INCOMPLETE,STALE,CONFLICTED,UNAUTHORIZED,IRRELEVANT\}.
 \]
 
-- `READY`：当前可见证据已经形成合法 closure。
-- `NOT_READY`：至少一个必要 requirement 未闭合。
-- `CONFLICTED`：当前证据存在尚未解决的 refute/supersede/authority 冲突。
+该标签回答“当前持久记忆能否被合法用于当前行动”，而不是泛化的模型置信度。每个 requirement 还提供 memory coverage、支持 item、缺失字段和失效原因。
 
-Readiness 与模型主观 confidence 分开标注；模型可以高置信地错误执行，也可以低置信但证据已经充分。
+### 4.6 分层动作空间
 
-### 4.4 Missing Requirement 与 Source
+动作不设为一个扁平五分类，而分成四组：
 
-对每个未闭合 requirement \(r_j\)：
+- **Memory use**：`USE_MEMORY / SEARCH_MEMORY / IGNORE_MEMORY`；
+- **Evidence acquisition**：`VERIFY_WORLD / ASK_USER`；
+- **Commitment**：`EXECUTE / ABSTAIN`；
+- **Memory maintenance**：`UPDATE / INVALIDATE / MERGE / RESTORE_PROVENANCE`。
+
+`EXECUTE` 必须引用形成闭包的 evidence IDs；repair action 必须声明目标 memory IDs、新证据和 supersession relation。
+
+### 4.7 Partial Observability 与两级 Gold
+
+不能依据隐藏 memory store 强迫唯一第一动作，评测分为：
+
+1. **Tier 1: Observable Memory Routing**。requirement 语义或 metadata 足以判断应优先访问或质疑哪类记忆，使用 exact/admissible action accuracy。
+2. **Tier 2: Latent Memory Exploration**。Agent 不知道 store 是否包含答案，允许多个 admissible first actions，使用 information gain、sequential regret、失败后的策略更新和 acquire-to-closure cost。
+
+每个 decision point 分开保存 latent state、observable state、admissible action set、action cost/risk 和 cost-aware oracle，避免 action flip 与部分可观测性定义冲突。
+
+### 4.8 Memory Repair 与未来价值
+
+Agent 获得权威新证据后产生 \(M_{t+1}\)。repair 正确性不能只根据当前写入内容判断，而要通过未来相关任务 \(g_{t+k}\) 验证：
 
 \[
-y_{t,j}^{source}\in
-\{\text{CURRENT\_PACKET},
-\text{PERSISTENT\_MEMORY},
-\text{WORLD},
-\text{USER},
-\text{UNAVAILABLE}\}.
+\Delta U_{future}=U(g_{t+k};M_{t+1})-U(g_{t+k};M_t).
 \]
 
-这里标的是能够权威解决缺口的来源，而不是文本出现的位置。旧日历事件可能在 memory 中，但当前可用时间的权威来源仍是 WORLD；历史偏好可以在 memory 中，但一次性购买授权仍来自 USER。
-
-### 4.5 Integrity
-
-证据完整性单独建模：
-
-\[
-q(e)\in\{\text{FRESH},\text{STALE},\text{CONFLICTING},\text{POISONED},\text{AUTHORIZATION\_DRIFT}\}.
-\]
-
-Source 与 Integrity 是两个轴。`MEMORY + STALE`、`WORLD + CONFLICTING` 和 `USER + AUTHORIZATION_DRIFT` 需要不同的 probe 与控制行为。
-
-### 4.6 动作空间
-
-\[
-a_t\in\{\text{SEARCH\_MEMORY},\text{VERIFY\_WORLD},\text{ASK\_USER},\text{EXECUTE},\text{ABSTAIN}\}.
-\]
-
-- `SEARCH_MEMORY(query,k)`：改写 query，从持久 memory store 检索证据。
-- `VERIFY_WORLD(tool,args)`：访问当前外部状态或权威系统。
-- `ASK_USER(question,missing_requirements)`：询问只有用户能确定的意图、偏好或授权。
-- `EXECUTE(action,evidence_ids)`：提交回答或工具调用，并声明证据依据。
-- `ABSTAIN(reason,missing_requirements)`：证据不可得、策略禁止或风险过高时停止承诺。
-
-`DEFER / ESCALATE / POLICY_BLOCK` 作为 `ABSTAIN` 的 reason code，首版不扩充成独立动作。`WRITE/UPDATE/DELETE/FORGET` 不进入主 action space，避免与 lifecycle memory benchmark 重叠。
-
-### 4.7 Partial Observability 与 Admissible Action Set
-
-每个 decision point 分开标注：
-
-1. latent world state；
-2. Agent-observable state；
-3. admissible action set \(A_t^{adm}\)；
-4. 每个动作的信息增益、成本和风险；
-5. 在完整生成图上计算的 oracle action \(a_t^*\)。
-
-不能依据隐藏真相要求 Agent 猜中唯一动作。例如，首次发现日期缺失时，若当前观测无法判断日期是否藏在 memory，`SEARCH_MEMORY` 和 `ASK_USER` 都可能 admissible；搜索明确无结果后继续搜索才是控制失败。主指标先判断动作是否 admissible，再用 policy regret 区分成本。
+同时在无关任务集合上测 collateral contamination，防止一次修复错误覆盖仍然有效的偏好、经验或授权。
 
 ## 5. Benchmark 的五个创新点
 
-### 5.1 Requirement-Level Action Readiness
+### 5.1 Counterfactual Memory-State Intervention
 
-把“够不够”从主观 confidence 或 passage relevance 改为可验证的 requirement closure。每个行动条件、证据依赖、时效、来源和授权均可追踪。
+基本评测单位不是单个 episode，而是 matched memory-state family。保持任务与外部真值不变，只改变交互生成记忆的 coverage、freshness、consistency、compression、authority 或 distractor composition。
 
-### 5.2 Source-Aware Evidence Acquisition
+### 5.2 Memory-Conditioned Policy Adaptation
 
-不仅预测 `NOT_READY`，还要回答：缺什么、应向哪里获取、获取之后是否应停止。`VERIFY_WORLD` 与 `ASK_USER` 被正式区分。
+评测 Agent 是否因为 memory state 的变化而定向调整记忆使用策略。重点识别 `AlwaysRetrieve`、`AlwaysTrust`、`AlwaysVerify` 和 `NeverUseMemory` 等 memory-use inertia。
 
-### 5.3 Source × Integrity Counterfactual Families
+### 5.3 Authority-Conditioned Natural Families
 
-对同一 base task，只移动决定性 evidence 的来源或有效性：
+不要求每条事实都拥有所有变体，而按权威属性构造自然 family：
 
-| 来源变体 | 决定性证据在哪里 | 预期第一动作 |
+| Family | 合法 Memory 变体 | 典型控制 |
 |---|---|---|
-| Packet | 当前 packet 完整可见 | EXECUTE |
-| Memory | 仅持久 store 中可得 | SEARCH_MEMORY |
-| World | 仅当前环境可确认 | VERIFY_WORLD |
-| User | 仅用户可确认 | ASK_USER |
-| Unavailable | 所有允许来源均无解 | ABSTAIN |
-| No-memory-needed | 行动不依赖历史 | EXECUTE，不得多余获取 |
+| User preference | fresh stored / missing / conflicting / superseded | use / retrieve / ask / invalidate |
+| World state | fresh result / cached stale / conflicting update | use / verify / supersede |
+| Authorization | valid stored / scope lost / expired / policy blocked | use / ask / abstain / invalidate |
+| Experience | complete trace / over-compressed / incompatible tool version | reuse / retrieve raw / ignore / update |
 
-再叠加 Fresh、Stale、Conflicting、Poisoned 和 Authorization Drift。不是机械生成全笛卡尔积，而是由 domain schema 选择语义成立的组合。
+整个数据集覆盖完整动作空间即可，不机械制造不自然的全笛卡尔积。
 
-### 5.4 Action Flip + Closure Convergence
+### 5.4 Use–Commit–Repair Longitudinal Evaluation
 
-一个合格的 counterfactual family 同时满足：
+联合检查：
 
-1. **Action Flip**：来源改变后，第一控制动作按 gold 发生变化。
-2. **Closure Convergence**：所有可解决变体成功获取证据后，最终 action 和 environment state 收敛到同一合法结果。
-3. **Irrelevant Invariance**：仅增加 distractor/supportive-only memory 时，必要控制动作不应变化。
+1. **Policy Adaptation**：memory state 改变时，控制策略按 admissible set 调整；
+2. **Valid Closure Before Commit**：只有有效、权威且作用域正确的证据可支持执行；
+3. **Repair Correctness**：新证据正确 update/invalidate/merge 旧记忆；
+4. **Future Utility**：后续相关任务不再重复错误；
+5. **Irrelevant Invariance**：修复与新增记忆不污染无关任务。
 
-这三个约束共同防止 benchmark 退化成来源关键词分类。
+Access-relocation family 可以要求相同合法终态；integrity intervention 可能改变合法行动，只要求拒绝无效证据并作出正确 policy adjustment。
 
-### 5.5 Decision-Point Gold 与 Oracle Decomposition
+### 5.5 Decision-Point Joint Gold 与 Oracle Decomposition
 
-每个关键决策点同时提供 readiness、missing requirements、requirement-source map、closure、admissible actions、oracle regret、tool precondition 和 exact postcondition。替换不同模块为 oracle，分离：
+每个关键决策点联合标注 memory coverage、integrity、authority、scope、missing requirement、admissible actions、closure、repair operation 和 exact postcondition。Oracle ladder 分离：
 
-- packet construction failure；
+- memory formation/consolidation failure；
 - retrieval failure；
-- readiness monitoring failure；
-- source routing failure；
-- evidence integration failure；
+- memory adequacy diagnosis failure；
+- trust/control failure；
+- closure/commit failure；
+- repair/maintenance failure；
 - execution failure。
 
 ## 6. 三个递进 Track
 
-### Track A：Oracle-Packet Readiness Diagnosis
+### Track A：Canonical Memory Diagnosis
 
-给定包含全部当前可访问证据和受控 distractor 的 packet，不开放获取动作。模型预测 readiness、missing requirements、source location、evidence closure 和 confidence。
+给定 canonical memory entries、metadata 和当前任务，预测 requirement coverage、memory adequacy、失效原因、支持/冲突 item 与 admissible memory-use action。
 
-目的：隔离 reader/monitor，验证模型是否理解“相关但不充分”“完整但过时”“冲突但可解决”等状态。
+目的：隔离 memory reader 和 diagnosis，验证模型是否真正理解 stale、conflict、compression loss、authority drift 和 no-memory-needed。
 
-### Track B：Sequential Source-Aware Acquisition
+### Track B：End-to-End Memory Use and Action Control
 
-只给初始任务和三个 API：memory search、world verify、user ask。Agent 可多轮改写 query、获取证据、停止、执行或拒绝。
+只提供原始跨会话历史，由真实 memory backend 写入、压缩和检索；Agent 在线选择 use/search/verify/ask/ignore/execute/abstain，并进入确定性工具环境。
 
-目的：评估 retrieval intent、source routing、query construction、stop decision、clarification quality 和 budget allocation。
+目的：联合评估 memory formation、retrieval、trust control、closure 和 executable outcome，同时用 oracle 区分各层失败。
 
-### Track C：Closed-Loop Executable Commitment
+### Track C：Longitudinal Memory Repair
 
-最终动作进入确定性工具或小型环境，产生可验证状态变化。错误参数、过时状态、未授权行为和 premature execution 由规则 evaluator 判定。
+在 Session B 暴露过期、冲突或缺失记忆，提供可获得的新证据；Agent 选择 update/invalidate/merge/restore-provenance。Session C 使用相关与无关 follow-up tasks 检查 future utility 和 collateral contamination。
 
-目的：验证 monitor/control 的改善是否真正转化为合法行动，而不是只改善解释文本。
-
-Track A 是必要的低成本诊断，但论文主结果必须包含 Track B/C，否则工作会被理解为静态分类数据集。
+目的：让 benchmark 从单次 read/use 扩展到真正的 persistent memory lifecycle。
 
 ## 7. 数据构造
 
@@ -339,11 +369,11 @@ Track A 是必要的低成本诊断，但论文主结果必须包含 Track B/C�
 2. 采样 base goal 与 requirement graph。
 3. 生成 3–8 个历史 sessions，包括用户陈述、Agent 行动、工具反馈和状态更新。
 4. 从历史构造持久 memory store，不直接手写最终 memory answer。
-5. 指定 decisive requirements 的 source 和 integrity。
-6. 派生 matched counterfactual family。
+5. 生成 canonical memory，并施加语义合法的 memory-state intervention。
+6. 派生 Session B 的 use/control episode 与 Session C 的 repair follow-up。
 7. 用模板和 LLM 渲染自然语言对话、日志和 memory entries。
-8. 运行 deterministic validator 检查 closure、admissible actions 和 environment outcome。
-9. 人工审核自然度、歧义和唯一干预因素。
+8. 运行 deterministic validator 检查 memory adequacy、closure、repair 和 environment outcome。
+9. 人工审核记忆演化自然度、歧义和唯一干预因素。
 
 ### 7.2 首批任务域
 
@@ -375,8 +405,14 @@ Pilot 优先 calendar/scheduling 与 travel/booking。Coding/file operation 和 
   "episode_id": "...",
   "base_task_id": "...",
   "domain": "travel_booking",
-  "history_events": [],
-  "memory_store": [],
+  "session_a_history": [],
+  "canonical_memory": [],
+  "backend_memory": [],
+  "memory_intervention": {
+    "type": "STALE",
+    "target_memory_ids": ["m_17"],
+    "held_fixed": ["query", "world", "goal", "requirements"]
+  },
   "world_state": {},
   "user_state": {},
   "initial_packet": [],
@@ -385,22 +421,31 @@ Pilot 优先 calendar/scheduling 与 travel/booking。Coding/file operation 和 
     {
       "id": "purchase_authorization",
       "required": true,
-      "authoritative_source": "USER",
-      "integrity": "FRESH"
+      "authority": "USER",
+      "available_at": "MEMORY",
+      "integrity": "STALE",
+      "memory_coverage": "INVALID"
     }
   ],
   "decision_points": [
     {
-      "readiness": "NOT_READY",
+      "memory_adequacy": "STALE",
       "missing_requirements": ["purchase_authorization"],
-      "source_map": {"purchase_authorization": "USER"},
-      "admissible_actions": ["ASK_USER"],
+      "admissible_actions": ["ASK_USER", "IGNORE_MEMORY"],
       "action_costs": {"ASK_USER": 1.0, "SEARCH_MEMORY": 2.5},
       "forbidden_actions": ["EXECUTE"]
     }
   ],
+  "gold_repair": {
+    "operation": "INVALIDATE_AND_UPDATE",
+    "target_memory_ids": ["m_17"]
+  },
   "gold_final_action": {},
   "gold_environment_state": {},
+  "session_c_followups": {
+    "related": [],
+    "unrelated": []
+  },
   "budgets": {"search": 3, "verify": 2, "ask": 1}
 }
 ```
@@ -410,16 +455,17 @@ Pilot 优先 calendar/scheduling 与 travel/booking。Coding/file operation 和 
 #### Pilot
 
 - 20 个 base tasks；
-- 每个至少 6 个 source variants，共 120+ episodes；
-- 选择 2–3 个 integrity slices；
+- 每个构造 3–5 个语义合法的 memory-state variants，共 70–100 个 Session B episodes；
+- 每个可修复 episode 配置相关与无关 Session C follow-up；
 - 2 个任务域；
 - 20–50 条 memory entries；
+- canonical store 与至少一个 end-to-end memory backend；
 - 先使用 prompt/rule baselines，不训练。
 
 #### MVP Paper Version
 
 - 300–500 个 base tasks；
-- 2,000–4,000 个主 episodes；
+- 2,000–4,000 个 Session B 主 episodes及配套 Session C follow-ups；
 - 5,000–10,000 个 decision points；
 - memory size 为 20/100/500 三档；
 - 3–4 个任务域；
@@ -430,45 +476,24 @@ Pilot 优先 calendar/scheduling 与 travel/booking。Coding/file operation 和 
 
 ## 8. 指标体系
 
-### 8.1 Monitoring
+主表只保留四个一级指标：
 
-- Readiness Macro-F1；
-- Sufficiency AUROC/AUPRC；
-- Missing Requirement F1；
-- Source Location Macro-F1；
-- Evidence Closure P/R/F1；
-- Brier Score、ECE 与 risk-coverage。
+1. **Memory-State Family Accuracy (MSFA)**：同一 base task 的全部合法 memory variants 是否都采取 admissible memory-use policy。
+2. **Verified Closure Success (VCS)**：首次 commit 前已形成合法 closure，且 exact environment outcome 正确。
+3. **Premature Memory-Grounded Commit Rate (PMCR)**：因使用无效、过时、冲突或无授权记忆而过早执行的比例。
+4. **Longitudinal Repair Utility (LRU)**：修复后相关 follow-up 的收益减去无关任务 collateral contamination。
 
-### 8.2 Control 与 Routing
+诊断指标包括：
 
-- Admissible Action Accuracy；
-- Source-Routing Accuracy；
-- Wrong-Source Acquisition Rate；
-- Evidence-Location Regret；
-- Premature Execution Rate；
-- Unnecessary Search/Verify/Ask Rate；
-- Targeted Clarification Score；
-- Acquisition-to-Closure Steps。
+- Memory Adequacy Macro-F1 与 calibration；
+- Requirement Coverage / Missing Requirement F1；
+- Stale、Conflict、Compression Loss 和 Authority Drift 检出率；
+- Admissible Action Accuracy 与 Normalized Acquisition Regret；
+- Invalid Memory Use、Unnecessary Memory Access 和 Unsupported Success；
+- Repair Operation Accuracy、Supersession Correctness 和 Provenance Preservation；
+- token、retrieval、verification、user-call 与 latency cost。
 
-### 8.3 Counterfactual
-
-- Cross-Source Action-Flip Consistency；
-- Closure-Convergence；
-- Irrelevant Invariance；
-- Stale-to-Current Sensitivity；
-- Integrity Sensitivity；
-- Surface-Paraphrase Robustness。
-
-### 8.4 Outcome 与成本
-
-- Exact Tool State / Task Success；
-- Unsupported Success；
-- Authorization Violation；
-- Abstention Precision/Recall；
-- Token、retrieval、world-call、user-call 与 wall-clock cost；
-- Success–Cost Pareto Frontier。
-
-不使用单一总分。至少分别报告 `Monitor / Routing / Counterfactual / Outcome + Cost` 四组指标。
+来源路由只作为 memory trust/control 的诊断指标，不再作为 benchmark 主身份。
 
 ## 9. Baseline 与公平比较
 
@@ -477,7 +502,7 @@ Pilot 优先 calendar/scheduling 与 travel/booking。Coding/file operation 和 
 - NoMemory、FullHistory、Retrieve-Once@k；
 - AlwaysExecute、AlwaysSearch、AlwaysVerify、AlwaysAsk、AlwaysAbstain；
 - RandomRoute；
-- lexical source classifier；
+- lexical memory-state artifact classifier；
 - confidence threshold。
 
 ### 9.2 Retrieval 与 Memory Systems
@@ -501,21 +526,23 @@ Pilot 优先 calendar/scheduling 与 travel/booking。Coding/file operation 和 
 
 ### 9.4 Oracle Ladder
 
-- OraclePacket；
+- OracleMemoryContent；
 - OracleRetriever；
-- OracleReadiness；
-- OracleSourceRouter；
+- OracleMemoryDiagnosis；
+- OracleTrustController；
+- OracleClosureGate；
+- OracleRepairer；
 - OracleExecutor；
 - OracleAll。
 
-所有方法固定 backbone、tool schema、可见 source、token、检索轮数、world/user 调用次数和 wall-clock budget。
+所有方法固定 backbone、tool schema、可见接口、token、检索轮数、world/user 调用次数和 wall-clock budget。
 
 ## 10. 核心实验
 
 ### E0：Benchmark Validity
 
 - OracleAll 可解率；
-- 人工 state/source/action 一致率；
+- 人工 memory-state/integrity/authority/action 一致率；
 - 删除 decisive evidence 是否破坏 closure；
 - 加入 irrelevant evidence 是否保持 oracle action；
 - lexical shortcut 与 template leakage 检查。
@@ -524,25 +551,25 @@ Pilot 优先 calendar/scheduling 与 travel/booking。Coding/file operation 和 
 
 比较不同模型、long-context/RAG/memory backend/controller 的四组指标，重点展示 task success 相近但控制质量不同的系统。
 
-### E2：Source Relocation
+### E2：Counterfactual Memory-State Intervention
 
-对每个 family 报告 action flip、wrong-source rate、acquisition cost 和 closure convergence。
+在固定 query/world/user/requirements 下比较 fresh、missing、stale、conflict、compressed、authority-drift 和 distractor variants，报告 MSFA、policy adaptation 与 invalid memory use。
 
-### E3：Integrity Stress
+### E3：Canonical Store vs End-to-End Memory
 
-分别分析 stale、conflict、poison 和 authorization drift 如何改变 readiness、source 和 commit risk。
+Canonical setting 隔离 diagnosis/control；end-to-end setting 从原始历史开始，比较不同 backend 的 formation、consolidation、retrieval 和 use-time failure。
 
-### E4：Oracle Failure Decomposition
+### E4：Longitudinal Memory Repair
 
-依次替换 packet、retriever、monitor、source router 和 executor，回答不同系统的主要瓶颈在哪里。
+在 Session B 纠正错误后，评估 repair operation、Session C related-task gain 和 unrelated-task contamination。
 
-### E5：Calibration and Selective Action
+### E5：Oracle Failure Decomposition
 
-比较 prompt calibration、self-consistency、temperature scaling 和专门 readiness monitor，绘制 risk–coverage 曲线。
+依次替换 memory content、retriever、diagnoser、trust controller、repairer 和 executor，量化各层的独立边际贡献。
 
-### E6：Budget and Scaling
+### E6：Calibration、Budget and Scaling
 
-控制 memory size、top-k、最大 acquisition rounds、token、模型尺寸和 source cost，比较 success–cost Pareto。
+控制 memory size、top-k、历史长度、consolidation rate、最大 acquisition rounds、token 和模型尺寸，比较 risk–coverage 与 success–cost Pareto。
 
 ### E7：Cross-Domain Generalization
 
@@ -550,60 +577,65 @@ Pilot 优先 calendar/scheduling 与 travel/booking。Coding/file operation 和 
 
 ## 11. 可证伪假设
 
-- **H1**：最终 task success 会高估 readiness/control，因为存在猜测、full-context 泄露和 unsupported success。
-- **H2**：强模型在 Memory/World/User 来源迁移下仍表现出惯性动作，action flip 显著低于 oracle。
-- **H3**：FullHistory 能减少部分 SEARCH 错误，但不能解决 WORLD/USER routing，并会放大 stale/poison 风险。
-- **H4**：固定 retrieve-once 在 hidden-in-memory 上有效，却会在 no-memory-needed 和 world/user slices 上增加成本或错误。
-- **H5**：MemCon 类方法可提升平均 success–cost，但未必改善 source routing 与 readiness calibration。
-- **H6**：显式 requirement/source supervision 比单独加强 retriever 更能减少 premature execution，二者结合最好。
+- **H1**：单 episode task success 会显著高估 memory control；同一模型的 MSFA 明显低于 episode accuracy。
+- **H2**：强模型在 fresh/stale/conflict/compressed memory 间存在稳定的 memory-use inertia，不能作出正确策略迁移。
+- **H3**：控制 retrieval 质量后，OracleMemoryDiagnosis/OracleTrustController 仍能带来独立收益，说明瓶颈不只是“没搜到”。
+- **H4**：FullHistory 可减少 missing-memory 错误，但会放大 stale、conflict、authority drift 和 distractor 风险。
+- **H5**：没有显式 repair 的 Agent 会在 Session C 重复 Session B 已暴露的错误。
+- **H6**：正确 repair 能提高 related future utility，但粗暴 overwrite 会造成 collateral contamination。
 
-如果简单 `FullHistory + prompt` 已接近 oracle，或 H1–H5 大部分不成立，则 benchmark 太简单或来源干预不自然，应停止扩展。
+如果简单 `FullHistory + prompt` 已接近 oracle、memory state 对策略没有独立影响，或 repair 无法产生可测的未来收益，则 benchmark 缺乏必要性，应停止扩展或转向纯 memory-system diagnosis。
 
-## 12. 第二阶段方法：Source-Aware Readiness Controller
+## 12. 第二阶段方法：Memory Trust Controller and Repairer
 
-Benchmark 先于 Method。只有 E1–E4 明确显示 source routing 是独立瓶颈，才训练控制器。
+Benchmark 先于 Method。只有 E1–E5 明确显示 memory diagnosis、trust control 或 repair 是独立瓶颈，才训练方法。
 
 ### 12.1 Reference Architecture
 
-1. Requirement Extractor：把目标转成待闭合条件。
-2. Evidence and Provenance Reader：读取 evidence 的值、时间、来源、scope 和 authority。
-3. Setwise Closure Verifier：判断候选集合是否完整支持 requirement graph。
-4. Readiness Monitor：输出 readiness 与 calibration。
-5. Source Router：在 memory/world/user/unavailable 间定位缺口。
-6. Execution Gate：未闭合时阻止 side effect。
+1. Requirement–Memory Aligner：判断每个 requirement 被哪些 memory items 覆盖。
+2. Memory Provenance and Integrity Reader：读取时间、来源、scope、authority、supersession 与 consolidation trace。
+3. Memory Adequacy Monitor：输出 adequate/incomplete/stale/conflicted/unauthorized/irrelevant 及 calibration。
+4. Trust-and-Acquisition Controller：决定 use/search/verify/ask/ignore/abstain。
+5. Evidence Closure Gate：未形成合法闭包时阻止 side effect。
+6. Memory Repairer：根据新证据执行 update/invalidate/merge/restore-provenance。
+7. Future-Utility Critic：估计修复对相关和无关未来任务的影响。
 
-这些模块是 reference implementation，不将“六模块组合”本身作为主要创新。
+这些模块是 reference implementation，不将模块组合本身作为主要创新。
 
 ### 12.2 Pointwise、Pairwise 与 Listwise 的位置
 
-- **Pointwise**：预测单条 evidence 的 relevance、freshness、authority、scope 和 requirement coverage。
-- **Pairwise**：比较正确来源/证据与 hard negative，适合下一条证据或下一动作选择。
-- **Listwise/Setwise**：在多个候选 action/evidence 之间选择能以最低风险和成本闭合全部 requirements 的集合。
+- **Pointwise**：预测单条 memory 的 coverage、freshness、authority、scope 和 repair status。
+- **Pairwise**：比较可信 memory 与 stale/conflicting hard negative，或比较正确控制/修复动作与惯性动作。
+- **Listwise/Setwise**：从 memory set 中选择最小合法支持集，并对 use/retrieve/verify/ask/ignore 与 repair options 联合排序。
 
-训练创新应落在 **同一 counterfactual family 的 source-transition supervision**：当决定性证据从 memory 移到 world/user 时，模型必须改变动作，而不是只提高静态分类准确率。
+训练创新应落在 **同一 counterfactual family 的 memory-state transition supervision**：当 memory 从 fresh 变为 stale/conflict/compressed/authority-drift 时，模型必须改变 trust、acquisition 和 repair policy，而不是只提高静态分类准确率。
 
 ### 12.3 训练路线
 
 1. Prompt/rule controller：验证 benchmark 和错误谱系。
-2. SFT：学习 readiness、missing requirement、source map 和 structured tool calls。
-3. Pairwise routing：正确来源动作对 hard negative 来源动作。
-4. Listwise admissible ranking：在允许动作集合中最小化 cost-sensitive regret。
-5. Optional RL：只有顺序探索、停止和长期成本无法由监督学习覆盖时再使用。
+2. SFT：学习 memory adequacy、requirement coverage、trust action、closure 和 structured repair calls。
+3. Pairwise control：正确 memory-use/repair 动作对 stale-trust、wrong-overwrite 等 hard negative。
+4. Listwise admissible ranking：在 memory set、获取动作和 repair actions 中最小化风险与长期 regret。
+5. Optional RL：只有跨 Session B/C 的探索、停止、修复和长期效用无法由监督学习覆盖时再使用。
 
 ### 12.4 Reward
 
 \[
-R = \alpha R_{readiness}
-+ \beta R_{route}
+R = \alpha R_{memory\_diagnosis}
++ \beta R_{trust\_control}
 + \gamma R_{closure}
 + \delta R_{outcome}
++ \eta R_{repair}
++ \mu R_{future\_utility}
 - \lambda_c C_{acquisition}
 - \lambda_p P_{premature}
-- \lambda_u P_{unsupported}.
+- \lambda_u P_{unsupported}
+- \lambda_x P_{contamination}.
 \]
 
-- 过程奖励来自 requirement-source gold、admissible action 和 closure。
+- 过程奖励来自 memory-state gold、requirement coverage、admissible action、closure 和 repair operation。
 - 最终奖励来自 exact tool state 或 task-specific verifier。
+- 延迟奖励来自 Session C related-task gain 与 unrelated-task contamination。
 - ranking score 只塑造候选竞争关系，不替代最终可验证结果。
 - MVP 不训练独立 GRM；symbolic gold 与 environment validator 已提供 RLVR 风格信号。
 
@@ -613,11 +645,12 @@ R = \alpha R_{readiness}
 
 - 20 个 base tasks；
 - calendar/scheduling 与 travel/booking 两个域；
-- 每个任务至少六个 source variants；
+- 每个任务构造 3–5 个语义合法的 memory-state variants；
 - 一个 persistent memory API；
 - 一个 world verification API；
 - 一个 user simulator；
 - 一个有 side effect 的 execute API；
+- 一组 Session C related/unrelated follow-up tasks；
 - 一个小模型 smoke、一个 7B/8B 开源模型和一个强 API 模型；
 - 不训练。
 
@@ -627,46 +660,49 @@ R = \alpha R_{readiness}
 
 1. OracleAll 可解率不低于 98%。
 2. 至少 80% 主指标由 deterministic evaluator 计算。
-3. FullHistory 与简单 prompt 在跨来源 family 上不能接近 oracle。
-4. 至少两个 baseline 呈现不同的 routing/cost/premature trade-off。
-5. source relocation 稳定造成正确 action flip。
-6. surface paraphrase 和 irrelevant distractor 不应改变动作。
-7. 成功获取证据后，可解决版本达到 closure convergence。
-8. 人工对 readiness、missing requirement、source 和 admissible set 的一致率足够高。
+3. FullHistory 与简单 prompt 在 memory-state family 上不能接近 oracle。
+4. 至少两个 baseline 呈现不同的 trust/cost/premature trade-off。
+5. memory-state intervention 稳定造成合理 policy adaptation。
+6. surface paraphrase 和 irrelevant memory 不应改变动作。
+7. OracleMemoryDiagnosis/OracleTrustController 在 OracleRetriever 之外仍有独立增益。
+8. memory repair 在 Session C 产生可测 related-task gain，且 contamination 可控。
+9. 人工对 memory adequacy、integrity、authority、repair 和 admissible set 的一致率足够高。
 
 No-Go 条件：
 
-- `VERIFY_WORLD` 与 `ASK_USER` 在自然任务中无法稳定区分；
-- 数据只能靠显式来源关键词制造难度；
+- memory-state variants 无法从自然跨会话历史中构造；
+- 数据只能靠显式 stale/conflict 关键词制造难度；
 - FullHistory + prompt 已经饱和；
-- 最终行动无法在来源变体间定义共同终态；
+- memory diagnosis/control 在控制 retriever 后没有独立影响；
+- repair 后的未来任务与修复前没有可测差异；
 - oracle decomposition 不能产生系统级诊断。
 
 ## 14. 十周执行计划
 
 | 周 | 工作 | 里程碑 |
 |---|---|---|
-| W1 | taxonomy、requirement graph、20 个 base tasks | 人工检查定义是否无歧义 |
-| W2 | generator、三个 acquisition API、120+ episodes | Pilot Go/No-Go |
-| W3 | Track A 与 sanity baselines | readiness/source 诊断表 |
-| W4–5 | Track B/C 与第二任务域 | 可执行闭环 |
-| W6 | retrieval 与 memory systems | 公平 baseline harness |
-| W7 | SafeCommit/MCB/MemCon 等直接 baseline | 最邻近工作对照 |
-| W8 | 扩展到 2,000+ episodes | 数据与 hidden generator |
-| W9 | oracle、counterfactual、budget 分析 | 核心 findings |
+| W1 | memory lifecycle taxonomy、requirement graph、20 个 base tasks | memory-state family 人工审核 |
+| W2 | history/memory generator、干预算子、Session B/C validator | Pilot Go/No-Go |
+| W3 | Track A 与 sanity baselines | memory diagnosis 表 |
+| W4–5 | Track B/C 与第二任务域 | use–commit–repair 闭环 |
+| W6 | canonical 与 end-to-end memory systems | 公平 backend harness |
+| W7 | SafeCommit/MCB/MemFail/MemCon 等直接 baseline | 最邻近工作对照 |
+| W8 | 扩展到 2,000+ Session B episodes及 follow-ups | 数据与 hidden generator |
+| W9 | oracle、counterfactual、repair 与 budget 分析 | 核心 findings |
 | W10 | data card、论文、代码和评测脚本 | 可投稿版本 |
 
-只有 W2 gate 通过才进入 W3–W10；只有 W7 明确暴露 routing bottleneck 才进入方法训练。
+只有 W2 gate 通过才进入 W3–W10；只有 W7 明确暴露 memory diagnosis/control/repair bottleneck 才进入方法训练。
 
 ## 15. 预期论文贡献
 
 ### 15.1 可以主张的贡献
 
-1. 提出 **source-aware evidence closure and action control** 的统一评测对象，把 memory sufficiency 细化到 requirement 与 authoritative source 层。
-2. 构建 Source × Integrity 的 matched counterfactual families，同时评估 action flip、irrelevant invariance 和 closure convergence。
-3. 提供 readiness、missing requirement、source map、admissible action、evidence closure 和 exact outcome 的逐决策点联合 gold。
-4. 提出 Monitor/Route/Close/Commit 四层指标与 oracle ladder，系统诊断真实 memory backend 与 controller 的瓶颈。
-5. 发布可执行、可重采样的 benchmark generator、tool environment 和 baseline harness。
+1. 提出 **counterfactual memory-state intervention** 协议，在固定 query/world/user/requirements 时建立 memory state 对行为的因果归因。
+2. 构建 authority-conditioned memory families，覆盖 missing、stale、conflict、over-compression、authority drift 和 distractor 等自然 lifecycle failure。
+3. 提供 memory coverage、integrity、authority、scope、admissible control、closure、repair operation 和 exact outcome 的逐决策点联合 gold。
+4. 提出跨 Session A/B/C 的 use–commit–repair 评测，同时衡量 future utility 与 collateral contamination。
+5. 通过 canonical/end-to-end 双设置和 oracle ladder 诊断真实 memory backend 的 formation、retrieval、use-time control 与 repair 瓶颈。
+6. 发布可执行、可重采样的 history/memory generator、tool environment 和 baseline harness。
 
 ### 15.2 不能主张的内容
 
@@ -676,6 +712,7 @@ No-Go 条件：
 - 首次做 paired executable tasks；
 - 首次把 memory operation 当作 action；
 - 首次研究 stale/conflict/poison；
+- 首次研究 memory repair；
 - 首次提出 setwise evidence verification；
 - 首次做 memory-to-action benchmark。
 
@@ -685,24 +722,25 @@ No-Go 条件：
 
 | 工作 | 核心问题 | 关键 Gold/输出 | MemReadyBench 的增量 |
 |---|---|---|---|
-| StratMem-Bench | 给定记忆池后应该使用哪些内容 | must/nice/irrelevant | 主动来源获取、证据闭合和执行 |
-| Mem2ActBench | 长期记忆能否恢复工具参数 | tool/parameter accuracy | 获取动作与 query-time control |
-| SafeCommit | proposed action 是否在保留 worlds 中安全 | safety certificate | 真实 memory stack 中的 requirement/source 发现与诊断 |
-| MCB | 信息应 persist/local/verify/ask | boundary label/tool call | read/use-time sequential acquisition 与 outcome |
-| AgentAbstain | Agent 何时不应行动 | paired act/abstain | 干预持久证据来源，并区分 search/verify/ask |
-| SURE-RAG | 检索证据是否支持答案 | support/refute/insufficient | 外部副作用行动与多来源获取 |
-| MemSyco-Bench | 记忆何时不应影响决策 | memory-use behavior | 未闭合 requirement 的来源路由 |
-| MemCon/Oblivion | 如何学习 memory operation policy | task success/cost | 跨系统逐决策点 gold 与 oracle diagnosis |
-| **MemReadyBench** | 哪些行动条件未闭合、应从哪里获取、何时可执行 | readiness + source + action + closure + exact outcome | 统一 benchmark 主体 |
+| StratMem-Bench | 给定记忆池后应该使用哪些内容 | must/nice/irrelevant | 受控 memory-state family 与跨会话 repair |
+| Mem2ActBench | 长期记忆能否恢复工具参数 | tool/parameter accuracy | 记忆可信使用、失效处理和未来复用 |
+| SafeCommit | proposed action 是否在保留 worlds 中安全 | safety certificate | 从真实历史形成记忆，并诊断与修复 memory lifecycle |
+| MCB | 信息应 persist/local/verify/ask | boundary label/tool call | read/use-time trust control 与 longitudinal repair |
+| AgentAbstain | Agent 何时不应行动 | paired act/abstain | 干预 persistent memory state，并测修复后的未来价值 |
+| AuthMem-Bench | consolidation 是否保留 authority | authority-grounded outcome | 同时覆盖 read/use-time diagnosis、control 与 repair |
+| MemFail | summarization/storage/retrieval 哪里失败 | 模块化 memory diagnosis | decision-point control、执行结果和 prospective repair |
+| MemSyco-Bench | 记忆何时不应影响决策 | memory-use behavior | matched lifecycle intervention 与 Session C follow-up |
+| MemCon/Oblivion | 如何学习 memory operation policy | task success/cost | memory-state joint gold、family metrics 与 oracle diagnosis |
+| **MemReadyBench** | 记忆状态变化是否正确改变行动，并在修复后改善未来任务 | diagnosis + control + closure + repair + future utility | 统一 benchmark 主体 |
 
 最简洁的定位句：
 
-> **SafeCommit asks whether a proposed action is certifiably safe; MemReadyBench evaluates whether real persistent-memory agents can discover what is missing, route to the authoritative source, close the evidence, and then act correctly.**
+> **SafeCommit asks whether a proposed action is certifiably safe; MemReadyBench counterfactually changes the persistent-memory state and evaluates whether agents regulate its influence, repair it after verification, and benefit in later sessions.**
 
 ## 17. 最终决策
 
-> **本项目只保留一条主线：以 requirement-level action readiness 为监控基础，以 source-aware evidence acquisition 为创新锚点，以 counterfactual source relocation 为数据核心，以 action flip 与 closure convergence 为关键指标，以 executable commitment 和 oracle decomposition 为验证闭环。**
+> **本项目只保留一条主线：以 persistent memory state 为受控因果变量，以 counterfactual memory-state intervention 为数据核心，以 memory adequacy 与 trust control 为行动机制，以 longitudinal repair utility 为关键结果，以 canonical/end-to-end 和 oracle decomposition 为诊断闭环。**
 
-近期只实施 20-task pilot。Pilot 通过后扩展 benchmark；benchmark 明确证明 source routing 是独立瓶颈后，再进入 SFT、pairwise/listwise ranking 或可选 RL。
+近期只实施 20-task pilot。Pilot 通过后扩展 benchmark；只有在控制 retriever 后仍证明 memory diagnosis/control/repair 是独立瓶颈，才进入 SFT、pairwise/listwise ranking 或可选 RL。
 
 完整同期 arXiv 撞题证据见：[MemReadyBench 同期 arXiv 撞题审计](../reports/2026-09-03-memreadybench-concurrent-arxiv-audit.md)。
