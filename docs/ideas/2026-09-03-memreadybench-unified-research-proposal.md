@@ -29,9 +29,11 @@ tags: ["agent-memory", "benchmark", "memory-state-intervention", "memory-use-con
 
 ### 0.2 方案框架图
 
-![MemReadyBench memory-centric framework](../figures/2026-09-03-memreadybench-memory-centric-framework.png)
+![MemReadyBench Stage-I benchmark framework](../figures/2026-09-03-memreadybench-stage1-benchmark-framework.png)
 
-图中的固定项是当前 Query、World State、User Goal 和 Requirement Graph；主要干预只施加在 Persistent Memory Store。这样可以测量记忆状态变化是否因果性地改变控制策略，以及修复后的记忆是否改善未来会话。
+图中只包含第一阶段 benchmark，不包含第二阶段训练方法。固定项是当前 Query、World State、User Goal 和 Requirement Graph；主要干预只施加在 Persistent Memory Store。这样可以测量记忆状态变化是否因果性地改变控制策略，以及预测的修复操作是否改善未来会话。
+
+输入、任务接口、参数和指标的可执行定义见：[MemReadyBench Stage-I Benchmark Specification](./2026-09-03-memreadybench-stage1-benchmark-specification.md)。
 
 ### 0.3 推荐标题
 
@@ -476,12 +478,13 @@ Pilot 优先 calendar/scheduling 与 travel/booking。Coding/file operation 和 
 
 ## 8. 指标体系
 
-主表只保留四个一级指标：
+主表只保留五个一级指标：
 
 1. **Memory-State Family Accuracy (MSFA)**：同一 base task 的全部合法 memory variants 是否都采取 admissible memory-use policy。
 2. **Verified Closure Success (VCS)**：首次 commit 前已形成合法 closure，且 exact environment outcome 正确。
 3. **Premature Memory-Grounded Commit Rate (PMCR)**：因使用无效、过时、冲突或无授权记忆而过早执行的比例。
 4. **Longitudinal Repair Utility (LRU)**：修复后相关 follow-up 的收益减去无关任务 collateral contamination。
+5. **Normalized Acquisition Regret (NAR)**：相对同等可观测信息下的 cost-aware oracle，多付出的检索、验证、询问、延迟和失败代价。
 
 诊断指标包括：
 
