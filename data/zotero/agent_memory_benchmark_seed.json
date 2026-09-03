@@ -1,0 +1,189 @@
+[
+  {
+    "citation_key": "zhang2024memorySurvey",
+    "title": "A Survey on the Memory Mechanism of Large Language Model based Agents",
+    "year": 2024,
+    "venue": "arXiv",
+    "url": "https://arxiv.org/abs/2404.13501",
+    "collection": "00_Surveys",
+    "priority": "high",
+    "role": "taxonomy"
+  },
+  {
+    "citation_key": "du2025rethinkingMemory",
+    "title": "Rethinking Memory in LLM based Agents: Representations, Operations, and Emerging Topics",
+    "year": 2025,
+    "venue": "arXiv",
+    "url": "https://arxiv.org/abs/2505.00675",
+    "collection": "00_Surveys",
+    "priority": "high",
+    "role": "taxonomy"
+  },
+  {
+    "citation_key": "hu2025memoryAgeAgents",
+    "title": "Memory in the Age of AI Agents",
+    "year": 2025,
+    "venue": "arXiv",
+    "url": "https://arxiv.org/abs/2512.13564",
+    "collection": "00_Surveys",
+    "priority": "high",
+    "role": "survey"
+  },
+  {
+    "citation_key": "li2025agenticRagSurvey",
+    "title": "Towards Agentic RAG with Deep Reasoning: A Survey of RAG-Reasoning Systems in LLMs",
+    "year": 2025,
+    "venue": "arXiv / ARR submission",
+    "url": "https://arxiv.org/abs/2507.09477",
+    "collection": "02_Agentic_RAG",
+    "priority": "medium",
+    "role": "agentic-rag-bridge"
+  },
+  {
+    "citation_key": "maharana2024locomo",
+    "title": "Evaluating Very Long-Term Conversational Memory of LLM Agents",
+    "year": 2024,
+    "venue": "ACL 2024 Long Papers",
+    "url": "https://aclanthology.org/2024.acl-long.747/",
+    "code": "https://github.com/snap-research/locomo",
+    "collection": "03_Benchmarks",
+    "priority": "high",
+    "role": "long-term-conversation-benchmark"
+  },
+  {
+    "citation_key": "wu2025longmemeval",
+    "title": "LongMemEval: Benchmarking Chat Assistants on Long-Term Interactive Memory",
+    "year": 2025,
+    "venue": "ICLR 2025",
+    "url": "https://arxiv.org/abs/2410.10813",
+    "code": "https://github.com/xiaowu0162/LongMemEval",
+    "collection": "03_Benchmarks",
+    "priority": "high",
+    "role": "first-reproduction-target"
+  },
+  {
+    "citation_key": "hu2025memoryagentbench",
+    "title": "Evaluating Memory in LLM Agents via Incremental Multi-Turn Interactions",
+    "year": 2025,
+    "venue": "arXiv; GitHub marks ICLR 2026",
+    "url": "https://arxiv.org/abs/2507.05257",
+    "code": "https://github.com/HUST-AI-HYZ/MemoryAgentBench",
+    "collection": "03_Benchmarks",
+    "priority": "high",
+    "role": "closest-agent-memory-benchmark"
+  },
+  {
+    "citation_key": "ai2025memorybench",
+    "title": "MemoryBench: A Benchmark for Memory and Continual Learning in LLM Systems",
+    "year": 2025,
+    "venue": "arXiv",
+    "url": "https://arxiv.org/abs/2510.17281",
+    "code": "https://github.com/THUIR/MemoryBench",
+    "collection": "03_Benchmarks",
+    "priority": "high",
+    "role": "continual-learning-benchmark"
+  },
+  {
+    "citation_key": "he2026memoryarena",
+    "title": "MemoryArena: Benchmarking Agent Memory in Interdependent Multi-Session Agentic Tasks",
+    "year": 2026,
+    "venue": "arXiv",
+    "url": "https://arxiv.org/abs/2602.16313",
+    "collection": "03_Benchmarks",
+    "priority": "high",
+    "role": "agentic-memory-benchmark"
+  },
+  {
+    "citation_key": "zhang2026memarena",
+    "title": "MemArena: An Ego-Centric Benchmark for On-Device Agentic Personal Memory Assistants at Scale",
+    "year": 2026,
+    "venue": "arXiv",
+    "url": "https://arxiv.org/abs/2608.02613",
+    "collection": "03_Benchmarks",
+    "priority": "medium",
+    "role": "personal-memory-benchmark"
+  },
+  {
+    "citation_key": "tavakoli2025beam",
+    "title": "Beyond a Million Tokens: Benchmarking and Enhancing Long-Term Memory in LLMs",
+    "year": 2025,
+    "venue": "arXiv",
+    "url": "https://arxiv.org/abs/2510.27246",
+    "collection": "03_Benchmarks",
+    "priority": "medium",
+    "role": "long-context-memory-stress-test"
+  },
+  {
+    "citation_key": "jiang2025personamem",
+    "title": "Know Me, Respond to Me: Benchmarking LLMs for Dynamic User Profiling and Personalized Responses at Scale",
+    "year": 2025,
+    "venue": "COLM 2025",
+    "url": "https://arxiv.org/abs/2504.14225",
+    "code": "https://github.com/bowen-upenn/PersonaMem",
+    "collection": "05_Personalization",
+    "priority": "medium",
+    "role": "personalization-benchmark"
+  },
+  {
+    "citation_key": "park2023generativeAgents",
+    "title": "Generative Agents: Interactive Simulacra of Human Behavior",
+    "year": 2023,
+    "venue": "UIST 2023 / arXiv",
+    "url": "https://arxiv.org/abs/2304.03442",
+    "collection": "01_Agent_Memory",
+    "priority": "medium",
+    "role": "classic-agent-memory-framework"
+  },
+  {
+    "citation_key": "packer2023memgpt",
+    "title": "MemGPT: Towards LLMs as Operating Systems",
+    "year": 2023,
+    "venue": "arXiv",
+    "url": "https://arxiv.org/abs/2310.08560",
+    "code": "https://github.com/letta-ai/letta",
+    "collection": "04_Frameworks",
+    "priority": "high",
+    "role": "stateful-agent-framework"
+  },
+  {
+    "citation_key": "xu2025amem",
+    "title": "A-MEM: Agentic Memory for LLM Agents",
+    "year": 2025,
+    "venue": "NeurIPS 2025",
+    "url": "https://arxiv.org/abs/2502.12110",
+    "collection": "04_Frameworks",
+    "priority": "high",
+    "role": "linked-note-agentic-memory"
+  },
+  {
+    "citation_key": "kang2025memoryos",
+    "title": "Memory OS of AI Agent",
+    "year": 2025,
+    "venue": "arXiv",
+    "url": "https://arxiv.org/abs/2506.06326",
+    "collection": "04_Frameworks",
+    "priority": "medium",
+    "role": "hierarchical-memory-system"
+  },
+  {
+    "citation_key": "wang2025mirix",
+    "title": "MIRIX: Multi-Agent Memory System for LLM-Based Agents",
+    "year": 2025,
+    "venue": "arXiv",
+    "url": "https://arxiv.org/abs/2507.07957",
+    "code": "https://github.com/Mirix-AI/MIRIX",
+    "collection": "04_Frameworks",
+    "priority": "medium",
+    "role": "typed-multi-agent-memory-system"
+  },
+  {
+    "citation_key": "yan2025memoryr1",
+    "title": "Memory-R1: Enhancing Large Language Model Agents to Manage and Utilize Memories via Reinforcement Learning",
+    "year": 2025,
+    "venue": "arXiv",
+    "url": "https://arxiv.org/abs/2508.19828",
+    "collection": "04_Frameworks",
+    "priority": "medium",
+    "role": "training-based-memory-manager-reference"
+  }
+]
