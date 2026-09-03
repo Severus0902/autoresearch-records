@@ -15,7 +15,14 @@ Collection identifiers:
 
 ## Imported
 
-The following 16 items are now in `Memory`:
+The following 22 items are now in `Memory`:
+
+- `AMemGym: Interactive Memory Benchmarking for Assistants in Long-Horizon Conversations` (`I2GS3W8M`)
+- `From Recall to Forgetting: Benchmarking Long-Term Memory for Personalized Agents` (`M34C32UB`)
+- `MemBench: Towards More Comprehensive Evaluation on the Memory of LLM-based Agents` (`PK36EBP7`)
+- `MEMTRACK: Evaluating Long-Term Memory and State Tracking in Multi-Platform Dynamic Agent Environments` (`YQB59T8A`)
+- `Grounding Agent Memory in Contextual Intent` (`H8QB3EFX`)
+- `MemSearcher: Training LLMs to Reason, Search and Manage Memory via End-to-End Reinforcement Learning` (`ELL95ICX`)
 
 - `MobileMem: Learning from a Year of Mobile Experiences`
 - `StratMem-Bench: Evaluating Strategic Memory Use in Virtual Character Conversation Beyond Factual Recall`

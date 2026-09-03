@@ -208,11 +208,13 @@ Memory-R1 是少数直接把 RL 用到 memory management 的工作，训练 Memo
 
 ## 当前 Gap
 
-可以把新的 research gap 写成：
+Paper-Notes 的 2025-2026 扫描显示，不能再笼统声称“现有 benchmark 缺少过程级 memory evaluation”：AMemGym 已经诊断 `write / read / utilization`，Memora 已经覆盖高频 memory mutation 和 forgetting-aware evaluation，MemoryAgentBench 已覆盖 incremental retrieval、test-time learning、long-range understanding 和 selective forgetting，MEMTRACK 也进入了跨平台动态状态追踪。
 
-> 现有 memory benchmark 多数仍然把 memory 当成静态回忆、长上下文 QA 或 retrieval quality 问题；而真实 agentic RAG 场景中，memory 是跨 session 的动态状态管理机制，必须同时评估写入、更新、遗忘、检索、使用、权限和噪声控制。目前缺少一个轻量、可复现、可扩展到开源小模型的 agentic memory benchmark，用统一协议比较 no-memory、full-history、RAG memory、summary memory、structured memory、graph memory 和 agentic memory frameworks。
+因此，新的 research gap 应强调 **评测维度碎片化，以及缺少统一的逐操作 ground truth 和因果诊断协议**：
 
-这个 gap 相比 KG 方向更自然。它不会被 Freebase/CWQ/WebQSP 的固定 pipeline 锁死，也不要求一定通过训练打败一个 SOTA。我们可以先做 benchmark 和 evaluation suite，后续再加 memory framework 或轻量 policy。
+> 近期 benchmark 已分别覆盖策略性记忆使用、write/read/utilization 失败诊断、面向 mutation 的遗忘、增量记忆能力和跨平台状态追踪，但这些维度分散在不兼容的场景与协议中，并且多数仍通过最终响应或粗粒度归因进行评估。当前仍缺少一个统一的 multi-session benchmark：为每一步提供显式的 memory operation ground truth，并把 agent 应该写入、更新、忽略、检索、保护和使用的记忆，与后续回答或行动结果建立可核验的因果链。
+
+在实现上，可以用 `ADD / UPDATE / IGNORE / PROTECT` 标注写入侧操作，用 `required / supportive / irrelevant / stale / forbidden` 标注读取与使用侧角色，再通过 oracle-write、oracle-retrieval、oracle-use 等受控设置区分 backend、retriever 和 reader/actor 的责任。这个 gap 不要求通过大规模训练打败 SOTA，适合先做 benchmark 和 evaluation suite，后续再加 memory framework 或轻量 policy。
 
 ## 建议切入点
 

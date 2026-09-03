@@ -98,7 +98,7 @@ MobileMem 的方案是面向 on-device personal assistant，把长期 memory 来
 
 第一，这条线和组内 StratMem-Bench 有天然承接。StratMem-Bench 已经说明 memory 的价值不只是 factual recall，而是 strategic use。你的工作可以继续推进：真实 agent 中的 memory 不是给定候选池，而是在跨 session 交互中不断产生、修改、检索和使用。
 
-第二，现有 benchmark 的评价粒度还不够。很多工作能告诉我们最终答案对不对，但不能告诉我们 memory system 错在哪里。对 agent memory 来说，错误来源可能在 write、update、retrieve、filter、use、permission 或 abstention 任一环节。
+第二，现有 benchmark 的评价维度已经开始细化，但仍然彼此割裂。AMemGym 能诊断 write/read/utilization，Memora 能测试 mutation 和 forgetting，MemoryAgentBench 能测试增量记忆与 selective forgetting，StratMem-Bench 能测试 strategic use；然而这些工作使用不同场景、不同协议和不同粒度，仍难以在一个样本内追踪完整 memory lifecycle，也难以公平比较不同 memory backend。
 
 第三，这个方向更适合当前资源条件。你有 4 卡 4090，可以跑 7B/8B reader、embedding、reranker、BM25/vector/summary/structured memory baselines，也可以做 100-500 条高质量 pilot 数据。相比大规模训练或移动端真实生态 benchmark，这更稳。
 
@@ -108,7 +108,7 @@ MobileMem 的方案是面向 on-device personal assistant，把长期 memory 来
 
 最核心的痛点是：
 
-> 现有 agent memory 系统越来越多，但我们缺少一个能定位过程错误的 benchmark。
+> 现有 agent memory 评测已经覆盖若干局部过程，但仍缺少一个以显式 operation trace 统一生命周期、并能做因果错误归因的 benchmark。
 
 具体难点包括：
 
@@ -121,13 +121,13 @@ MobileMem 的方案是面向 on-device personal assistant，把长期 memory 来
 
 ## Research Gap
 
-可以把 research gap 写成下面这一版：
+结合 AMemGym、Memora、MemoryAgentBench、MEMTRACK 和 StratMem-Bench 后，research gap 应收窄为下面这一版：
 
-> Existing memory benchmarks have advanced long-term conversational recall, personal memory QA, and strategic use of provided memories. However, they still lack fine-grained, process-level evaluation of strategic memory management in multi-session LLM agents. In realistic agentic settings, memories are not merely retrieved from a static pool; they are continuously written, updated, filtered, protected, and applied across tasks. Current benchmarks therefore provide limited supervision for diagnosing whether failures come from memory writing, updating, retrieval, hard-negative filtering, evidence use, abstention, or permission control.
+> Recent benchmarks separately evaluate strategic memory use, write/read/utilization failures, mutation-aware forgetting, incremental memory capabilities, and cross-platform state tracking. However, these dimensions remain fragmented across incompatible settings and are mostly evaluated through final responses or coarse failure attribution. There is still no unified multi-session benchmark with explicit operation-level ground-truth traces that causally links what an agent should write, update, ignore, retrieve, protect, and use to its downstream answer or action.
 
 中文版本：
 
-> 现有 memory benchmark 已经覆盖了长期对话回忆、个人记忆问答和给定候选记忆下的策略性使用，但仍缺少对 multi-session LLM agent 中“策略性记忆管理”的细粒度过程评测。真实 agent 场景里的 memory 不是静态检索池，而是在任务过程中持续写入、更新、过滤、保护并被用于后续行动。因此，现有 benchmark 难以诊断失败到底来自 memory 写入、更新、检索、hard negative 过滤、证据使用、拒答，还是权限控制。
+> 近期 benchmark 已分别覆盖策略性记忆使用、write/read/utilization 失败诊断、面向 mutation 的遗忘、增量记忆能力和跨平台状态追踪，但这些维度分散在不兼容的场景与协议中，并且多数仍通过最终响应或粗粒度归因进行评估。当前仍缺少一个统一的 multi-session benchmark：为每一步提供显式的 memory operation ground truth，并把 agent 应该写入、更新、忽略、检索、保护和使用的记忆，与后续回答或行动结果建立可核验的因果链。
 
 ## 你的核心贡献可以怎么写
 
