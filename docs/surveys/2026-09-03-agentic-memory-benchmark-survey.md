@@ -93,6 +93,19 @@ MemoryBench 关注 LLM system 从用户反馈中进行 memory 和 continual lear
 链接：https://arxiv.org/abs/2510.17281
 代码：https://github.com/THUIR/MemoryBench
 
+### StratMem-Bench
+
+全称：StratMem-Bench: Evaluating Strategic Memory Use in Virtual Character Conversation Beyond Factual Recall。
+
+出处：ACL 2026 Long Papers。
+
+StratMem-Bench 的 memory 定义很值得借鉴：它不是把 memory 只看作“事实回忆库”，而是把 memory 视为虚拟角色对话生成时可选择、可整合、也可能应忽略的候选信息池。数据中每个样本包含 user query、virtual character persona、candidate memories，其中 memory 被分成三类：`must`、`nice` 和 `irr`。`must` 是回答必须使用的关键信息，`nice` 是可提升回答质量的支持性信息，`irr` 是不相关信息。推理时这些标签不暴露给模型，模型需要自己判断哪些 memory 应该被用、哪些应该忽略。
+
+它对我们当前 benchmark 方向的启发是：memory evaluation 不应只看 factual recall，而应看 strategic use，即模型能否区分必要记忆、辅助记忆和噪声记忆，并把记忆自然整合进后续响应。它仍然是 single-turn dialogue generation benchmark，尚未覆盖完整的 memory write/update/delete lifecycle，因此可以作为我们 proposal 中“memory use / memory selection”维度的重要前置工作。
+
+链接：https://aclanthology.org/2026.acl-long.1491/
+代码：https://github.com/seucoin/StratMem-Bench
+
 ### MemoryArena
 
 出处：arXiv 2026。

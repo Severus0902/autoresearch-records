@@ -15,8 +15,9 @@ Collection identifiers:
 
 ## Imported
 
-The following 14 items are now in `Memory`:
+The following 15 items are now in `Memory`:
 
+- `StratMem-Bench: Evaluating Strategic Memory Use in Virtual Character Conversation Beyond Factual Recall`
 - `MIRIX: Multi-agent memory system for LLM-based agents`
 - `Memory OS of AI agent`
 - `Know me, respond to me: Benchmarking LLMs for dynamic user profiling and personalized responses at scale`

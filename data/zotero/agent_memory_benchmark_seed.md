@@ -48,6 +48,7 @@ Current Zotero Local API supports reading but returns `501 Method not implemente
 | `wu2025longmemeval` | LongMemEval | ICLR 2025 | `03_Benchmarks` |
 | `hu2025memoryagentbench` | Evaluating Memory in LLM Agents via Incremental Multi-Turn Interactions | arXiv 2025/2026; GitHub marks ICLR 2026 | `03_Benchmarks` |
 | `ai2025memorybench` | MemoryBench | arXiv 2025/2026 | `03_Benchmarks` |
+| `wu2026stratmemBench` | StratMem-Bench | ACL 2026 Long Papers | `03_Benchmarks` |
 | `he2026memoryarena` | MemoryArena | arXiv 2026 | `03_Benchmarks` |
 | `zhang2026memarena` | MemArena | arXiv 2026 | `03_Benchmarks` |
 | `tavakoli2025beam` | Beyond a Million Tokens | arXiv 2025/2026 | `03_Benchmarks` |

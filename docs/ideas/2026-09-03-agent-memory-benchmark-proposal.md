@@ -147,6 +147,7 @@ memory 的好坏不只由 retrieval recall 决定，还由它是否能改进后�
 - 相比 LoCoMo/LongMemEval：我们更强调 memory 操作和后续任务使用，而不只是长期对话 QA。
 - 相比 MemoryAgentBench：我们可以做更轻量、更 agentic RAG-oriented 的任务 schema，强调工具结果、权限和可插拔 memory backend。
 - 相比 MemoryBench：我们不只模拟用户反馈学习，也评估 memory write/update/retrieve/use 的完整生命周期。
+- 相比 StratMem-Bench：我们会吸收它的 `must / nice / irrelevant` strategic memory use 设计，但进一步扩展到跨 session 的 memory write、update、delete、permission 和 task action。
 - 相比 MemoryArena：我们先做 Lite 版，牺牲复杂环境，换取快速复现和可控扩展。
 
 ## 当前推荐路线

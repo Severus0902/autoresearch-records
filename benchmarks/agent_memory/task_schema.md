@@ -73,6 +73,15 @@
 }
 ```
 
+## Memory Use Labels
+
+StratMem-Bench 的 `must / nice / irr` 划分可以作为第一版 memory-use label：
+
+- `must`: 任务成功必须使用的 memory。
+- `nice`: 不一定必要，但能提升个性化、风格一致性或回答质量的 memory。
+- `irrelevant`: 当前任务不应使用的噪声 memory。
+- `forbidden`: 因权限、隐私、遗忘请求或过期规则而不能使用的 memory。
+
 ## Difficulty Axes
 
 - number of sessions.

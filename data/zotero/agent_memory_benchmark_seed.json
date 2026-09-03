@@ -84,6 +84,17 @@
     "role": "continual-learning-benchmark"
   },
   {
+    "citation_key": "wu2026stratmemBench",
+    "title": "StratMem-Bench: Evaluating Strategic Memory Use in Virtual Character Conversation Beyond Factual Recall",
+    "year": 2026,
+    "venue": "ACL 2026 Long Papers",
+    "url": "https://aclanthology.org/2026.acl-long.1491/",
+    "code": "https://github.com/seucoin/StratMem-Bench",
+    "collection": "03_Benchmarks",
+    "priority": "high",
+    "role": "strategic-memory-use-benchmark"
+  },
+  {
     "citation_key": "he2026memoryarena",
     "title": "MemoryArena: Benchmarking Agent Memory in Interdependent Multi-Session Agentic Tasks",
     "year": 2026,

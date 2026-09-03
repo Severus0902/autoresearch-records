@@ -15,6 +15,7 @@ tags: ["agentic-memory", "repos", "benchmark", "framework"]
 | --- | --- | --- | --- |
 | https://github.com/HUST-AI-HYZ/MemoryAgentBench | benchmark | incremental multi-turn memory agent benchmark | GitHub 标注 ICLR 2026；最贴 agent memory |
 | https://github.com/THUIR/MemoryBench | benchmark | memory and continual learning in LLM systems | 关注用户反馈和服务时学习 |
+| https://github.com/seucoin/StratMem-Bench | benchmark | strategic memory use in virtual character dialogue | ACL 2026；`must/nice/irr` 三类 memory 很适合借鉴 |
 | https://github.com/xiaowu0162/LongMemEval | benchmark | long-term interactive memory | ICLR 2025；适合先复现 |
 | https://github.com/snap-research/locomo | benchmark | very long-term conversational memory | ACL 2024；经典长期对话 memory |
 | https://github.com/GoodAI/goodai-ltm-benchmark | benchmark/library | LTM and continual learning tests | 工程化 benchmark，可看任务设计 |
